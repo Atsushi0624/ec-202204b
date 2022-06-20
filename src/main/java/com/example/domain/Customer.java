@@ -9,7 +9,7 @@ import lombok.Data;
  *
  */
 @Data
-public class User {
+public class Customer {
 	/**	ID */
 	private Integer id;
 	/**	名前 */
