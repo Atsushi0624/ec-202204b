@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Item;
@@ -118,8 +120,12 @@ public class OrderRepository {
 		
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		
-		template.update(sql, param);
-		return null;
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = {"id"};
+		
+		template.update(sql, param, keyHolder, keyColumnNames);
+		
+		return keyHolder.getKey().intValue();
 	}
 	
 	/**
