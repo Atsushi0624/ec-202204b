@@ -39,4 +39,99 @@ public class Order {
 	private Customer customer;
 	/** 支払い方法 */
 	private List<OrderItem> orderItemList;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getDestinationName() {
+		return destinationName;
+	}
+	public void setDestinationName(String destinationName) {
+		this.destinationName = destinationName;
+	}
+	public String getDestinationEmail() {
+		return destinationEmail;
+	}
+	public void setDestinationEmail(String destinationEmail) {
+		this.destinationEmail = destinationEmail;
+	}
+	public String getDestinationZipcode() {
+		return destinationZipcode;
+	}
+	public void setDestinationZipcode(String destinationZipcode) {
+		this.destinationZipcode = destinationZipcode;
+	}
+	public String getDestinationAddress() {
+		return destinationAddress;
+	}
+	public void setDestinationAddress(String destinationAddress) {
+		this.destinationAddress = destinationAddress;
+	}
+	public String getDestinationTel() {
+		return destinationTel;
+	}
+	public void setDestinationTel(String destinationTel) {
+		this.destinationTel = destinationTel;
+	}
+	public Timestamp getDeriveryTime() {
+		return deriveryTime;
+	}
+	public void setDeriveryTime(Timestamp deriveryTime) {
+		this.deriveryTime = deriveryTime;
+	}
+	public Integer getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(Integer paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+	public void setOrderItemList(List<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+	
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", customerId=" + customerId + ", status=" + status + ", totalPrice=" + totalPrice
+				+ ", orderDate=" + orderDate + ", destinationName=" + destinationName + ", destinationEmail="
+				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deriveryTime=" + deriveryTime
+				+ ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", orderItemList=" + orderItemList
+				+ "]";
+	}
 }
