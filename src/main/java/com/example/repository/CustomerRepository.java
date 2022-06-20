@@ -14,7 +14,7 @@ import com.example.domain.Customer;
  *
  */
 @Repository
-public class CustomerReposiroty {
+public class CustomerRepository {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
