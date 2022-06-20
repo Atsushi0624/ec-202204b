@@ -37,7 +37,7 @@ public class Order {
 	private Integer paymentMethod;
 	/** 顧客情報 */
 	private Customer customer;
-	/** 支払い方法 */
+	/** 注文商品情報 */
 	private List<OrderItem> orderItemList;
 	
 	public Integer getId() {
