@@ -43,13 +43,29 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-            <a href="login.html" class="login">
+            <a th:href="@{/show}">商品一覧</a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/registCustomer/toRegistration}"
+              >会員登録</a
+            >
+            <a href="cart_list.html">
+              <i class="fas fa-shopping-cart"> </i>カート
+            </a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
             <a href="order_history.html">注文履歴</a>
           </div>
         </div>
@@ -58,11 +74,11 @@
     <div class="top-wrapper">
       <div class="container">
         <h1 class="page-title">ショッピングカート</h1>
-        
+
         <div th:if="${orderItemList == null}">
-        <h2 class="page-title">カートに商品がありません</h2>
+          <h2 class="page-title">カートに商品がありません</h2>
         </div>
-        
+
         <div th:if="${orderItemList != null}">
           <!-- table -->
           <div class="row">

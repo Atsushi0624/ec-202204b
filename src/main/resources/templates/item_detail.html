@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -16,17 +16,17 @@
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/register_admin.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="stylesheet" href="css/item_list.css" />
-    <link rel="stylesheet" href="css/item_detail.css" />
-    <link rel="stylesheet" href="css/cart_list.css" />
-    <link rel="stylesheet" href="css/order_confirm.css" />
-    <link rel="stylesheet" href="css/order_finished.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,15 +43,29 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
+            <a th:href="@{/show}">商品一覧</a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/registCustomer/toRegistration}"
+              >会員登録</a
+            >
             <a href="cart_list.html">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
-            <a href="login.html" class="login">
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
             <a href="order_history.html">注文履歴</a>
           </div>
         </div>
@@ -61,116 +75,116 @@
       <div class="container">
         <h1 class="page-title">Hawaiianパラダイス</h1>
         <div class="row">
-          <div class="row item-detail">
-            <div class="item-icon">
-              <img src="img/1.jpg" />
-            </div>
-            <div class="item-intro">
-              ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-            </div>
-          </div>
-          <div class="row item-size">
-            <div class="item-hedding">サイズ</div>
-            <div>
-              <label>
-                <input id="size-m" name="size" type="radio" checked="checked" />
-                <span>
-                  &nbsp;<span class="price">Ｍ</span
-                  >&nbsp;&nbsp;1,380円(税抜)</span
-                >
-              </label>
-              <label>
-                <input id="size-l" name="size" type="radio" />
-                <span>
-                  &nbsp;<span class="price">Ｌ</span
-                  >&nbsp;&nbsp;2,380円(税抜)</span
-                >
-              </label>
-            </div>
-          </div>
-          <div class="row item-toppings">
-            <div class="item-hedding">
-              トッピング：&nbsp;1つにつき
-              <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;200円(税抜)
-              <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
-            </div>
-            <div>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアンソルト</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアンマヨネーズ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアントマト</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ブルーチーズ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ハワイアンチョコレート</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>アンチョビ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>エビ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ガーリックスライス</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>トロピカルフルーツ</span>
-              </label>
-              <label class="item-topping">
-                <input type="checkbox" />
-                <span>ココナッツ</span>
-              </label>
-            </div>
-          </div>
-          <div class="row item-quantity">
-            <div class="item-hedding item-hedding-quantity">数量</div>
-            <div class="item-quantity-selectbox">
-              <div class="input-field col s12">
-                <select class="browser-default">
-                  <option value="" disabled selected>選択して下さい</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
+          <form
+            method="post"
+            th:action="@{/cart/addItem}"
+            th:object="${cartForm}"
+          >
+            <input type="hidden" name="itemId" th:value="${item.id}" />
+            <div class="row item-detail">
+              <div class="item-icon">
+                <img th:src="@{|/img/${item.imagePath}|}" />
+              </div>
+              <div class="item-intro" th:text="${item.description}">
+                ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
               </div>
             </div>
-          </div>
-          <div class="row item-total-price">
-            <span>この商品金額：38,000 円(税抜)</span>
-          </div>
-          <div class="row item-cart-btn">
-            <button
-              class="btn"
-              type="button"
-              onclick="location.href='cart_list.html'"
-            >
-              <span>カートに入れる</span>
-            </button>
-          </div>
+            <div class="row item-size">
+              <div class="item-hedding">サイズ</div>
+              <div>
+                <label>
+                  <input
+                    id="size-m"
+                    name="size"
+                    type="radio"
+                    checked="checked"
+                    class="size"
+                    value="M"
+                  />
+                  <span>
+                    &nbsp;<span class="price">Ｍ</span>&nbsp;&nbsp;<span
+                      th:text="${item.priceM}"
+                      id="priceM"
+                      >1,380</span
+                    >円(税抜)
+                  </span>
+                </label>
+                <label>
+                  <input
+                    id="size-l"
+                    name="size"
+                    type="radio"
+                    class="size"
+                    value="L"
+                  />
+                  <span>
+                    &nbsp;<span class="price">Ｌ</span>&nbsp;&nbsp;<span
+                      th:text="${item.priceL}"
+                      id="priceL"
+                      >2,380</span
+                    >円(税抜)
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div class="row item-toppings">
+              <div class="item-hedding">
+                トッピング：&nbsp;1つにつき
+                <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;<span
+                  th:text="${item.toppingList[0].priceM}"
+                ></span
+                >円(税抜) <span>&nbsp;Ｌ</span>&nbsp;&nbsp;<span
+                  th:text="${item.toppingList[0].priceL}"
+                ></span
+                >円(税抜)
+              </div>
+              <div id="topping">
+                <label
+                  class="item-topping"
+                  th:each="topping:${item.toppingList}"
+                >
+                  <input
+                    type="checkbox"
+                    class="checkbox"
+                    name="toppingIdList"
+                    th:value="${topping.id}"
+                  />
+                  <span th:text="${topping.name}">ハワイアンソルト</span>
+                </label>
+              </div>
+            </div>
+            <div class="row item-quantity">
+              <div class="item-hedding item-hedding-quantity">数量</div>
+              <div class="item-quantity-selectbox">
+                <div class="input-field col s12">
+                  <select class="browser-default" id="num" name="quantity">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row item-total-price">
+              <span id="total-price"
+                >この商品金額：<span id="totalprice"></span> 円(税抜)
+              </span>
+            </div>
+            <div class="row item-cart-btn">
+              <button class="btn" type="submit">
+                <span>カートに入れる</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <!-- end container -->
@@ -184,5 +198,48 @@
     </footer>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- 合計金額を表示する -->
+    <script th:inline="javascript">
+      ("use strict");
+      $(function () {
+        calc_price();
+        $(".size").on("change", function () {
+          calc_price();
+        });
+
+        $(".checkbox").on("change", function () {
+          calc_price();
+        });
+
+        $("#num").on("change", function () {
+          calc_price();
+        });
+
+        // 値段の計算をして変更する関数
+        function calc_price() {
+          let size = $(".size:checked").val();
+          let topping_count = 0;
+          topping_count = $("#topping input:checkbox:checked").length;
+          let num = $("#num").val();
+          let size_price = 0;
+          let topping_price = 0;
+          let size_priceM = /*[[${item.priceM}]]*/ "M";
+          let size_priceL = /*[[${item.priceL}]]*/ "L";
+          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ "M";
+          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ "L";
+          if (size === "M") {
+            size_price = size_priceM;
+            topping_price = topping_priceM * topping_count;
+          } else {
+            size_price = size_priceL;
+            topping_price = topping_priceL * topping_count;
+          }
+          let price = (size_price + topping_price) * num;
+          $("#totalprice").text(price.toLocaleString());
+        }
+      });
+    </script>
   </body>
 </html>

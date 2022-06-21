@@ -31,13 +31,13 @@ public class OrderRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
 		List<Order> orderList = new ArrayList<>();
 
 		List<OrderItem> orderItemList = null;
 		List<OrderTopping> orderToppingList = null;
-		
+
 		int preOrderId = 0;
 		int preOrderItemId = 0;
 		while (rs.next()) {
@@ -58,7 +58,7 @@ public class OrderRepository {
 				order.setDestinationTel(rs.getString("destination_tel"));
 				order.setdeliveryTime(rs.getTimestamp("delivery_time"));
 				order.setPaymentMethod(rs.getInt("payment_method"));
-				
+
 				orderItemList = new ArrayList<OrderItem>();
 				order.setOrderItemList(orderItemList);
 
@@ -72,7 +72,7 @@ public class OrderRepository {
 					orderItem.setItemId(rs.getInt("item_id"));
 					orderItem.setQuantity(rs.getInt("quantity"));
 					orderItem.setSize(rs.getString("size"));
-					
+
 					Item item = new Item();
 					item.setName(rs.getString("i_name"));
 					item.setDescription(rs.getString("description"));
@@ -80,26 +80,26 @@ public class OrderRepository {
 					item.setPriceL(rs.getInt("i_price_l"));
 					item.setImagePath(rs.getString("image_path"));
 					orderItem.setItem(item);
-					
+
 					orderToppingList = new ArrayList<OrderTopping>();
 					orderItem.setOrderToppingList(orderToppingList);
-					
+
 					orderItemList.add(orderItem);
 				}
-				
+
 				if (orderItemId != 0) {
 					OrderTopping orderTopping = new OrderTopping();
 					orderTopping.setId(rs.getInt("ot_id"));
 					orderTopping.setToppingId(rs.getInt("topping_id"));
 					orderTopping.setOrderItemId(rs.getInt("order_item_id"));
-					
+
 					Topping topping = new Topping();
 					topping.setName(rs.getString("t_name"));
 					topping.setPriceM(rs.getInt("t_price_m"));
 					topping.setPriceL(rs.getInt("t_price_l"));
-					
+
 					orderTopping.setTopping(topping);
-					
+
 					orderToppingList.add(orderTopping);
 				}
 			}
@@ -107,10 +107,10 @@ public class OrderRepository {
 			preOrderId = orderId;
 			preOrderItemId = orderItemId;
 		}
-        
-        return orderList;
+
+		return orderList;
 	};
-	
+
 	/**
 	 * 注文情報を挿入し、採番された番号を返す.
 	 * 
@@ -121,17 +121,17 @@ public class OrderRepository {
 		String sql = "INSERT INTO orders "
 				+ "(user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) VALUES "
 				+ "(:customerId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
-		
+
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String[] keyColumnNames = {"id"};
-		
+		String[] keyColumnNames = { "id" };
+
 		template.update(sql, param, keyHolder, keyColumnNames);
-		
+
 		return keyHolder.getKey().intValue();
 	}
-	
+
 	/**
 	 * オーダーIDから注文情報を取得.
 	 * 
@@ -151,51 +151,59 @@ public class OrderRepository {
 				+ "ON ot.topping_id = t.id "
 				+ "WHERE o.id = :orderId "
 				+ "ORDER BY o.id, oi.id, ot.id;";
-		
+
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId);
-		
+
 		List<Order> orderList = template.query(sql, param, ORDER_RESULT_SET_EXTRACTOR);
 		System.out.println(orderList);
-		return orderList.get(0);		
+		return orderList.get(0);
 	}
-	
+
 	/**
 	 * ステータスと顧客IDからオーダーIDを取得.
 	 * 
-	 * @param status 注文状態
+	 * @param status     注文状態
 	 * @param customerId 顧客ID
 	 * @return オーダーID
 	 */
 	public Integer findOrderIdByStatusAndUserId(Integer status, Integer customerId) {
-		
+
 		try {
 			String sql = "SELECT id FROM orders "
 					+ "WHERE status = :status AND user_id = :customerId;";
-			
-			SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("customerId", customerId);
-			
+
+			SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("customerId",
+					customerId);
+
 			Integer orderId = template.queryForObject(sql, param, Integer.class);
-			
+
 			return orderId;
-		}catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * ダミーIDを正規のIDに書き換える.
 	 * 
 	 * @param dummyCustomerId ダミー顧客ID
-	 * @param customerId 正規の顧客ID
+	 * @param customerId      正規の顧客ID
 	 */
 	public void updateUserId(Integer dummyCustomerId, Integer customerId) {
 		String sql = "UPDATE orders SET user_id = :customerId "
 				+ "WHERE user_id = :dummyCustomerId;";
-		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("customerId", customerId).addValue("dummyCustomerId", dummyCustomerId);
-		
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("customerId", customerId)
+				.addValue("dummyCustomerId", dummyCustomerId);
+
 		template.update(sql, param);
-		
+
+	}
+
+	public void update(Order order) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		String sql = "UPDATE orders SET user_id=:customerId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id=:id";
+		template.update(sql, param);
 	}
 	
 	/**
