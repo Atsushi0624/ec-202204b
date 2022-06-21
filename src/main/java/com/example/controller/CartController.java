@@ -57,13 +57,6 @@ public class CartController {
 			customerId = getDummyCustomerId();
 		}
 		
-		// test
-		System.out.println(customerId);
-		form.setItemId(1);
-		form.setQuantity(2);
-		form.setSize("M");
-		List<Integer> list = new ArrayList<>();
-		form.setToppingIdList(list);
 		
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		
@@ -119,6 +112,7 @@ public class CartController {
 			model.addAttribute("totalPrice", order.getTax() + order.getCalcTotalPrice());
 			model.addAttribute("tax", order.getTax());
 		}
+		model.addAttribute("orderId", order.getId());
 		
 		return "cart_list";
 	}

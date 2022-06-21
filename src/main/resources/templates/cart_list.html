@@ -49,7 +49,7 @@
               th:href="@{/registCustomer/toRegistration}"
               >会員登録</a
             >
-            <a href="cart_list.html">
+            <a th:href="@{/cart/showCart}">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
             <a
@@ -132,7 +132,6 @@
                 <td>
                   <span
                     class="text-center"
-                    th:if="${orderItem.size=='M'}"
                     th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA') + '円'}"
                     >300円</span
                   >
@@ -162,13 +161,15 @@
           ></div>
         </div>
         <div class="row order-confirm-btn">
+        <form method="post" th:action="@{/confirmOrder}">
+         <input type="hidden" name="orderId" th:value="${orderId}">
           <button
             class="btn"
-            type="button"
-            onclick="location.href='order_confirm.html'"
+            type="submit"
           >
             <span>注文に進む</span>
           </button>
+          </form>
         </div>
       </div>
       <!-- end container -->
