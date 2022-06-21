@@ -32,12 +32,12 @@ public class Order {
 	/** 宛先TEL */
 	private String destinationTel;
 	/** 配達時間 */
-	private Timestamp deriveryTime;
+	private Timestamp deliveryTime;
 	/** 支払い方法 */
 	private Integer paymentMethod;
 	/** 顧客情報 */
 	private Customer customer;
-	/** 支払い方法 */
+	/** 注文商品情報 */
 	private List<OrderItem> orderItemList;
 	
 	public Integer getId() {
@@ -100,11 +100,11 @@ public class Order {
 	public void setDestinationTel(String destinationTel) {
 		this.destinationTel = destinationTel;
 	}
-	public Timestamp getDeriveryTime() {
-		return deriveryTime;
+	public Timestamp getdeliveryTime() {
+		return deliveryTime;
 	}
-	public void setDeriveryTime(Timestamp deriveryTime) {
-		this.deriveryTime = deriveryTime;
+	public void setdeliveryTime(Timestamp deliveryTime) {
+		this.deliveryTime = deliveryTime;
 	}
 	public Integer getPaymentMethod() {
 		return paymentMethod;
@@ -130,7 +130,7 @@ public class Order {
 		return "Order [id=" + id + ", customerId=" + customerId + ", status=" + status + ", totalPrice=" + totalPrice
 				+ ", orderDate=" + orderDate + ", destinationName=" + destinationName + ", destinationEmail="
 				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
-				+ destinationAddress + ", destinationTel=" + destinationTel + ", deriveryTime=" + deriveryTime
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
 				+ ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", orderItemList=" + orderItemList
 				+ "]";
 	}
