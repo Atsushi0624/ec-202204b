@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -143,7 +144,7 @@ public class OrderRepository {
 				+ "ON o.id = oi.order_id "
 				+ "INNER JOIN items AS i"
 				+ "ON oi.item_id = i.id "
-				+ "LEFT JOIN order_topping AS ot "
+				+ "LEFT JOIN order_toppings AS ot "
 				+ "ON oi.id = ot.order_item_id "
 				+ "INNER JOIN toppings AS t "
 				+ "ON ot.topping_id = t.id "
@@ -165,14 +166,19 @@ public class OrderRepository {
 	 * @return オーダーID
 	 */
 	public Integer findOrderIdByStatusAndUserId(Integer status, Integer customerId) {
-		String sql = "SELECT id FROM orders "
-				+ "WHERE status = :status AND customer_id = :customerId;";
 		
-		SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("customerId", customerId);
-		
-		Integer orderId = template.queryForObject(sql, param, Integer.class);
-		
-		return orderId;
+		try {
+			String sql = "SELECT id FROM orders "
+					+ "WHERE status = :status AND customer_id = :customerId;";
+			
+			SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("customerId", customerId);
+			
+			Integer orderId = template.queryForObject(sql, param, Integer.class);
+			
+			return orderId;
+		}catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 	
 	/**
