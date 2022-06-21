@@ -31,7 +31,7 @@ public class CartController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping("/add")
+	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
 		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
 		Integer customerId = null;
@@ -68,7 +68,6 @@ public class CartController {
 		Integer customerId = null;
 		
 		if(customerId == null) {
-			customerId = getDummyCustomerId();
 			return "cart_list";
 		}
 
@@ -77,6 +76,13 @@ public class CartController {
 		model.addAttribute("order", order);
 		
 		return "cart_list";
+	}
+	
+	@RequestMapping("/removeItem")
+	public String deleteItem(int orderItemId) {
+		cartService.removeOrderItem(orderItemId);
+		
+		return "redirect:/cart/showCart";
 	}
 	
 	/**

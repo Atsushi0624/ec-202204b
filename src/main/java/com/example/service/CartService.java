@@ -77,4 +77,14 @@ public class CartService {
 	public void createOrderTopping(OrderTopping orderTopping) {
 		orderToppingRepository.insert(orderTopping); 
 	}
+	
+	/**
+	 * IDを指定して注文商品情報を削除.
+	 * その注文商品に紐づくトッピング情報も削除される
+	 * 
+	 * @param orderItemId 注文商品ID
+	 */
+	public void removeOrderItem(int orderItemId) {
+		orderItemRepository.deleteById(orderItemId);
+	}
 }

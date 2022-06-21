@@ -36,7 +36,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
-				.antMatchers("/show", "/registCustomer/toRegistration", "/registCustomer/regist", "/login/toLogin")
+				.antMatchers("/show", "/registCustomer/toRegistration", "/registCustomer/regist", "/login/toLogin", "/cart/addItem", "/cart/showCart", "cart/removeItem")
 				.permitAll() // 「/」などのパスは全てのユーザに許可
 				// .antMatchers("/admin/**").hasRole("ADMIN") //
 				// /admin/から始まるパスはADMIN権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
