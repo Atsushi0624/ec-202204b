@@ -92,7 +92,7 @@
         <div class="items">
           <div class="item" th:each="item:${itemList}">
             <div class="item-icon">
-              <img th:src="@{|/img/${item.imagePath}|}" />
+              <a th:href="@{|/detail?id=${item.id}|}"><img th:src="@{|/img/${item.imagePath}|}" /></a>
             </div>
             <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a
             ><br />
