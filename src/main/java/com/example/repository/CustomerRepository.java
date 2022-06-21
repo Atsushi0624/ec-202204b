@@ -1,8 +1,13 @@
 package com.example.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Customer;
@@ -40,12 +45,28 @@ public class CustomerRepository {
 	 * @param customer 顧客情報
 	 */
 	public void insert(Customer customer) {
+		String sql = "INSERT INTO users (name,email,password,zipcode,address,telephone) values (:name,:email,:password,:zipcode,:address,:telephone)";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(customer);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * メールアドレスで顧客を検索します.
+	 * 
+	 * @param email メールアドレス
+	 * @return 顧客情報
+	 */
+	public Customer findByEmail(String email) {
+		String sql = "select id,name,email,password,zipcode,address,telephone from users where email=:email";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+		List<Customer> customerList = template.query(sql, param, CUSTOMER_ROW_MAPPER);
+		if (customerList.size() == 0) {
+			return null;
+		}else {
+			return customerList.get(0);
+		}
 		
 	}
-	
-	public Customer findByEmail(String email) {
-		return null;
-	}
-	
+
 
 }

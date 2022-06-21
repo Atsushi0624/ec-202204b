@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクアロハ</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a href="top.html">
+              <img class="logo" th:src="@{img/header_logo.png}" />
+            </a>
+          </div>
+
+          <div class="header-right">
+            <a href="item_list.html">商品一覧</a>
+            <a th:href="@{/registCustomer/toRegistration}">会員登録</a>
+            <a th:href="@{/login/toLogin}" class="login">
+              <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <form
+      method="post"
+      th:action="@{/registCustomer/regist}"
+      th:object="${registCustomerForm}"
+    >
+      <div class="top-wrapper">
+        <div class="container">
+          <div class="row register-page">
+            <div th:errors="*{familyName}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input
+                  th:field="*{familyName}"
+                  id="last_name"
+                  type="text"
+                  class="validate"
+                />
+                <label for="last_name">姓</label>
+              </div>
+              <div th:errors="*{firstName}" class="error"></div>
+              <div class="input-field col s6">
+                <input
+                  th:field="*{firstName}"
+                  id="first_name"
+                  type="text"
+                  class="validate"
+                />
+                <label for="first_name">名</label>
+              </div>
+            </div>
+            <div th:errors="*{email}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  th:field="*{email}"
+                  id="email"
+                  type="email"
+                  class="validate"
+                />
+                <label for="email">メールアドレス</label>
+              </div>
+            </div>
+            <div th:errors="*{zipcode}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input th:field="*{zipcode}" id="zipcode" type="text" />
+                <label for="zipcode">郵便番号</label>
+                <button class="btn" type="button">
+                  <span>住所検索</span>
+                </button>
+              </div>
+            </div>
+            <div th:errors="*{address}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input th:field="*{address}" id="address" type="text" />
+                <label for="address">住所</label>
+              </div>
+            </div>
+            <div th:errors="*{telephone}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input th:field="*{telephone}" id="tel" type="tel" />
+                <label for="tel">電話番号</label>
+              </div>
+            </div>
+            <div th:errors="*{password}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  th:field="*{password}"
+                  id="password"
+                  type="password"
+                  class="validate"
+                />
+                <label for="password">パスワード</label>
+              </div>
+            </div>
+            <div th:errors="*{confirmationPassword}" class="error"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  th:field="*{confirmationPassword}"
+                  id="confirmation_password"
+                  type="password"
+                  class="validate"
+                />
+                <label for="confirmation_password">確認用パスワード</label>
+              </div>
+            </div>
+            <div class="row register-admin-btn">
+              <button class="btn" type="submit">
+                <span>登録<i class="material-icons right">done</i></span>
+              </button>
+              <button class="btn" type="reset">
+                <span>クリア<i class="material-icons right">done</i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end container-->
+      </div>
+    </form>
+    <!-- end top-wrapper -->
+    <footer>
+      <div class="container">
+        <img src="img/header_logo.png" />
+        <p>アロハな気分をあなたにお届け！</p>
+      </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
