@@ -143,11 +143,11 @@ public class OrderRepository {
 				+ "FROM orders AS o "
 				+ "LEFT JOIN order_items AS oi "
 				+ "ON o.id = oi.order_id "
-				+ "INNER JOIN items AS i "
+				+ "LEFT JOIN items AS i "
 				+ "ON oi.item_id = i.id "
 				+ "LEFT JOIN order_toppings AS ot "
 				+ "ON oi.id = ot.order_item_id "
-				+ "INNER JOIN toppings AS t "
+				+ "LEFT JOIN toppings AS t "
 				+ "ON ot.topping_id = t.id "
 				+ "WHERE o.id = :orderId "
 				+ "ORDER BY o.id, oi.id, ot.id;";
@@ -155,7 +155,7 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId);
 		
 		List<Order> orderList = template.query(sql, param, ORDER_RESULT_SET_EXTRACTOR);
-		
+		System.out.println(orderList);
 		return orderList.get(0);		
 	}
 	

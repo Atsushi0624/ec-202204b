@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,13 +81,14 @@ public class CartController {
 		if(customerId == null) {
 			customerId = getDummyCustomerId();
 		}
-
+		
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		Order order = cartService.getOrder(orderId);
 		
-		System.out.println(order);
-		
-		model.addAttribute("order", order);
+		// 商品リストがあるか判定
+		if(order.getOrderItemList().get(0).getId() != 0) {			
+			model.addAttribute("orderItemList", order.getOrderItemList());
+		}
 		
 		return "cart_list";
 	}
