@@ -31,7 +31,7 @@ public class ExecOrderForm {
   /** 宛先電話番号 */
   private String destinationTel;
   /** 配達時間 */
-  private Timestamp delivaryTime;
+  private Timestamp deliveryTime;
   /** 支払い方法 */
   private Integer paymentMethod;
 
@@ -115,12 +115,12 @@ public class ExecOrderForm {
     this.destinationTel = destinationTel;
   }
 
-  public Timestamp getDelivaryTime() {
-    return delivaryTime;
+  public Timestamp getDeliveryTime() {
+    return deliveryTime;
   }
 
-  public void setDelivaryTime(Timestamp delivaryTime) {
-    this.delivaryTime = delivaryTime;
+  public void setDeliveryTime(Timestamp deliveryTime) {
+    this.deliveryTime = deliveryTime;
   }
 
   public Integer getPaymentMethod() {
@@ -133,7 +133,7 @@ public class ExecOrderForm {
 
   @Override
   public String toString() {
-    return "ExecOrderForm [customerId=" + customerId + ", delivaryTime=" + delivaryTime + ", destinationAddress="
+    return "ExecOrderForm [customerId=" + customerId + ", deliveryTime=" + deliveryTime + ", destinationAddress="
         + destinationAddress + ", destinationEmail=" + destinationEmail + ", destinationName=" + destinationName
         + ", destinationTel=" + destinationTel + ", destinationZipcode=" + destinationZipcode + ", id=" + id
         + ", orderDate=" + orderDate + ", paymentMethod=" + paymentMethod + ", status=" + status + ", totalPrice="
