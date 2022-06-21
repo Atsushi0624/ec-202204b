@@ -44,7 +44,7 @@
 
           <div class="header-right">
             <a th:href="@{/show}">商品一覧</a>
-            <a th:href="@{/registCustomer/toRegistration}">会員登録</a>
+            <a th:if="${session.customer} == null" th:href="@{/registCustomer/toRegistration}">会員登録</a>
             <a href="cart_list.html">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
