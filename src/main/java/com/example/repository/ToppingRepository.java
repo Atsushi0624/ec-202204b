@@ -23,6 +23,8 @@ public class ToppingRepository {
 	private static final RowMapper<Topping> TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(Topping.class);
 
 	public List<Topping> findAll() {
-		return null;
+		String sql = "select * from toppings order by id";
+		List<Topping> toppingList = template.query(sql, TOPPING_ROW_MAPPER);
+		return toppingList;
 	}
 }
