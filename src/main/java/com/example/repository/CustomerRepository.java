@@ -50,6 +50,12 @@ public class CustomerRepository {
 		template.update(sql, param);
 	}
 	
+	/**
+	 * メールアドレスで顧客を検索します.
+	 * 
+	 * @param email メールアドレス
+	 * @return 顧客情報
+	 */
 	public Customer findByEmail(String email) {
 		String sql = "select id,name,email,password,zipcode,address,telephone from users where email=:email";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);

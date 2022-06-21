@@ -15,10 +15,20 @@ import com.example.domain.LoginCustomer;
 import com.example.repository.CustomerRepository;
 
 
+/**
+ * 認証情報を付加した顧客を操作するサービス
+ * 
+ * @author nao.yamada
+ *
+ */
 public class LoginService   implements UserDetailsService{
 	@Autowired
 	private CustomerRepository administratorRepository;
 	
+	
+	/**
+	 *顧客情報に認証情報を追加します.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {

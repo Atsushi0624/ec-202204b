@@ -10,15 +10,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * SpringSecurityを使った認証の設定をします.
+ * 
+ * @author nao.yamada
+ *
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
+	/**
+	 * 認証されていない時のフォイルアクセスを設定します.
+	 * 
+	 * @return 設定情報
+	 */
 	@Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/css/**", "/img/**", "/js/**", "/fonts/**");
     }
 	
+	/**
+	 * 認証の設定を行います.
+	 * 
+	 */
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
@@ -48,6 +63,11 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
+	/**
+	 * パスワードハッシュ化をできるようにします.
+	 * 
+	 * @return
+	 */
 	@Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

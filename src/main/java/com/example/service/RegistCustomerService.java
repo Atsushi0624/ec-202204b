@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 import com.example.domain.Customer;
 import com.example.repository.CustomerRepository;
 
+/**
+ * 顧客情報を操作するサービス.
+ * 
+ * @author nao.yamada
+ *
+ */
 @Service
 public class RegistCustomerService {
 	
@@ -16,6 +22,11 @@ public class RegistCustomerService {
 	@Autowired
     private PasswordEncoder passwordEncoder;
 	
+	/**
+	 * 顧客の登録をします.
+	 * 
+	 * @param customer 顧客情報
+	 */
 	public void resistCustomer(Customer customer) {
 		// パスワードのハッシュ化
 		String hashedPassword = passwordEncoder.encode(customer.getPassword());
