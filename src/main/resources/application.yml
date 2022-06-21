@@ -7,5 +7,5 @@ spring:
   jmx:
     default-domain: ec-202204b
 server:
- servlet:
+  servlet:
     context-path: /ec-202204b
