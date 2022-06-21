@@ -47,7 +47,7 @@ public class OrderRepository {
 			if (orderId != preOrderId) {
 				Order order = new Order();
 				order.setId(rs.getInt("o_id"));
-				order.setCustomerId(rs.getInt("customer_id"));
+				order.setCustomerId(rs.getInt("user_id"));
 				order.setStatus(rs.getInt("status"));
 				order.setTotalPrice(rs.getInt("total_price"));
 				order.setOrderDate(rs.getDate("order_date"));
@@ -56,7 +56,7 @@ public class OrderRepository {
 				order.setDestinationZipcode(rs.getString("destination_zipcode"));
 				order.setDestinationAddress(rs.getString("destination_address"));
 				order.setDestinationTel(rs.getString("destination_tel"));
-				order.setDeriveryTime(rs.getTimestamp("derivery_time"));
+				order.setdeliveryTime(rs.getTimestamp("delivery_time"));
 				order.setPaymentMethod(rs.getInt("payment_method"));
 				
 				orderItemList = new ArrayList<OrderItem>();
@@ -91,9 +91,10 @@ public class OrderRepository {
 					OrderTopping orderTopping = new OrderTopping();
 					orderTopping.setId(rs.getInt("ot_id"));
 					orderTopping.setToppingId(rs.getInt("topping_id"));
+					orderTopping.setOrderItemId(rs.getInt("order_item_id"));
 					
 					Topping topping = new Topping();
-					topping.setName("t_name");
+					topping.setName(rs.getString("t_name"));
 					topping.setPriceM(rs.getInt("t_price_m"));
 					topping.setPriceL(rs.getInt("t_price_l"));
 					
@@ -118,8 +119,8 @@ public class OrderRepository {
 	 */
 	public Integer insert(Order order) {
 		String sql = "INSERT INTO orders "
-				+ "(customer_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, derivery_time, payment_method) VALUES "
-				+ "(:customerId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deriveryTime, :paymentMethod);";
+				+ "(user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) VALUES "
+				+ "(:customerId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
 		
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		
@@ -138,11 +139,11 @@ public class OrderRepository {
 	 * @return 注文情報
 	 */
 	public Order load(Integer orderId) {
-		String sql = "SELECT o.id as o_id, customer_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, derivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
+		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
 				+ "FROM orders AS o "
 				+ "LEFT JOIN order_items AS oi "
 				+ "ON o.id = oi.order_id "
-				+ "INNER JOIN items AS i"
+				+ "INNER JOIN items AS i "
 				+ "ON oi.item_id = i.id "
 				+ "LEFT JOIN order_toppings AS ot "
 				+ "ON oi.id = ot.order_item_id "
@@ -169,7 +170,7 @@ public class OrderRepository {
 		
 		try {
 			String sql = "SELECT id FROM orders "
-					+ "WHERE status = :status AND customer_id = :customerId;";
+					+ "WHERE status = :status AND user_id = :customerId;";
 			
 			SqlParameterSource param = new MapSqlParameterSource().addValue("status", status).addValue("customerId", customerId);
 			
@@ -188,8 +189,8 @@ public class OrderRepository {
 	 * @param customerId 正規の顧客ID
 	 */
 	public void updateUserId(Integer dummyCustomerId, Integer customerId) {
-		String sql = "UPDATE orders SET customer_id = :customerId "
-				+ "WHERE customer_id = :dummyCustomerId;";
+		String sql = "UPDATE orders SET user_id = :customerId "
+				+ "WHERE user_id = :dummyCustomerId;";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("customerId", customerId).addValue("dummyCustomerId", dummyCustomerId);
 		

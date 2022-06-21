@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -39,6 +40,16 @@ public class CartController {
 			customerId = getDummyCustomerId();
 		}
 		
+		// test
+		System.out.println(customerId);
+		form.setItemId(1);
+		form.setQuantity(2);
+		form.setSize("M");
+		List<Integer> list = new ArrayList<>();
+		list.add(4);
+		list.add(2);
+		form.setToppingIdList(list);
+		
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		
 		// 注文商品情報を登録
@@ -66,13 +77,15 @@ public class CartController {
 	public String showCartItem(Model model) {
 		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
 		Integer customerId = null;
-		
 		if(customerId == null) {
-			return "cart_list";
+			customerId = getDummyCustomerId();
 		}
 
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		Order order = cartService.getOrder(orderId);
+		
+		System.out.println(order);
+		
 		model.addAttribute("order", order);
 		
 		return "cart_list";

@@ -42,6 +42,7 @@ public class CartService {
 			order.setCustomerId(customerId);
 			order.setStatus(0);
 			order.setTotalPrice(0);
+			System.out.println("test");
 			orderId = orderRepository.insert(order);
 		}
 		
