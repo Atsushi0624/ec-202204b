@@ -22,7 +22,14 @@ public class ToppingRepository {
 	private NamedParameterJdbcTemplate template;
 	private static final RowMapper<Topping> TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(Topping.class);
 
+	/**
+	 * トッピングを全件取得する.
+	 * 
+	 * @return トッピングリスト
+	 */
 	public List<Topping> findAll() {
-		return null;
+		String sql = "select * from toppings order by id";
+		List<Topping> toppingList = template.query(sql, TOPPING_ROW_MAPPER);
+		return toppingList;
 	}
 }

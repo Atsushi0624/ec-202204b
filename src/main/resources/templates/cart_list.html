@@ -43,13 +43,29 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-            <a href="login.html" class="login">
+            <a th:href="@{/show}">商品一覧</a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/registCustomer/toRegistration}"
+              >会員登録</a
+            >
+            <a href="cart_list.html">
+              <i class="fas fa-shopping-cart"> </i>カート
+            </a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
             <a href="order_history.html">注文履歴</a>
           </div>
         </div>
@@ -96,7 +112,9 @@
                 <td>
                   <ul th:each="orderTopping: ${orderItem.orderToppingList}">
                     <li>
+
                       <span th:text="${orderTopping.topping.name}"></span>
+
                       <span
                         th:if="${orderItem.size=='M'}"
                         th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA') + '円'}"
@@ -110,6 +128,7 @@
                     </li>
                   </ul>
                 </td>
+
                 <td>
                   <span
                     class="text-center"
@@ -118,6 +137,7 @@
                     >300円</span
                   >
                 </td>
+
                 <td>
                   <form th:action="@{/cart/removeItem}" method="post">
                     <input
