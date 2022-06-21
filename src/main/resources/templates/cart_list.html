@@ -43,13 +43,29 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-            <a href="login.html" class="login">
+            <a th:href="@{/show}">商品一覧</a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/registCustomer/toRegistration}"
+              >会員登録</a
+            >
+            <a href="cart_list.html">
+              <i class="fas fa-shopping-cart"> </i>カート
+            </a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
             </a>
-
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
             <a href="order_history.html">注文履歴</a>
           </div>
         </div>
@@ -75,26 +91,43 @@
                   <div class="cart-item-icon">
                     <img th:src="@{'/img/' + ${orderItem.item.imagePath}}" />
                   </div>
-                  <span th:text="${orderItem.item.name}">ハワイアンパラダイス</span>
+                  <span th:text="${orderItem.item.name}"
+                    >ハワイアンパラダイス</span
+                  >
                 </td>
                 <td>
                   <span class="price" th:text="${orderItem.size}">&nbsp;Ｌ</span
                   >&nbsp;&nbsp;
-                  <span th:if="${orderItem.size=='M'}" th:text="${#numbers.formatInteger(orderItem.item.priceM,1,'COMMA') + '円'}">2,380円</span>&nbsp;&nbsp;
-                  <span th:if="${orderItem.size=='L'}" th:text="${#numbers.formatInteger(orderItem.item.priceL,1,'COMMA') + '円'}">2,380円</span>&nbsp;&nbsp;
-                  <span th:text="${orderItem.quantity}">1</span>個
+                  <span
+                    th:if="${orderItem.size=='M'}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceM,1,'COMMA') + '円'}"
+                    >2,380円</span
+                  >&nbsp;&nbsp;
+                  <span
+                    th:if="${orderItem.size=='L'}"
+                    th:text="${#numbers.formatInteger(orderItem.item.priceL,1,'COMMA') + '円'}"
+                    >2,380円</span
+                  >&nbsp;&nbsp; <span th:text="${orderItem.quantity}">1</span>個
                 </td>
                 <td>
                   <ul th:each="orderTopping: ${orderItem.orderToppingList}">
                     <li>
-                    <span th:text="${orderTopping.topping.name}"></span>ピーマン
-                    <span th:if="${orderItem.size=='M'}" th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA') + '円'}">300円</span>
-                    <span th:if="${orderItem.size=='L'}" th:text="${#numbers.formatInteger(orderTopping.topping.priceL,1,'COMMA') + '円'}">300円</span>
+                      <span th:text="${orderTopping.topping.name}"></span
+                      >ピーマン
+                      <span
+                        th:if="${orderItem.size=='M'}"
+                        th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA') + '円'}"
+                        >300円</span
+                      >
+                      <span
+                        th:if="${orderItem.size=='L'}"
+                        th:text="${#numbers.formatInteger(orderTopping.topping.priceL,1,'COMMA') + '円'}"
+                        >300円</span
+                      >
                     </li>
                   </ul>
                 </td>
-                <td>
-                </td>
+                <td></td>
                 <td>
                   <button class="btn" type="button">
                     <span>削除</span>
