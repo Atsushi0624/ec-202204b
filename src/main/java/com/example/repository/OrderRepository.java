@@ -3,6 +3,7 @@ package com.example.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,6 +28,7 @@ import com.example.domain.Topping;
 @Repository
 public class OrderRepository {
 
+	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
 	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
