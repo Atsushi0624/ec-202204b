@@ -112,8 +112,9 @@
                 <td>
                   <ul th:each="orderTopping: ${orderItem.orderToppingList}">
                     <li>
-                      <span th:text="${orderTopping.topping.name}"></span
-                      >ピーマン
+
+                      <span th:text="${orderTopping.topping.name}"></span>
+
                       <span
                         th:if="${orderItem.size=='M'}"
                         th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA') + '円'}"
@@ -127,11 +128,25 @@
                     </li>
                   </ul>
                 </td>
-                <td></td>
+
                 <td>
-                  <button class="btn" type="button">
-                    <span>削除</span>
-                  </button>
+                  <span
+                    class="text-center"
+                    th:if="${orderItem.size=='M'}"
+                    th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA') + '円'}"
+                    >300円</span
+                  >
+                </td>
+
+                <td>
+                  <form th:action="@{/cart/removeItem}" method="post">
+                    <input
+                      type="hidden"
+                      name="orderItemId"
+                      th:value="${orderItem.id}"
+                    />
+                    <button class="btn">削除</button>
+                  </form>
                 </td>
               </tr>
             </tbody>
@@ -139,8 +154,12 @@
         </div>
 
         <div class="row cart-total-price">
-          <div>消費税：8,000円</div>
-          <div>ご注文金額合計：38,000円 (税込)</div>
+          <div
+            th:text="'消費税' + ${#numbers.formatInteger(tax,1,'COMMA') + '円'}"
+          ></div>
+          <div
+            th:text="'ご注文合計金額' + ${#numbers.formatInteger(totalPrice,1,'COMMA') + '円（税込み）'}"
+          ></div>
         </div>
         <div class="row order-confirm-btn">
           <button
