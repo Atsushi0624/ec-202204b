@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,16 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/toLogin")
 public class LoginController {
-	
+
 	/**
 	 * ログインページを表示します.
 	 * 
 	 * @return ログインページ
 	 */
-	@RequestMapping("toLogin")
+	@RequestMapping("")
 	public String toLogin() {
+		// デバッグ用（ログインユーザーの確認）
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();// get logged in username
+		System.out.println("userName : " + name);
+		// ここまで
 		return "login";
 	}
 }
