@@ -16,17 +16,17 @@
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/register_admin.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="stylesheet" href="css/item_list.css" />
-    <link rel="stylesheet" href="css/item_detail.css" />
-    <link rel="stylesheet" href="css/cart_list.css" />
-    <link rel="stylesheet" href="css/order_confirm.css" />
-    <link rel="stylesheet" href="css/order_finished.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,7 +38,7 @@
         <div class="header">
           <div class="header-left">
             <a href="top.html">
-              <img class="logo" src="img/header_logo.png" />
+              <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
@@ -60,12 +60,12 @@
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
-        <form method="post" class="search-form">
-          <input type="text" name="name" class="search-name-input" />
-
-          <button class="btn search-btn" type="button">
+        <form th:action="@{/show}" method="post" class="search-form">
+          <input type="text" name="itemName" class="search-name-input" th:value="${itemName}" />
+          <button class="btn search-btn" type="submit">
             <span>検　索</span>
-          </button>
+          </button><br>
+          <span th:text="${noItemMessage}"></span>
         </form>
       </div>
     </div>
@@ -74,138 +74,19 @@
     <div class="item-wrapper">
       <div class="container">
         <div class="items">
-          <div class="item">
+          <div class="item" th:each="item:${itemList}">
             <div class="item-icon">
-              <img src="img/1.jpg" />
+              <img th:src="@{|/img/${item.imagePath}|}" />
             </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
+            <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a><br />
+            <span class="price">Ｍ</span> <span th:text="${item.priceM}"></span>円(税抜)<br />
+            <span class="price">Ｌ</span> <span th:text="${item.priceL}"></span>円(税抜)<br />
           </div>
 
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/2.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/3.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/4.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/5.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/6.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/7.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/8.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/9.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/10.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/11.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/12.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/13.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-
-          <div class="item">
-            <div class="item-icon">
-              <img src="img/14.jpg" />
-            </div>
-            <a href="item_detail.html">ハワイアンパラダイス</a><br />
-            <span class="price">Ｍ</span>1,380円(税抜)<br />
-            <span class="price">Ｌ</span>2,380円(税抜)<br />
-          </div>
-        </div>
-      </div>
-    </div>
 
     <footer>
       <div class="container">
-        <img src="img/header_logo.png" />
+        <img th:src="@{/img/header_logo.png}" />
         <p>アロハな気分をあなたにお届け！</p>
       </div>
     </footer>
