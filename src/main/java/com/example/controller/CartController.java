@@ -18,13 +18,17 @@ import com.example.domain.OrderTopping;
 import com.example.form.CartForm;
 import com.example.service.CartService;
 
+/**
+ * カートを操作するコントローラ.
+ * 
+ * @author atsushi.kikuchi
+ *
+ */
 @Controller
 @RequestMapping("/cart")
-public class CartController {
-
+public class CartController { 
 	
 	/** ダミーIDの上限 */
-	
 	final int MAX_DUMMY_ID = 1000000000;
 	
 	@Autowired
@@ -33,6 +37,12 @@ public class CartController {
 	@Autowired
 	private HttpSession session;
 	
+	/**
+	 * 商品を追加する.
+	 * 
+	 * @param form カートフォーム
+	 * @return カートリスト画面
+	 */
 	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
 		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
@@ -74,6 +84,12 @@ public class CartController {
 	}
 
 	
+	/**
+	 * カート内の商品を表示.
+	 * 
+	 * @param model
+	 * @return カートリスト画面
+	 */
 	@RequestMapping("/showCart")
 	public String showCartItem(Model model) {
 		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
@@ -93,6 +109,12 @@ public class CartController {
 		return "cart_list";
 	}
 	
+	/**
+	 * 商品を削除する.
+	 * 
+	 * @param orderItemId 注文商品ID
+	 * @return カートリスト画面
+	 */
 	@RequestMapping("/removeItem")
 	public String deleteItem(int orderItemId) {
 		cartService.removeOrderItem(orderItemId);
