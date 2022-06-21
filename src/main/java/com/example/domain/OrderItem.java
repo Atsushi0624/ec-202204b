@@ -1,7 +1,5 @@
 package com.example.domain;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -27,7 +25,7 @@ public class OrderItem {
 	/** アイテム情報 */
 	private Item item;
 	/** トッピングリスト */
-	private List<OrderTopping> orderTopping;
+	private List<OrderTopping> orderToppingList;
 	
 	public Integer getId() {
 		return id;
@@ -65,17 +63,17 @@ public class OrderItem {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	public List<OrderTopping> getOrderTopping() {
-		return orderTopping;
+	public List<OrderTopping> getOrderToppingList() {
+		return orderToppingList;
 	}
-	public void setOrderTopping(List<OrderTopping> orderTopping) {
-		this.orderTopping = orderTopping;
+	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
+		this.orderToppingList = orderToppingList;
 	}
 	
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", size=" + size + ", item=" + item + ", orderTopping=" + orderTopping + "]";
+				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
 	}
 	
 }
