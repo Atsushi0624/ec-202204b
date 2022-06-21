@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Customer;
 import com.example.domain.Order;
 import com.example.domain.OrderItem;
 import com.example.domain.OrderTopping;
@@ -45,8 +45,11 @@ public class CartController {
 	 */
 	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
-		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
 		Integer customerId = null;
+		Customer customer = (Customer)session.getAttribute("customer");
+		if(customer != null) {
+			customerId = customer.getId();			
+		}
 		if(customerId == null) {
 			customerId = getDummyCustomerId();
 		}
@@ -57,11 +60,14 @@ public class CartController {
 		form.setQuantity(2);
 		form.setSize("M");
 		List<Integer> list = new ArrayList<>();
-		list.add(4);
-		list.add(2);
 		form.setToppingIdList(list);
 		
 		int orderId = cartService.getOrCreateOrderId(customerId);
+		
+		// totalPriceの更新
+		Order order = cartService.getOrder(orderId);
+		order.setTotalPrice(order.getCalcTotalPrice());
+		cartService.update(order);
 		
 		// 注文商品情報を登録
 		OrderItem orderItem = new OrderItem();
@@ -92,8 +98,11 @@ public class CartController {
 	 */
 	@RequestMapping("/showCart")
 	public String showCartItem(Model model) {
-		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
 		Integer customerId = null;
+		Customer customer = (Customer)session.getAttribute("customer");
+		if(customer != null) {
+			customerId = customer.getId();			
+		}
 		if(customerId == null) {
 			customerId = getDummyCustomerId();
 		}
@@ -104,6 +113,8 @@ public class CartController {
 		// 商品リストがあるか判定
 		if(order.getOrderItemList().get(0).getId() != 0) {			
 			model.addAttribute("orderItemList", order.getOrderItemList());
+			model.addAttribute("totalPrice", order.getTax() + order.getCalcTotalPrice());
+			model.addAttribute("tax", order.getTax());
 		}
 		
 		return "cart_list";
@@ -117,7 +128,23 @@ public class CartController {
 	 */
 	@RequestMapping("/removeItem")
 	public String deleteItem(int orderItemId) {
+		Integer customerId = null;
+		Customer customer = (Customer)session.getAttribute("customer");
+		if(customer != null) {
+			customerId = customer.getId();			
+		}
+		if(customerId == null) {
+			customerId = getDummyCustomerId();
+		}
+		
+		int orderId = cartService.getOrCreateOrderId(customerId);
+		
 		cartService.removeOrderItem(orderItemId);
+		
+		// totalPriceの更新
+		Order order = cartService.getOrder(orderId);
+		order.setTotalPrice(order.getCalcTotalPrice());
+		cartService.update(order);
 		
 		return "redirect:/cart/showCart";
 	}

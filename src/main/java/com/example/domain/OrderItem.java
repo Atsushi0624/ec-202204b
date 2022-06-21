@@ -27,6 +27,22 @@ public class OrderItem {
 	/** トッピングリスト */
 	private List<OrderTopping> orderToppingList;
 	
+	public int getSubTotal() {
+		int toppingPrice = 0;
+		if(orderToppingList.size() != 0) {
+			if("M".equals(size)) {
+				toppingPrice = orderToppingList.size() * orderToppingList.get(0).getTopping().getPriceM();				
+			}else {
+				toppingPrice = orderToppingList.size() * orderToppingList.get(0).getTopping().getPriceL();				
+			}
+		}
+		
+		if("M".equals(size)) {
+			return (item.getPriceM() + toppingPrice) * quantity;			
+		}else {
+			return (item.getPriceL() + toppingPrice) * quantity;			
+		}
+	}
 	public Integer getId() {
 		return id;
 	}

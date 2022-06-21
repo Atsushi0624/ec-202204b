@@ -88,4 +88,13 @@ public class CartService {
 	public void removeOrderItem(int orderItemId) {
 		orderItemRepository.deleteById(orderItemId);
 	}
+	
+	/**
+	 * 注文情報を更新.
+	 * 
+	 * @param order
+	 */
+	public void update(Order order) {
+		orderRepository.update(order);
+	}
 }
