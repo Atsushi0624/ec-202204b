@@ -80,7 +80,7 @@
             th:action="@{/cart/addItem}"
             th:object="${cartForm}"
           >
-            <input type="hidden" th:value="${item.id}" />
+            <input type="hidden" name="itemId" th:value="${item.id}" />
             <div class="row item-detail">
               <div class="item-icon">
                 <img th:src="@{|/img/${item.imagePath}|}" />
