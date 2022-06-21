@@ -37,7 +37,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
-				.antMatchers("/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin").permitAll() // 「/」などのパスは全てのユーザに許可
+				.antMatchers("/show","/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin").permitAll() // 「/」などのパスは全てのユーザに許可
+
 				// .antMatchers("/admin/**").hasRole("ADMIN") //
 				// /admin/から始まるパスはADMIN権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
 				// .antMatchers("/user/**").hasRole("USER") //
@@ -59,7 +60,6 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/toLogin") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
 				.deleteCookies("JSESSIONID") // ログアウト後、Cookieに保存されているセッションIDを削除
 				.invalidateHttpSession(true); // true:ログアウト後、セッションを無効にする false:セッションを無効にしない
-
 		return http.build();
 	}
 
