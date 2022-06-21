@@ -44,7 +44,7 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
+            <a th:href="@{/show}">商品一覧</a>
             <a th:href="@{/registCustomer/toRegistration}">会員登録</a>
             <a th:href="@{/toLogin}" class="login">
               <i class="fas fa-sign-in-alt"></i>ログイン
@@ -66,16 +66,17 @@
                 </div>
               </div>
             </div>
-            <form
-              method="post"
-              th:action="@{/login}"
-              class="login-form"
-            >
+            <form method="post" th:action="@{/login}" class="login-form">
               <div class="row"></div>
               <div class="row">
                 <div class="input-field col s12">
                   <i class="material-icons prefix">mail_outline</i>
-                  <input name="email" id="email" class="validate" type="email" />
+                  <input
+                    name="email"
+                    id="email"
+                    class="validate"
+                    type="email"
+                  />
                   <label for="email" data-error="wrong" data-success="right"
                     >メールアドレス</label
                   >
