@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!--Import Google Icon Font-->
     <link
@@ -43,13 +43,24 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
-            <a href="register_admin.html">会員登録</a>
+            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/registCustomer/toRegistration}">会員登録</a>
             <a href="cart_list.html">
               <i class="fas fa-shopping-cart"> </i>カート
             </a>
-            <a href="login.html" class="login">
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
               <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
 
             <a href="order_history.html">注文履歴</a>
@@ -61,10 +72,15 @@
     <div class="search-wrapper">
       <div class="container">
         <form th:action="@{/show}" method="post" class="search-form">
-          <input type="text" name="itemName" class="search-name-input" th:value="${itemName}" />
+          <input
+            type="text"
+            name="itemName"
+            class="search-name-input"
+            th:value="${itemName}"
+          />
           <button class="btn search-btn" type="submit">
-            <span>検　索</span>
-          </button><br>
+            <span>検　索</span></button
+          ><br />
           <span th:text="${noItemMessage}"></span>
         </form>
       </div>
@@ -76,13 +92,18 @@
         <div class="items">
           <div class="item" th:each="item:${itemList}">
             <div class="item-icon">
-              <img th:src="@{|/img/${item.imagePath}|}" />
+              <a th:href="@{|/detail?id=${item.id}|}"><img th:src="@{|/img/${item.imagePath}|}" /></a>
             </div>
-            <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a><br />
-            <span class="price">Ｍ</span> <span th:text="${item.priceM}"></span>円(税抜)<br />
-            <span class="price">Ｌ</span> <span th:text="${item.priceL}"></span>円(税抜)<br />
+            <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a
+            ><br />
+            <span class="price">Ｍ</span>
+            <span th:text="${item.priceM}"></span>円(税抜)<br />
+            <span class="price">Ｌ</span>
+            <span th:text="${item.priceL}"></span>円(税抜)<br />
           </div>
-
+        </div>
+      </div>
+    </div>
 
     <footer>
       <div class="container">
