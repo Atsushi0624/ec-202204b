@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.Order;
+import com.example.form.ExecOrderForm;
 
 @Controller
 @RequestMapping("")
@@ -14,8 +14,7 @@ public class ExecOrderController {
 
   @RequestMapping("/exec_order")
   public String execOrder(ExecOrderForm form) {
-    Order order = execOrderService.getOrder(orderId);
-    order.setDestinationName(form.);
-    execOrderService.execOrder(order);
+
+    return "order_finish";
   }
 }

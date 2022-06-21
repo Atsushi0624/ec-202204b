@@ -11,11 +11,11 @@ public class ExecOrderService {
   @Autowired
   private OrderRepository orderRepository;
 
-  public String execOrder(Order order) {
-    return orderRepository.update(order);
+  public void execOrder(Order order) {
+    orderRepository.update(order);
   }
 
-  public String getOrder(Integer orderId) {
+  public Order getOrder(Integer orderId) {
     return orderRepository.load(orderId);
   }
 }
