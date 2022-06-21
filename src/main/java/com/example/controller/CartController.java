@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +44,7 @@ public class CartController {
 	 */
 	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
+		System.out.println(form);
 		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
 		Integer customerId = null;
 		if(customerId == null) {
