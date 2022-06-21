@@ -1,8 +1,9 @@
 package com.example.repository;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.OrderTopping;
@@ -16,18 +17,23 @@ import com.example.domain.OrderTopping;
 @Repository
 public class OrderToppingRepository {
 
+	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	private static final RowMapper<OrderTopping> ORDER_TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderTopping.class);
-	
 	/**
-	 * 注文トッピング情報を挿入し、採番されたIDを返す.
+	 * 注文トッピング情報を挿入する.
 	 * 
 	 * @param orderItem 注文商品情報
 	 * @return オーダートッピングID
 	 */
-	public Integer insert(OrderTopping orderTopping) {
-		return null;
+	public void insert(OrderTopping orderTopping) {
+		String sql = "INSERT INTO order_toppings "
+				+ "(topping_id, order_item_id) VALUES "
+				+ " (:toppingId, :orderItemId);";
+		
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
+		
+		template.update(sql, param);
 	}
 	
 	

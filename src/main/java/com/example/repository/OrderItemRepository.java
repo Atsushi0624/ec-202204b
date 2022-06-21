@@ -1,8 +1,12 @@
 package com.example.repository;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.OrderItem;
@@ -16,9 +20,8 @@ import com.example.domain.OrderItem;
 @Repository
 public class OrderItemRepository {
 	
+	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
-	private static final RowMapper<OrderItem> ORDER_ITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderItem.class);
 	
 	/**
 	 * 注文商品情報を挿入し、採番されたIDを返す.
@@ -27,7 +30,18 @@ public class OrderItemRepository {
 	 * @return オーダーアイテムID
 	 */
 	public Integer insert(OrderItem orderItem) {
-		return null;
+		String sql = "INSERT INTO order_items "
+				+ "(item_id, order_id, quantity, size) VALUES "
+				+ " (:itemId, :orderId, :quantity, :size);";
+		
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = {"id"};
+		
+		template.update(sql, param, keyHolder, keyColumnNames);
+		
+		return keyHolder.getKey().intValue();
 	}
 	
 	/**
@@ -36,5 +50,10 @@ public class OrderItemRepository {
 	 * @param id ID
 	 */
 	public void deleteById(Integer id) {
+		String sql = "DELETE FROM order_items WHERE id = :id;";
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		
+		template.update(sql, param);
 	}
 }
