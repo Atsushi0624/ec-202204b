@@ -1,8 +1,10 @@
 package com.example.repository;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.OrderTopping;
@@ -18,8 +20,6 @@ public class OrderToppingRepository {
 
 	private NamedParameterJdbcTemplate template;
 	
-	private static final RowMapper<OrderTopping> ORDER_TOPPING_ROW_MAPPER = new BeanPropertyRowMapper<>(OrderTopping.class);
-	
 	/**
 	 * 注文トッピング情報を挿入し、採番されたIDを返す.
 	 * 
@@ -27,7 +27,18 @@ public class OrderToppingRepository {
 	 * @return オーダートッピングID
 	 */
 	public Integer insert(OrderTopping orderTopping) {
-		return null;
+		String sql = "INSERT INTO order_toppings "
+				+ "(topping_id, order_item_id) VALUES "
+				+ " (:toppingId, :orderItemId);";
+		
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String[] keyColumnNames = {"id"};
+		
+		template.update(sql, param, keyHolder, keyColumnNames);
+		
+		return keyHolder.getKey().intValue();
 	}
 	
 	
