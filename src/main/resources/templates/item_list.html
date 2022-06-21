@@ -43,7 +43,7 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
+            <a th:href="@{/show}">商品一覧</a>
             <a href="register_admin.html">会員登録</a>
             <a href="cart_list.html">
               <i class="fas fa-shopping-cart"> </i>カート
@@ -76,7 +76,7 @@
         <div class="items">
           <div class="item" th:each="item:${itemList}">
             <div class="item-icon">
-              <img th:src="@{|/img/${item.imagePath}|}" />
+              <a th:href="@{|/detail?id=${item.id}|}"><img th:src="@{|/img/${item.imagePath}|}" /></a>
             </div>
             <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a><br />
             <span class="price">Ｍ</span> <span th:text="${item.priceM}"></span>円(税抜)<br />

@@ -16,17 +16,17 @@
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/register_admin.css" />
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="stylesheet" href="css/item_list.css" />
-    <link rel="stylesheet" href="css/item_detail.css" />
-    <link rel="stylesheet" href="css/cart_list.css" />
-    <link rel="stylesheet" href="css/order_confirm.css" />
-    <link rel="stylesheet" href="css/order_finished.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +43,7 @@
           </div>
 
           <div class="header-right">
-            <a href="item_list.html">商品一覧</a>
+            <a th:href="@{/show}">商品一覧</a>
             <a href="register_admin.html">会員登録</a>
             <a href="cart_list.html">
               <i class="fas fa-shopping-cart"> </i>カート
@@ -110,16 +110,17 @@
           <div class="row item-toppings">
             <div class="item-hedding">
               トッピング：&nbsp;1つにつき
-              <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;200円(税抜)
-              <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
+              <span>&nbsp;Ｍ&nbsp;</span>&nbsp;&nbsp;<span
+                th:text="${item.toppingList[0].priceM}"
+              ></span
+              >円(税抜) <span>&nbsp;Ｌ</span>&nbsp;&nbsp;<span
+                th:text="${item.toppingList[0].priceL}"
+              ></span
+              >円(税抜)
             </div>
             <div id="topping">
               <label class="item-topping" th:each="topping:${item.toppingList}">
-                <input
-                  type="checkbox"
-                  class="checkbox"
-                  th:value="${topping.id}"
-                />
+                <input type="checkbox" class="checkbox" />
                 <span th:text="${topping.name}">ハワイアンソルト</span>
               </label>
             </div>
@@ -128,7 +129,7 @@
             <div class="item-hedding item-hedding-quantity">数量</div>
             <div class="item-quantity-selectbox">
               <div class="input-field col s12">
-                <select class="browser-default" id="pizanum">
+                <select class="browser-default" id="num">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -173,6 +174,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- 合計金額を表示する -->
     <script th:inline="javascript">
       ("use strict");
       $(function () {
@@ -185,7 +188,7 @@
           calc_price();
         });
 
-        $("#pizanum").on("change", function () {
+        $("#num").on("change", function () {
           calc_price();
         });
 
@@ -194,19 +197,21 @@
           let size = $(".size:checked").val();
           let topping_count = 0;
           topping_count = $("#topping input:checkbox:checked").length;
-          let piza_num = $("#pizanum").val();
+          let num = $("#num").val();
           let size_price = 0;
           let topping_price = 0;
           let size_priceM = /*[[${item.priceM}]]*/ "M";
           let size_priceL = /*[[${item.priceL}]]*/ "L";
+          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ "M";
+          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ "L";
           if (size === "M") {
             size_price = size_priceM;
-            topping_price = 200 * topping_count;
+            topping_price = topping_priceM * topping_count;
           } else {
             size_price = size_priceL;
-            topping_price = 300 * topping_count;
+            topping_price = topping_priceL * topping_count;
           }
-          let price = (size_price + topping_price) * piza_num;
+          let price = (size_price + topping_price) * num;
           $("#totalprice").text(price.toLocaleString());
         }
       });
