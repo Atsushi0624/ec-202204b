@@ -43,4 +43,8 @@ public class LoginService implements UserDetailsService {
 //		}
 		return new LoginCustomer(customer, authorityList);
 	}
+	
+	public void updateCustomerId() {
+		
+	}
 }
