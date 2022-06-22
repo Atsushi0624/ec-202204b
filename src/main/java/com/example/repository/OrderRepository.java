@@ -176,7 +176,7 @@ public class OrderRepository {
 				+ "ON oi.id = ot.order_item_id "
 				+ "LEFT JOIN toppings AS t "
 				+ "ON ot.topping_id = t.id "
-				+ "WHERE o.user_id = :customerId "
+				+ "WHERE o.user_id = :customerId AND status != 0"
 				+ "ORDER BY o.id, oi.id, ot.id;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("customerId", customerId);
