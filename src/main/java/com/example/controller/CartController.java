@@ -113,6 +113,7 @@ public class CartController {
 			model.addAttribute("totalPrice", order.getTax() + order.getCalcTotalPrice());
 			model.addAttribute("tax", order.getTax());
 		}
+		model.addAttribute("orderId", order.getId());
 		
 		return "cart_list";
 	}

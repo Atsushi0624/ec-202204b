@@ -38,7 +38,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
 
-				.antMatchers("/show", "/detail", "/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin", "/cart/addItem", "/cart/showCart", "cart/removeItem")
+				.antMatchers("/show", "/detail", "/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin", "/cart/addItem", "/cart/showCart", "/cart/removeItem","/confirmOrder")
 				.permitAll() // 「/」などのパスは全てのユーザに許可
 
 				// .antMatchers("/admin/**").hasRole("ADMIN") //
