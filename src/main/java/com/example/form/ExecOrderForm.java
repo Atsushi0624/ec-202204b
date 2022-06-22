@@ -1,7 +1,11 @@
 package com.example.form;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.List;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * 注文フォーム
@@ -10,134 +14,103 @@ import java.sql.Timestamp;
  *
  */
 public class ExecOrderForm {
-  /** id */
-  private Integer id;
-  /** 顧客id */
-  private Integer customerId;
-  /** 顧客の状態 */
-  private Integer status;
-  /** 合計金額 */
-  private Integer totalPrice;
-  /** 注文日 */
-  private Date orderDate;
-  /** 宛先氏名 */
-  private String destinationName;
-  /** 宛先Eメール */
-  private String destinationEmail;
-  /** 宛先郵便番号 */
-  private String destinationZipcode;
-  /** 宛先住所 */
-  private String destinationAddress;
-  /** 宛先電話番号 */
-  private String destinationTel;
-  /** 配達時間 */
-  private Timestamp deliveryTime;
-  /** 支払い方法 */
-  private Integer paymentMethod;
+	/** id */
+	private Integer orderId;
+	/** 宛先氏名 */
+	@NotBlank(message = "名前を入力してください")
+	private String destinationName;
+	/** 宛先Eメール */
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "メールアドレスの形式が不正です")
+	private String destinationEmail;
+	/** 宛先郵便番号 */
+	@NotBlank(message = "郵便番号を入力してください")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
+	private String destinationZipcode;
+	/** 宛先住所 */
+	@NotBlank(message = "住所を入力してください")
+	private String destinationAddress;
+	/** 宛先電話番号 */
+	@NotBlank(message = "電話番号を入力してください")
+	@Pattern(regexp = "^[0-9]{4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
+	private String destinationTel;
+	/** 配達日時 */
+	@NotNull
+	private List<String> deliveryTimeList;
+	/** 支払い方法 */
+	@NotNull(message = "支払方法を選択してください")
+	private Integer paymentMethod;
 
-  public Integer getId() {
-    return id;
-  }
+	public Integer getOrderId() {
+		return orderId;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
 
-  public Integer getCustomerId() {
-    return customerId;
-  }
+	public String getDestinationName() {
+		return destinationName;
+	}
 
-  public void setCustomerId(Integer customerId) {
-    this.customerId = customerId;
-  }
+	public void setDestinationName(String destinationName) {
+		this.destinationName = destinationName;
+	}
 
-  public Integer getStatus() {
-    return status;
-  }
+	public String getDestinationEmail() {
+		return destinationEmail;
+	}
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
+	public void setDestinationEmail(String destinationEmail) {
+		this.destinationEmail = destinationEmail;
+	}
 
-  public Integer getTotalPrice() {
-    return totalPrice;
-  }
+	public String getDestinationZipcode() {
+		return destinationZipcode;
+	}
 
-  public void setTotalPrice(Integer totalPrice) {
-    this.totalPrice = totalPrice;
-  }
+	public void setDestinationZipcode(String destinationZipcode) {
+		this.destinationZipcode = destinationZipcode;
+	}
 
-  public Date getOrderDate() {
-    return orderDate;
-  }
+	public String getDestinationAddress() {
+		return destinationAddress;
+	}
 
-  public void setOrderDate(Date orderDate) {
-    this.orderDate = orderDate;
-  }
+	public void setDestinationAddress(String destinationAddress) {
+		this.destinationAddress = destinationAddress;
+	}
 
-  public String getDestinationName() {
-    return destinationName;
-  }
+	public String getDestinationTel() {
+		return destinationTel;
+	}
 
-  public void setDestinationName(String destinationName) {
-    this.destinationName = destinationName;
-  }
+	public void setDestinationTel(String destinationTel) {
+		this.destinationTel = destinationTel;
+	}
 
-  public String getDestinationEmail() {
-    return destinationEmail;
-  }
+	public List<String> getDeliveryTimeList() {
+		return deliveryTimeList;
+	}
 
-  public void setDestinationEmail(String destinationEmail) {
-    this.destinationEmail = destinationEmail;
-  }
+	public void setDeliveryTimeList(List<String> deliveryTimeList) {
+		this.deliveryTimeList = deliveryTimeList;
+	}
 
-  public String getDestinationZipcode() {
-    return destinationZipcode;
-  }
+	public Integer getPaymentMethod() {
+		return paymentMethod;
+	}
 
-  public void setDestinationZipcode(String destinationZipcode) {
-    this.destinationZipcode = destinationZipcode;
-  }
+	public void setPaymentMethod(Integer paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-  public String getDestinationAddress() {
-    return destinationAddress;
-  }
-
-  public void setDestinationAddress(String destinationAddress) {
-    this.destinationAddress = destinationAddress;
-  }
-
-  public String getDestinationTel() {
-    return destinationTel;
-  }
-
-  public void setDestinationTel(String destinationTel) {
-    this.destinationTel = destinationTel;
-  }
-
-  public Timestamp getDeliveryTime() {
-    return deliveryTime;
-  }
-
-  public void setDeliveryTime(Timestamp deliveryTime) {
-    this.deliveryTime = deliveryTime;
-  }
-
-  public Integer getPaymentMethod() {
-    return paymentMethod;
-  }
-
-  public void setPaymentMethod(Integer paymentMethod) {
-    this.paymentMethod = paymentMethod;
-  }
-
-  @Override
-  public String toString() {
-    return "ExecOrderForm [customerId=" + customerId + ", deliveryTime=" + deliveryTime + ", destinationAddress="
-        + destinationAddress + ", destinationEmail=" + destinationEmail + ", destinationName=" + destinationName
-        + ", destinationTel=" + destinationTel + ", destinationZipcode=" + destinationZipcode + ", id=" + id
-        + ", orderDate=" + orderDate + ", paymentMethod=" + paymentMethod + ", status=" + status + ", totalPrice="
-        + totalPrice + "]";
-  }
+	@Override
+	public String toString() {
+		return "ExecOrderForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
+				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTimeList=" + deliveryTimeList
+				+ ", paymentMethod=" + paymentMethod + "]";
+	}
 
 }

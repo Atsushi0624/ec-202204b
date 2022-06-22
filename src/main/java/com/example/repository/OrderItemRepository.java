@@ -56,4 +56,21 @@ public class OrderItemRepository {
 		
 		template.update(sql, param);
 	}
+	
+	/**
+	 * orderIDを更新.
+	 * 注. 新しいオーダーIDを古いオーダーIDに合わせる
+	 * ログイン時に既に未注文の商品があった場合に使用
+	 * 
+	 * @param oldOrderId 古いオーダーID
+	 * @param newOrderId 新しいオーダーID
+	 */
+	public void updateCustomerId(Integer oldOrderId, Integer newOrderId) {
+		String sql = "UPDATE order_items SET order_id = :oldOrderId "
+				+ "WHERE order_id = :newOrderId;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("oldOrderId", oldOrderId).addValue("newOrderId", newOrderId);
+
+		template.update(sql, param);
+	}
 }
