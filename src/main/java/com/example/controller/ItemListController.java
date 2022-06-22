@@ -27,10 +27,11 @@ public class ItemListController {
 	 * 
 	 * @param model    モデル
 	 * @param itemName 検索する商品名
+	 * @param sortKey 並び順を制御するリクエストパラメータ
 	 * @return 商品一覧
 	 */
 	@RequestMapping("/show")
-	public String showList(Model model, String itemName) {
+	public String showList(Model model, String itemName, String sortKey) {
 		List<Item> itemList = null;
 		if (itemName != null) {
 			itemList = itemListService.searchByName(itemName);
@@ -39,7 +40,18 @@ public class ItemListController {
 				itemList = itemListService.findAll();
 			}
 		} else {
-			itemList = itemListService.findAll();
+			// 最初のページ表示時や不正なリクエストパラメータの時はデフォルトの並び順で表示させる
+			if (sortKey == null) {
+				itemList = itemListService.findAll();
+			} else {
+				if (sortKey.equals("evaluation")) {
+					itemList = itemListService.findAllSortedByEval();
+				} else if (sortKey.equals("sales")) {
+					itemList = itemListService.findAllSortedBySales();
+				} else {
+					itemList = itemListService.findAll();
+				}
+			}
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";

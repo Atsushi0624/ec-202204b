@@ -28,6 +28,26 @@ public class ItemListService {
 		List<Item> itemList = itemRepository.findAll();
 		return itemList;
 	}
+	
+	/**
+	 * 商品を売上個数順で全件取得する.
+	 * 
+	 * @return 商品一覧
+	 */
+	public List<Item> findAllSortedBySales() {
+		List<Item> itemList = itemRepository.findAllSortedBySales();
+		return itemList;
+	}
+	
+	/**
+	 * 商品を評価順で全件取得する.
+	 * 
+	 * @return 商品一覧
+	 */
+	public List<Item> findAllSortedByEval() {
+		List<Item> itemList = itemRepository.findAllSortedByEval();
+		return itemList;
+	}
 
 	/**
 	 * 検索された商品を取得する.

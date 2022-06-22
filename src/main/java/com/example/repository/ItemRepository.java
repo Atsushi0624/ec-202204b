@@ -19,6 +19,10 @@ import com.example.domain.Topping;
  * @author ryosuke.moritani
  *
  */
+/**
+ * @author nao.yamada
+ *
+ */
 @Repository
 public class ItemRepository {
 	@Autowired
@@ -75,5 +79,33 @@ public class ItemRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
+	}
+
+	/**
+	 * 商品を売り上げ個数順で取得します.
+	 * 
+	 * @return
+	 */
+	public List<Item> findAllSortedBySales() {
+		String sql = "SELECT i.id, i.name, i.description, i.image_path, i.price_m, i.price_l, i.deleted,"
+				+ "sum((case when oi.quantity is null then 0 else oi.quantity end)) as sales "
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
+				+ "ORDER BY sales desc;";
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+
+	/**
+	 * 商品を評価順で取得します.
+	 * 
+	 * @return
+	 */
+	public List<Item> findAllSortedByEval() {
+		String sql = "SELECT " + "i.id, i.name, i.description, i.image_path, i.price_m, i.price_l, i.deleted,"
+				+ "avg(oi.evaluation) as evaluation "
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id = i.id " + "group by i.id "
+				+ "ORDER BY evaluation desc NULLS last";
+		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
+		return itemList;
 	}
 }
