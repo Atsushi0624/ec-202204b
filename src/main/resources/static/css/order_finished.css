@@ -7,3 +7,7 @@
 .order-finished-btn {
   text-align: center;
 }
+
+.btn a {
+  color: #fff;
+}
