@@ -19,10 +19,6 @@ import com.example.domain.Topping;
  * @author ryosuke.moritani
  *
  */
-/**
- * @author nao.yamada
- *
- */
 @Repository
 public class ItemRepository {
 	@Autowired
