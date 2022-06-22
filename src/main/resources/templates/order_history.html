@@ -27,6 +27,7 @@
     <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
     <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
     <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_history.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -86,7 +87,32 @@
 
         <div th:if="${orderList != null}">
           <!-- table -->
-          <div th:each="order: ${orderList}">
+          <div class="z-depth-3" th:each="order: ${orderList}">
+            <div class="order-info">
+              <table>
+                <tr>
+                  <th>ご注文日</th>
+                  <th>宛先名</th>
+                  <th>宛先住所</th>
+                  <th>お支払い方法</th>
+                  <th>合計金額</th>
+                </tr>
+                <tr>
+                  <td
+                    th:text="${#dates.format(order.orderDate, 'yyyy年MM月dd日')}"
+                  ></td>
+                  <td th:text="${order.destinationName}"></td>
+                  <td th:text="${order.destinationAddress}"></td>
+                  <td th:if="${order.paymentMethod == 1}">代金引換</td>
+                  <td th:if="${order.paymentMethod == 2}">
+                    クレジットカード決済
+                  </td>
+                  <td
+                    th:text="${#numbers.formatInteger(order.getCalcTotalPrice() + order.getTax(),1,'COMMA') + '円（税込み）'}"
+                  ></td>
+                </tr>
+              </table>
+            </div>
             <div class="row">
               <table class="striped">
                 <thead>
@@ -154,22 +180,6 @@
                 </tbody>
               </table>
             </div>
-            <div class="row cart-total-price">
-              <div
-                th:text="'消費税' + ${#numbers.formatInteger(tax,1,'COMMA') + '円'}"
-              ></div>
-              <div
-                th:text="'ご注文合計金額' + ${#numbers.formatInteger(totalPrice,1,'COMMA') + '円（税込み）'}"
-              ></div>
-            </div>
-          </div>
-          <div class="row order-confirm-btn">
-            <form method="post" th:action="@{/confirmOrder}">
-              <input type="hidden" name="toOrderConfirm" value="1" />
-              <button class="btn" type="submit">
-                <span>注文に進む</span>
-              </button>
-            </form>
           </div>
         </div>
       </div>
