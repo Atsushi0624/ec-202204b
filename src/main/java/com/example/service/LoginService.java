@@ -54,6 +54,13 @@ public class LoginService implements UserDetailsService {
 		return new LoginCustomer(customer, authorityList);
 	}
 	
+	/**
+	 * ダミー顧客IDを正規の顧客IDに更新する処理.
+	 * 未注文のオーダーが既に存在するかどうかで処理が変わる
+	 * 
+	 * @param dummyCustomerId ダミー顧客ID
+	 * @param customerId 正規の顧客ID
+	 */
 	public void updateCustomerId(Integer dummyCustomerId, Integer customerId) {
 		Integer orderId = orderRepository.findOrderIdByStatusAndUserId(0, customerId);
 		if(orderId == null) {
