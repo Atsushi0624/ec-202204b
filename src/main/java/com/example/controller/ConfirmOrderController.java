@@ -13,6 +13,12 @@ import com.example.domain.Order;
 import com.example.form.ExecOrderForm;
 import com.example.service.CartService;
 
+/**
+ * 注文確認画面を操作するコントローラ.
+ * 
+ * @author nao.yamada
+ *
+ */
 @Controller
 @RequestMapping("")
 public class ConfirmOrderController {
@@ -33,6 +39,14 @@ public class ConfirmOrderController {
 		return new ExecOrderForm();
 	}
 
+	/**
+	 * 注文確認を表示します.
+	 * ログインされていない状態ではログイン画面に遷移します
+	 * 
+	 * @param toOrderConfirm ログインされているかを制御する（nullのときログインされていない）
+	 * @param model リクエストスコープ用
+	 * @return　注文確認画面
+	 */
 	@RequestMapping("/confirmOrder")
 	public String toOrderConfirm(Integer toOrderConfirm, Model model) {
 		// ログインされていない状態でははじく

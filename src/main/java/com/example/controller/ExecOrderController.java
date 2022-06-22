@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -23,6 +22,12 @@ import com.example.domain.Order;
 import com.example.form.ExecOrderForm;
 import com.example.service.ExecOrderService;
 
+/**
+ * 注文をそ操作するコントローラ.
+ * 
+ * @author nao.yamada
+ *
+ */
 @Controller
 @RequestMapping("")
 public class ExecOrderController {
@@ -36,24 +41,38 @@ public class ExecOrderController {
 	@Autowired
 	private ConfirmOrderController confirmOrderController;
 
+	/**
+	 * 注文フォームの用意.
+	 * 
+	 * @return 注文フォーム
+	 */
 	@ModelAttribute
 	public ExecOrderForm setUpExecOrderForm() {
 		return new ExecOrderForm();
 	}
 
+	/**
+	 * 注文を実行します.
+	 * 
+	 * @param form　注文フォーム
+	 * @param result 入力値チェック用のBindingResult
+	 * @param model 注文確認画面に戻るメソッドの引数に使用
+	 * @return 注文完了画面
+	 */
 	@RequestMapping("/exec_order")
-	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model) throws ParseException {
-		// 配達日時のチェック
-		String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1);
-		LocalDateTime deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-		System.out.println(strDeliveryTime);
-		System.out.println(deliveryTime);
-		System.out.println(deliveryTime.minusHours(3));
-		System.out.println(deliveryTime);
-		deliveryTime.minusHours(3);
-		if(LocalDateTime.now().isBefore(deliveryTime.minusHours(3))) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "今から3時間以後の日時をご入力ください");
-			result.addError(fieldError);
+	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model){
+		LocalDateTime deliveryTime = null;
+		if (form.getDeliveryTimeList().size() == 2) { // form.getDeliveryTimeList()は日にちと時間がListで入っているので両方入っているか確認する
+			// 配達日時のチェック
+			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) +":00:00";
+			deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			if(LocalDateTime.now().isBefore(deliveryTime.minusHours(3))) {
+				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "今から3時間以後の日時をご入力ください");
+				result.addError(fieldError);
+			}
+		}else {
+				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "配達日時を選択してください");
+				result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
 			return confirmOrderController.toOrderConfirm(1, model);
@@ -78,7 +97,6 @@ public class ExecOrderController {
 
 		// 注文日に現在の日時を入れる
 		order.setOrderDate(new Date());
-		System.out.println(order);
 		execOrderService.execOrder(order);
 		return "order_finished";
 	}

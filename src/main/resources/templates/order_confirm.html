@@ -183,7 +183,6 @@
                   th:field="*{destinationZipcode}"
                   id="zipcode"
                   type="text"
-                  maxlength="7"
                 />
                 <label for="zipcode">郵便番号</label>
                 <button class="btn" type="button">
@@ -307,7 +306,7 @@
 
           <h2 class="page-title">お支払い方法</h2>
           <div class="row order-confirm-payment-method">
-            <div th:errors="*{}" class="error"></div>
+            <div th:errors="*{paymentMethod}" class="error"></div>
             <span>
               <label class="order-confirm-payment-method-radio">
                 <input
