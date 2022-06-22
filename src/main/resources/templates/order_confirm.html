@@ -37,7 +37,7 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a th:href="@{/show}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
@@ -144,7 +144,8 @@
 
         <div class="row cart-total-price">
           <div
-            th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA') + '円'}">
+            th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA') + '円'}"
+          >
             消費税：8,000円
           </div>
           <div
@@ -154,13 +155,12 @@
           </div>
         </div>
 
-        <form method="post" th:action="@{/exec_order}" th:object="${execOrderForm}">
-          
-          <input
-            type="hidden"
-            name="orderId"
-            th:value="${order.getId()}"
-          />
+        <form
+          method="post"
+          th:action="@{/exec_order}"
+          th:object="${execOrderForm}"
+        >
+          <input type="hidden" name="orderId" th:value="${order.getId()}" />
           <h2 class="page-title">お届け先情報</h2>
           <div class="order-confirm-delivery-info">
             <div class="row">
@@ -207,7 +207,11 @@
             </div>
             <div class="row order-confirm-delivery-datetime">
               <div class="input-field">
-                <input th:field="*{deliveryTimeList}" id="deliveryDate" type="date" />
+                <input
+                  th:field="*{deliveryTimeList}"
+                  id="deliveryDate"
+                  type="date"
+                />
                 <label for="address">配達日時</label>
               </div>
               <label class="order-confirm-delivery-time">
@@ -291,11 +295,10 @@
                   value="18"
                 />
                 <span>18時</span>
-                <input type="datetime-local" step="3000">
+                <input type="datetime-local" step="3000" />
               </label>
             </div>
           </div>
-          
 
           <h2 class="page-title">お支払い方法</h2>
           <div class="row order-confirm-payment-method">

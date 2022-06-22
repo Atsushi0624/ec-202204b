@@ -37,7 +37,7 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a th:href="@{/show}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
@@ -87,7 +87,7 @@
             type="button"
             onclick="location.href='item_list.html'"
           >
-            <span>トップ画面を表示する</span>
+            <span><a th:href="@{/show}">トップ画面を表示する</a></span>
           </button>
         </div>
       </div>
