@@ -176,6 +176,28 @@
                         >300円</span
                       >
                     </td>
+                    <td>
+                      <div class="rating">
+                        <input class="rating__input hidden--visually" type="radio" id="5-star" name="rating" value="5" required />
+                        <label class="rating__label" for="5-star" title="星5つ"><span class="rating__icon" aria-hidden="true"></span><span class="hidden--visually">星5つ</span></label>
+                        <input class="rating__input hidden--visually" type="radio" id="4-star" name="rating" value="4" />
+                        <label class="rating__label" for="4-star" title="星4つ"><span class="rating__icon" aria-hidden="true"></span><span class="hidden--visually">星4つ</span></label>
+                        <input class="rating__input hidden--visually" type="radio" id="3-star" name="rating" value="3" />
+                        <label class="rating__label" for="3-star" title="星3つ"><span class="rating__icon" aria-hidden="true"></span><span class="hidden--visually">星3つ</span></label>
+                        <input class="rating__input hidden--visually" type="radio" id="2-star" name="rating" value="2" />
+                        <label class="rating__label" for="2-star" title="星2つ"><span class="rating__icon" aria-hidden="true"></span><span class="hidden--visually">星2つ</span></label>
+                        <input class="rating__input hidden--visually" type="radio" id="1-star" name="rating" value="1" />
+                        <label class="rating__label" for="1-star" title="星1つ"><span class="rating__icon" aria-hidden="true"></span><span class="hidden--visually">星1つ</span></label>
+                      </div>
+                      <form th:action="@{/cart/removeItem}" method="post">
+                      <input
+                        type="hidden"
+                        name="orderItemId"
+                        th:value="${orderItem.id}"
+                      />
+                      <button class="btn">評価</button>
+                    </form>
+                    </td>
                   </tr>
                 </tbody>
               </table>

@@ -8,3 +8,43 @@
   font-size: 15px;
   width: 800px;
 }
+
+.rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+}
+
+.hidden--visually {
+    border: 0;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* ここでデザインの変更 */
+
+.rating__label {
+  cursor: pointer;
+  color: gray;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.rating__icon::before {
+  content: "★";
+  font-size: 20px;
+  padding: 1px;
+}
+
+.rating__input:hover ~ .rating__label {
+  color: lightgray;
+}
+
+.rating__input:checked ~ .rating__label {
+  color: #ffbb00;
+}
