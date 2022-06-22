@@ -45,8 +45,8 @@ public class Order {
 	 * 
 	 * @return 消費税
 	 */
-	public double getTax() {
-		return (double)totalPrice * 0.1;
+	public int getTax() {
+		return (int)(getCalcTotalPrice() * 0.1);
 	}
 	
 	/**

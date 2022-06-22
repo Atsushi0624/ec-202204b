@@ -199,7 +199,7 @@ public class OrderRepository {
 		template.update(sql, param);
 
 	}
-
+	
 	/**
 	 * 注文情報を更新.
 	 * 
