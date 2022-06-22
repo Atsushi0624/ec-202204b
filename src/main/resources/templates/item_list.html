@@ -81,7 +81,11 @@
             name="itemName"
             class="search-name-input"
             th:value="${itemName}"
+            list="itemList"
           />
+          <datalist id="itemList">
+            <option th:each="item:${itemList}" th:value="${item.name}"></option>
+          </datalist>
           <button class="btn search-btn" type="submit">
             <span>検　索</span></button
           ><br />
