@@ -113,7 +113,6 @@
                   <ul th:each="orderTopping: ${orderItem.orderToppingList}">
                     <li>
                       <span th:text="${orderTopping.topping.name}"></span>
-
                       <span
                         th:if="${orderItem.size=='M'}"
                         th:text="${#numbers.formatInteger(orderTopping.topping.priceM,1,'COMMA') + '円'}"
@@ -165,18 +164,21 @@
           <div class="order-confirm-delivery-info">
             <div class="row">
               <div class="input-field">
+                <div th:errors="*{destinationName}" class="error"></div>
                 <input th:field="*{destinationName}" id="name" type="text" />
                 <label for="name">お名前</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
+                <div th:errors="*{destinationEmail}" class="error"></div>
                 <input th:field="*{destinationEmail}" id="email" type="email" />
                 <label for="email">メールアドレス</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
+                <div th:errors="*{destinationZipcode}" class="error"></div>
                 <input
                   th:field="*{destinationZipcode}"
                   id="zipcode"
@@ -191,6 +193,7 @@
             </div>
             <div class="row">
               <div class="input-field">
+                <div th:errors="*{destinationAddress}" class="error"></div>
                 <input
                   th:field="*{destinationAddress}"
                   id="address"
@@ -201,12 +204,14 @@
             </div>
             <div class="row">
               <div class="input-field">
+                <div th:errors="*{destinationTel}" class="error"></div>
                 <input th:field="*{destinationTel}" id="tel" type="tel" />
                 <label for="tel">電話番号</label>
               </div>
             </div>
             <div class="row order-confirm-delivery-datetime">
               <div class="input-field">
+                <div th:errors="*{deliveryTimeList}" class="error"></div>
                 <input
                   th:field="*{deliveryTimeList}"
                   id="deliveryDate"
@@ -295,13 +300,14 @@
                   value="18"
                 />
                 <span>18時</span>
-                <input type="datetime-local" step="3000" />
+
               </label>
             </div>
           </div>
 
           <h2 class="page-title">お支払い方法</h2>
           <div class="row order-confirm-payment-method">
+            <div th:errors="*{}" class="error"></div>
             <span>
               <label class="order-confirm-payment-method-radio">
                 <input

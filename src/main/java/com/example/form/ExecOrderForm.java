@@ -32,7 +32,7 @@ public class ExecOrderForm {
 	private String destinationAddress;
 	/** 宛先電話番号 */
 	@NotBlank(message = "電話番号を入力してください")
-	@Pattern(regexp = "^[0-9]{4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
+	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String destinationTel;
 	/** 配達日時 */
 	@NotNull

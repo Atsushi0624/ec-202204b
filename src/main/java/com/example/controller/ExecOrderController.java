@@ -2,7 +2,8 @@ package com.example.controller;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,6 +32,9 @@ public class ExecOrderController {
 
 	@Autowired
 	ExecOrderService execOrderService;
+	
+	@Autowired
+	private ConfirmOrderController confirmOrderController;
 
 	@ModelAttribute
 	public ExecOrderForm setUpExecOrderForm() {
@@ -34,7 +42,23 @@ public class ExecOrderController {
 	}
 
 	@RequestMapping("/exec_order")
-	public String execOrder(ExecOrderForm form) throws ParseException {
+	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model) throws ParseException {
+		// 配達日時のチェック
+		String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1);
+		LocalDateTime deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		System.out.println(strDeliveryTime);
+		System.out.println(deliveryTime);
+		System.out.println(deliveryTime.minusHours(3));
+		System.out.println(deliveryTime);
+		deliveryTime.minusHours(3);
+		if(LocalDateTime.now().isBefore(deliveryTime.minusHours(3))) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "今から3時間以後の日時をご入力ください");
+			result.addError(fieldError);
+		}
+		if (result.hasErrors()) {
+			return confirmOrderController.toOrderConfirm(1, model);
+		}
+
 		Order order = execOrderService.getOrder(form.getOrderId());
 		BeanUtils.copyProperties(form, order);
 
@@ -47,14 +71,11 @@ public class ExecOrderController {
 		} else if (form.getPaymentMethod() == 2) {
 			order.setStatus(2);
 		}
-		
+
 		// 配達日時のセット
-		String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh");
-		Date deliveryTime = sdf.parse(strDeliveryTime);
-		Timestamp DeliveryTimeStamp = new Timestamp(deliveryTime.getTime());
+		Timestamp DeliveryTimeStamp = Timestamp.valueOf(deliveryTime);
 		order.setdeliveryTime(DeliveryTimeStamp);
-		
+
 		// 注文日に現在の日時を入れる
 		order.setOrderDate(new Date());
 		System.out.println(order);
