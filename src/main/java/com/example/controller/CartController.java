@@ -57,7 +57,6 @@ public class CartController {
 			customerId = getDummyCustomerId();
 		}
 		
-		
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		
 		// totalPriceの更新
@@ -75,11 +74,13 @@ public class CartController {
 		
 		// トッピング情報を登録
 		List<Integer> toppingIdList = form.getToppingIdList();
-		for(Integer toppingId: toppingIdList) {
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setOrderItemId(orderItemId);
-			orderTopping.setToppingId(toppingId);
-			cartService.createOrderTopping(orderTopping);
+		if(toppingIdList != null) {
+			for(Integer toppingId: toppingIdList) {
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setOrderItemId(orderItemId);
+				orderTopping.setToppingId(toppingId);
+				cartService.createOrderTopping(orderTopping);
+			}
 		}
 			
 		return "redirect:/cart/showCart";
