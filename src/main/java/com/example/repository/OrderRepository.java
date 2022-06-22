@@ -160,7 +160,7 @@ public class OrderRepository {
 	}
 	
 	/**
-	 * 顧客IDから注文情報を取得.
+	 * 顧客IDから注文情報一覧を取得.
 	 * 
 	 * @param 顧客ID
 	 * @return 注文情報一覧
