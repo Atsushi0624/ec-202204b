@@ -13,6 +13,12 @@ import com.example.domain.Customer;
 import com.example.domain.Order;
 import com.example.service.OrderHistoryService;
 
+/**
+ * 注文履歴を表示させるコントローラ.
+ * 
+ * @author atsushi.kikuchi
+ *
+ */
 @Controller
 @RequestMapping("")
 public class OrderHistoryController {
@@ -23,6 +29,12 @@ public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistoryService;
 	
+	/**
+	 * 注文履歴を表示.
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/showOrderHistory")
 	public String showOrderHistory(Model model) {
 		Customer customer = (Customer) session.getAttribute("customer");
