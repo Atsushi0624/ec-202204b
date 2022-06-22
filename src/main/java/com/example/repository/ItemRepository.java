@@ -100,11 +100,11 @@ public class ItemRepository {
 	 * 
 	 * @return
 	 */
-	public List<Item> findAllSortedByEval() {
+	public List<Item> findAllSortedByRate() {
 		String sql = "SELECT " + "i.id, i.name, i.description, i.image_path, i.price_m, i.price_l, i.deleted,"
-				+ "avg(oi.evaluation) as evaluation "
+				+ "avg(oi.rate) as rate "
 				+ "FROM items as i left outer join order_items as oi ON oi.item_id = i.id " + "group by i.id "
-				+ "ORDER BY evaluation desc NULLS last";
+				+ "ORDER BY rate desc NULLS last";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}

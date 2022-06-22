@@ -44,8 +44,8 @@ public class ItemListService {
 	 * 
 	 * @return 商品一覧
 	 */
-	public List<Item> findAllSortedByEval() {
-		List<Item> itemList = itemRepository.findAllSortedByEval();
+	public List<Item> findAllSortedByRate() {
+		List<Item> itemList = itemRepository.findAllSortedByRate();
 		return itemList;
 	}
 

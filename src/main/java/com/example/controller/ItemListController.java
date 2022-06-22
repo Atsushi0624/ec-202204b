@@ -44,8 +44,8 @@ public class ItemListController {
 			if (sortKey == null) {
 				itemList = itemListService.findAll();
 			} else {
-				if (sortKey.equals("evaluation")) {
-					itemList = itemListService.findAllSortedByEval();
+				if (sortKey.equals("rate")) {
+					itemList = itemListService.findAllSortedByRate();
 				} else if (sortKey.equals("sales")) {
 					itemList = itemListService.findAllSortedBySales();
 				} else {
