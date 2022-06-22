@@ -158,6 +158,33 @@ public class OrderRepository {
 		System.out.println(orderList);
 		return orderList.get(0);
 	}
+	
+	/**
+	 * 顧客IDから注文情報一覧を取得.
+	 * 
+	 * @param 顧客ID
+	 * @return 注文情報一覧
+	 */
+	public List<Order> findByCustomerId(Integer customerId) {
+		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
+				+ "FROM orders AS o "
+				+ "LEFT JOIN order_items AS oi "
+				+ "ON o.id = oi.order_id "
+				+ "LEFT JOIN items AS i "
+				+ "ON oi.item_id = i.id "
+				+ "LEFT JOIN order_toppings AS ot "
+				+ "ON oi.id = ot.order_item_id "
+				+ "LEFT JOIN toppings AS t "
+				+ "ON ot.topping_id = t.id "
+				+ "WHERE o.user_id = :customerId AND status != 0"
+				+ "ORDER BY o.id, oi.id, ot.id;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("customerId", customerId);
+
+		List<Order> orderList = template.query(sql, param, ORDER_RESULT_SET_EXTRACTOR);
+		System.out.println(orderList);
+		return orderList;
+	}
 
 	/**
 	 * ステータスと顧客IDからオーダーIDを取得.

@@ -66,7 +66,13 @@
             >
               <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
-            <a href="order_history.html">注文履歴</a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
           </div>
         </div>
       </div>
