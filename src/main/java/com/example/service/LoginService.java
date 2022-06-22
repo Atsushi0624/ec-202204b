@@ -10,10 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Customer;
 import com.example.domain.LoginCustomer;
 import com.example.repository.CustomerRepository;
+import com.example.repository.OrderItemRepository;
+import com.example.repository.OrderRepository;
 
 /**
  * 認証情報を付加した顧客を操作するサービス
@@ -22,10 +25,17 @@ import com.example.repository.CustomerRepository;
  *
  */
 @Service
+@Transactional
 public class LoginService implements UserDetailsService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	
 	/**
 	 * 顧客情報に認証情報を追加します.
 	 */
@@ -44,7 +54,16 @@ public class LoginService implements UserDetailsService {
 		return new LoginCustomer(customer, authorityList);
 	}
 	
-	public void updateCustomerId() {
-		
+	public void updateCustomerId(Integer dummyCustomerId, Integer customerId) {
+		Integer orderId = orderRepository.findOrderIdByStatusAndUserId(0, customerId);
+		if(orderId == null) {
+			// 未注文のオーダーが存在しない場合は、そのまま更新
+			orderRepository.updateCustomerId(dummyCustomerId, customerId);
+		}else {
+			// 未注文のオーダーが存在する場合は、そのオーダーに追加
+			Integer newOrderId = orderRepository.findOrderIdByStatusAndUserId(0, dummyCustomerId);
+			orderRepository.deleteById(newOrderId);
+			orderItemRepository.updateCustomerId(orderId, newOrderId);
+		}
 	}
 }
