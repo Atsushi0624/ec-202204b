@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.LoginCustomer;
+import com.example.service.LoginService;
 
 /**
  * ログイン情報を操作するコントローラ.
@@ -24,6 +25,9 @@ import com.example.domain.LoginCustomer;
 public class LoginController {
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private LoginService loginService;
 
 	/**
 	 * 直前のページのURLをセッションに保持し、ログインページを表示します.
@@ -46,7 +50,14 @@ public class LoginController {
 	@RequestMapping("/afterLogin")
 	public String afterLogin(@AuthenticationPrincipal LoginCustomer customer) {
 		
-		// TODO OrderテーブルのuserIdの更新処理を追加する
+		// dummyCustomerIdがセットされていればcustomerIDの更新を行う
+		int dummyCustomerId = (int)session.getAttribute("dummyCustomerId");
+		if(dummyCustomerId != 0) {
+			int customerId = customer.getCustomer().getId();
+			session.removeAttribute("dummyCustomerId");
+			loginService.updateCustomerId(dummyCustomerId, customerId);
+		}
+		
 		String preUrl = (String)session.getAttribute("preUrl");
 		session.setAttribute("customer", customer.getCustomer());
 		if(preUrl == null) {

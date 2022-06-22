@@ -189,7 +189,7 @@ public class OrderRepository {
 	 * @param dummyCustomerId ダミー顧客ID
 	 * @param customerId      正規の顧客ID
 	 */
-	public void updateUserId(Integer dummyCustomerId, Integer customerId) {
+	public void updateCustomerId(Integer dummyCustomerId, Integer customerId) {
 		String sql = "UPDATE orders SET user_id = :customerId "
 				+ "WHERE user_id = :dummyCustomerId;";
 
@@ -208,6 +208,18 @@ public class OrderRepository {
 	public void update(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		String sql = "UPDATE orders SET user_id=:customerId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id = :id;";
+		template.update(sql, param);
+	}
+	
+	/**
+	 * オーダーIDを指定してレコードを削除.
+	 * 
+	 * @param id オーダーID
+	 */
+	public void deleteById(int id) {
+		String sql = "DELETE FROM orders WHERE id = :id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		
 		template.update(sql, param);
 	}
 }

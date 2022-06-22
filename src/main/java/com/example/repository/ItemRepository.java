@@ -35,7 +35,7 @@ public class ItemRepository {
 		item.setPriceM(rs.getInt("price_m"));
 		item.setPriceL(rs.getInt("price_l"));
 		item.setDeleted(rs.getBoolean("deleted"));
-		ArrayList<Topping> toppingList = new ArrayList();
+		ArrayList<Topping> toppingList = new ArrayList<>();
 		item.setToppingList(toppingList);
 		return item;
 	};
