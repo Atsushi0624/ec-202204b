@@ -66,7 +66,13 @@
             >
               <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
-            <a href="order_history.html">注文履歴</a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
           </div>
         </div>
       </div>
@@ -185,7 +191,7 @@
                   type="text"
                 />
                 <label for="zipcode">郵便番号</label>
-                <button class="btn" type="button">
+                <button id="get_address" class="btn" type="button">
                   <span>住所検索</span>
                 </button>
               </div>
@@ -347,5 +353,7 @@
     </footer>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/get_address.js}"></script>
   </body>
 </html>
