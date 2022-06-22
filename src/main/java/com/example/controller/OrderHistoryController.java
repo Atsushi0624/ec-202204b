@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Customer;
@@ -23,9 +24,12 @@ public class OrderHistoryController {
 	private OrderHistoryService orderHistoryService;
 	
 	@RequestMapping("/showOrderHistory")
-	public String showOrderHistory() {
+	public String showOrderHistory(Model model) {
 		Customer customer = (Customer) session.getAttribute("customer");
 		List<Order> orderList = orderHistoryService.getOrderHistory(customer.getId());
+		if(orderList.size() != 0) {
+			model.addAttribute("orderList", orderList);
+		}
 		System.out.println(orderList);
 		return "order_history";
 	}
