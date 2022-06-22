@@ -1,8 +1,5 @@
 package com.example.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -49,24 +46,21 @@ public class LoginController {
 	 */
 	@RequestMapping("/afterLogin")
 	public String afterLogin(@AuthenticationPrincipal LoginCustomer customer) {
+		session.setAttribute("customer", customer.getCustomer());
 		
 		// dummyCustomerIdがセットされていればcustomerIDの更新を行う
-		int dummyCustomerId = (int)session.getAttribute("dummyCustomerId");
-		if(dummyCustomerId != 0) {
+		Integer dummyCustomerId = (Integer)session.getAttribute("dummyCustomerId");
+		if(dummyCustomerId != null) {
 			int customerId = customer.getCustomer().getId();
 			session.removeAttribute("dummyCustomerId");
 			loginService.updateCustomerId(dummyCustomerId, customerId);
 		}
 		
-		String preUrl = (String)session.getAttribute("preUrl");
-		session.setAttribute("customer", customer.getCustomer());
-		if(preUrl == null) {
-			return "redirect:/show";
-		}
-		List<String> preUrlPathList = Arrays.asList(preUrl.split("/"));
-		if (preUrlPathList.contains("order_confirm")) {
-			session.removeAttribute("preUrl");
-			return "redirect:/confirm_order";
+		// 「注文画面へ」ボタンによってログイン画面に遷移していた場合は注文確認画面へ飛ばす
+		Integer toOrderConfirmFlag = (Integer)session.getAttribute("toOrderConfirm");
+		if(toOrderConfirmFlag != null) {
+			session.removeAttribute("toOrderConfirm");
+			return "redirect:/confirmOrder";			
 		}else {
 			return "redirect:/show";
 		}

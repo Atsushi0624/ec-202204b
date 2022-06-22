@@ -116,7 +116,7 @@
 				</div>
 				<div class="row order-confirm-btn">
 					<form method="post" th:action="@{/confirmOrder}">
-						<input type="hidden" name="orderId" th:value="${orderId}">
+						<input type="hidden" name="toOrderConfirm" value="1">
 						<button class="btn" type="submit">
 							<span>注文に進む</span>
 						</button>
