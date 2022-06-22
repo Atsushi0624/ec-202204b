@@ -155,35 +155,34 @@
               </tbody>
             </table>
           </div>
+				<div class="row cart-total-price">
+					<div
+						th:text="'消費税' + ${#numbers.formatInteger(tax,1,'COMMA') + '円'}"></div>
+					<div
+						th:text="'ご注文合計金額' + ${#numbers.formatInteger(totalPrice,1,'COMMA') + '円（税込み）'}"></div>
+				</div>
+				<div class="row order-confirm-btn">
+					<form method="post" th:action="@{/confirmOrder}">
+						<input type="hidden" name="toOrderConfirm" value="1">
+						<button class="btn" type="submit">
+							<span>注文に進む</span>
+						</button>
+					</form>
 
-          <div class="row cart-total-price">
-            <div
-              th:text="'消費税' + ${#numbers.formatInteger(tax,1,'COMMA') + '円'}"
-            ></div>
-            <div
-              th:text="'ご注文合計金額' + ${#numbers.formatInteger(totalPrice,1,'COMMA') + '円（税込み）'}"
-            ></div>
-          </div>
-          <div class="row order-confirm-btn">
-            <form method="post" th:action="@{/confirmOrder}">
-              <input type="hidden" name="orderId" th:value="${orderId}" />
-              <button class="btn" type="submit">
-                <span>注文に進む</span>
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- end container -->
-    </div>
-    <!-- end top-wrapper -->
-    <footer>
-      <div class="container">
-        <img th:src="@{/img/header_logo.png}" />
-        <p>アロハな気分をあなたにお届け！</p>
-      </div>
-    </footer>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
+				</div>
+			</div>
+		</div>
+		<!-- end container -->
+	</div>
+	<!-- end top-wrapper -->
+	<footer>
+		<div class="container">
+			<img src="img/header_logo.png" />
+			<p>アロハな気分をあなたにお届け！</p>
+		</div>
+	</footer>
+	<!-- Compiled and minified JavaScript -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 </html>
