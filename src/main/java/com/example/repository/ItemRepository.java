@@ -35,6 +35,10 @@ public class ItemRepository {
 		item.setPriceM(rs.getInt("price_m"));
 		item.setPriceL(rs.getInt("price_l"));
 		item.setDeleted(rs.getBoolean("deleted"));
+		String rate = rs.getString("rate");
+		if(rate != null) {
+			item.setAverageRate(rs.getInt("rate"));
+		}
 		ArrayList<Topping> toppingList = new ArrayList<>();
 		item.setToppingList(toppingList);
 		return item;
