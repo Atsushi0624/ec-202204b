@@ -34,6 +34,12 @@ public class OrderHistoryService {
 		return orderRepository.findByCustomerId(custromerId);
 	}
 	
+	/**
+	 * 指定したIDの評価を更新.
+	 * 
+	 * @param rate 評価
+	 * @param orderItemId 注文商品ID
+	 */
 	public void updateRate(Integer rate, Integer orderItemId) {
 		orderItemRepository.updateRate(rate, orderItemId);
 	}
