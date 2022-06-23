@@ -172,7 +172,6 @@
                     <td>
                       <span
                         class="text-center"
-                        th:if="${orderItem.size=='M'}"
                         th:text="${#numbers.formatInteger(orderItem.getSubTotal(),1,'COMMA') + '円'}"
                         >300円</span
                       >
