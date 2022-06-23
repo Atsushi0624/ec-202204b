@@ -26,6 +26,9 @@ public class Item {
   private Boolean deleted;
   /** トッピングリスト */
   private List<Topping> toppingList;
+  /** 評価の平均 */
+  private double averageRate;
+  
 
   public Integer getId() {
     return id;
@@ -91,9 +94,17 @@ public class Item {
     this.toppingList = toppingList;
   }
 
+  public double getAverageRate() {
+	  return averageRate;
+  }
+
+  public void setAverageRate(double averageRate) {
+	  this.averageRate = averageRate;
+  }
+	
   @Override
   public String toString() {
     return "Item [deleted=" + deleted + ", description=" + description + ", id=" + id + ", imagePath=" + imagePath
-        + ", name=" + name + ", priceL=" + priceL + ", priceM=" + priceM + ", toppingList=" + toppingList + "]";
+        + ", name=" + name + ", priceL=" + priceL + ", priceM=" + priceM + ", toppingList=" + toppingList + ", averageRate=" + averageRate + "]";
   }
 }

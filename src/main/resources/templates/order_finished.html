@@ -30,20 +30,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクカフェ</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"
@@ -66,7 +66,13 @@
             >
               <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
-            <a href="order_history.html">注文履歴</a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
           </div>
         </div>
       </div>
@@ -82,13 +88,7 @@
           <p>メールが届かない場合は「注文履歴」からご確認ください。</p>
         </div>
         <div class="row order-finished-btn">
-          <button
-            class="btn"
-            type="button"
-            onclick="location.href='item_list.html'"
-          >
-            <span><a th:href="@{/show}">トップ画面を表示する</a></span>
-          </button>
+          <a class="btn" th:href="@{/}">トップ画面を表示する</a>
         </div>
       </div>
       <!-- end container -->

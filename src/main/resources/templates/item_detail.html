@@ -27,23 +27,24 @@
     <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
     <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
     <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_history.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクカフェ</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"
@@ -66,7 +67,13 @@
             >
               <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
-            <a href="order_history.html">注文履歴</a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
           </div>
         </div>
       </div>
@@ -84,6 +91,12 @@
             <div class="row item-detail">
               <div class="item-icon">
                 <img th:src="@{|/img/${item.imagePath}|}" />
+                <p class="result-rating-rate">
+                  <span
+                    class="star5_rating"
+                    th:data-rate="${item.averageRate}"
+                  ></span>
+                </p>
               </div>
               <div class="item-intro" th:text="${item.description}">
                 ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
@@ -202,34 +215,34 @@
 
     <!-- 合計金額を表示する -->
     <script th:inline="javascript">
-      ("use strict");
+      ('use strict');
       $(function () {
         calc_price();
-        $(".size").on("change", function () {
+        $('.size').on('change', function () {
           calc_price();
         });
 
-        $(".checkbox").on("change", function () {
+        $('.checkbox').on('change', function () {
           calc_price();
         });
 
-        $("#num").on("change", function () {
+        $('#num').on('change', function () {
           calc_price();
         });
 
         // 値段の計算をして変更する関数
         function calc_price() {
-          let size = $(".size:checked").val();
+          let size = $('.size:checked').val();
           let topping_count = 0;
-          topping_count = $("#topping input:checkbox:checked").length;
-          let num = $("#num").val();
+          topping_count = $('#topping input:checkbox:checked').length;
+          let num = $('#num').val();
           let size_price = 0;
           let topping_price = 0;
-          let size_priceM = /*[[${item.priceM}]]*/ "M";
-          let size_priceL = /*[[${item.priceL}]]*/ "L";
-          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ "M";
-          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ "L";
-          if (size === "M") {
+          let size_priceM = /*[[${item.priceM}]]*/ 'M';
+          let size_priceL = /*[[${item.priceL}]]*/ 'L';
+          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ 'M';
+          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ 'L';
+          if (size === 'M') {
             size_price = size_priceM;
             topping_price = topping_priceM * topping_count;
           } else {
@@ -237,7 +250,7 @@
             topping_price = topping_priceL * topping_count;
           }
           let price = (size_price + topping_price) * num;
-          $("#totalprice").text(price.toLocaleString());
+          $('#totalprice').text(price.toLocaleString());
         }
       });
     </script>

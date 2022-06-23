@@ -30,20 +30,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクカフェ</title>
   </head>
   <body>
     <header>
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"
@@ -66,7 +66,13 @@
             >
               <i class="fas fa-sign-out-alt"></i>ログアウト
             </a>
-            <a href="order_history.html">注文履歴</a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
           </div>
         </div>
       </div>
@@ -163,26 +169,38 @@
           <h2 class="page-title">お届け先情報</h2>
           <div class="order-confirm-delivery-info">
             <div class="row">
+              <div th:errors="*{destinationName}" class="error"></div>
               <div class="input-field">
-                <div th:errors="*{destinationName}" class="error"></div>
-                <input th:field="*{destinationName}" id="name" type="text" />
+                <input
+                  name="destinationName"
+                  id="name"
+                  type="text"
+                  th:value="${session.customer.name}"
+                />
                 <label for="name">お名前</label>
               </div>
             </div>
             <div class="row">
+              <div th:errors="*{destinationEmail}" class="error"></div>
               <div class="input-field">
-                <div th:errors="*{destinationEmail}" class="error"></div>
-                <input th:field="*{destinationEmail}" id="email" type="email" />
+                <input
+                  name="destinationEmail"
+                  id="email"
+                  type="email"
+                  th:value="${session.customer.email}"
+                />
                 <label for="email">メールアドレス</label>
               </div>
             </div>
             <div class="row">
+              <div th:errors="*{destinationZipcode}" class="error"></div>
               <div class="input-field">
-                <div th:errors="*{destinationZipcode}" class="error"></div>
                 <input
-                  th:field="*{destinationZipcode}"
+                  name="destinationZipcode"
                   id="zipcode"
                   type="text"
+                  th:value="${session.customer.zipcode}"
+                  placeholder="郵便番号はハイフンをつけて入力してください"
                 />
                 <label for="zipcode">郵便番号</label>
                 <button id="get_address" class="btn" type="button">
@@ -191,26 +209,33 @@
               </div>
             </div>
             <div class="row">
+              <div th:errors="*{destinationAddress}" class="error"></div>
               <div class="input-field">
-                <div th:errors="*{destinationAddress}" class="error"></div>
                 <input
-                  th:field="*{destinationAddress}"
+                  name="destinationAddress"
                   id="address"
                   type="text"
+                  th:value="${session.customer.address}"
                 />
                 <label for="address">住所</label>
               </div>
             </div>
             <div class="row">
+              <div th:errors="*{destinationTel}" class="error"></div>
               <div class="input-field">
-                <div th:errors="*{destinationTel}" class="error"></div>
-                <input th:field="*{destinationTel}" id="tel" type="tel" />
+                <input
+                  name="destinationTel"
+                  id="tel"
+                  type="tel"
+                  th:value="${session.customer.telephone}"
+                  placeholder="電話番号はハイフンをつけて入力してください"
+                />
                 <label for="tel">電話番号</label>
               </div>
             </div>
+            <div th:errors="*{deliveryTimeList}" class="error"></div>
             <div class="row order-confirm-delivery-datetime">
               <div class="input-field">
-                <div th:errors="*{deliveryTimeList}" class="error"></div>
                 <input
                   th:field="*{deliveryTimeList}"
                   id="deliveryDate"
@@ -299,7 +324,6 @@
                   value="18"
                 />
                 <span>18時</span>
-
               </label>
             </div>
           </div>
