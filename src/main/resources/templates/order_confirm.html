@@ -169,22 +169,22 @@
           <h2 class="page-title">お届け先情報</h2>
           <div class="order-confirm-delivery-info">
             <div class="row">
-              <div class="input-field">
                 <div th:errors="*{destinationName}" class="error"></div>
+              <div class="input-field">
                 <input name="destinationName" id="name" type="text" th:value="${session.customer.name}"/>
                 <label for="name">お名前</label>
               </div>
             </div>
             <div class="row">
-              <div class="input-field">
                 <div th:errors="*{destinationEmail}" class="error"></div>
+              <div class="input-field">
                 <input name="destinationEmail" id="email" type="email" th:value="${session.customer.email}"/>
                 <label for="email">メールアドレス</label>
               </div>
             </div>
             <div class="row">
-              <div class="input-field">
                 <div th:errors="*{destinationZipcode}" class="error"></div>
+              <div class="input-field">
                 <input
                   name="destinationZipcode"
                   id="zipcode"
@@ -198,8 +198,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field">
                 <div th:errors="*{destinationAddress}" class="error"></div>
+              <div class="input-field">
                 <input
                   name="destinationAddress"
                   id="address"
@@ -210,15 +210,15 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field">
                 <div th:errors="*{destinationTel}" class="error"></div>
+              <div class="input-field">
                 <input name="destinationTel" id="tel" type="tel" th:value="${session.customer.telephone}"/>
                 <label for="tel">電話番号</label>
               </div>
             </div>
+                <div th:errors="*{deliveryTimeList}" class="error"></div>
             <div class="row order-confirm-delivery-datetime">
               <div class="input-field">
-                <div th:errors="*{deliveryTimeList}" class="error"></div>
                 <input
                   th:field="*{deliveryTimeList}"
                   id="deliveryDate"
