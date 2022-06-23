@@ -57,6 +57,12 @@ public class ItemListController {
 				}
 			}
 		}
+		
+		// 評価を0.0の形式に変更
+		for(Item item: itemList) {
+			double averageRate = Math.round(item.getAverageRate() * 10) / 10.0;
+			item.setAverageRate(averageRate);
+		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";
 	}
