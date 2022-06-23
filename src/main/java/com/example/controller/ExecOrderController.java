@@ -98,7 +98,6 @@ public class ExecOrderController {
 		// 注文日に現在の日時を入れる
 		order.setOrderDate(new Date());
 		execOrderService.execOrder(order);
-		execOrderService.sendMail();
 		return "order_finished";
 	}
 }
