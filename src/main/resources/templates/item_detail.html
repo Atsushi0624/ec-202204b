@@ -37,13 +37,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"

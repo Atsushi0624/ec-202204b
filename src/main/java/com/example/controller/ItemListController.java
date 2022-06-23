@@ -30,7 +30,7 @@ public class ItemListController {
 	 * @param sortKey 並び順を制御するリクエストパラメータ
 	 * @return 商品一覧
 	 */
-	@RequestMapping("/show")
+	@RequestMapping("")
 	public String showList(Model model, String itemName, String sortKey) {
 		List<Item> itemList = null;
 		if (itemName != null) {

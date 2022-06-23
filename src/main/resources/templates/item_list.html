@@ -38,13 +38,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"
@@ -83,7 +83,7 @@
     <!-- search form -->
     <div class="search-wrapper">
       <div class="container">
-        <form th:action="@{/show}" method="post" class="search-form">
+        <form th:action="@{/}" method="post" class="search-form">
           
           <div class="serch-elements">
           <input
@@ -101,10 +101,10 @@
 
 	        </div>
 	        <select class="browser-default" onChange="location.href=value;">
-		          <option value="/ec-202204b/show" selected>並び替える</option>
-		          <option value="/ec-202204b/show?sortKey=default">デフォルト</option>
-		          <option value="/ec-202204b/show?sortKey=sales">売り上げ順</option>
-		          <option value="/ec-202204b/show?sortKey=rate">評価順</option>
+		          <option value="/ec-202204b/" selected>並び替える</option>
+		          <option value="/ec-202204b/?sortKey=default">デフォルト</option>
+		          <option value="/ec-202204b/?sortKey=sales">売り上げ順</option>
+		          <option value="/ec-202204b/?sortKey=rate">評価順</option>
 	        </select>
 
           <span th:text="${noItemMessage}"></span>
