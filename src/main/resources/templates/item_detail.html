@@ -30,7 +30,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクカフェ</title>
   </head>
   <body>
     <header>
@@ -208,34 +208,34 @@
 
     <!-- 合計金額を表示する -->
     <script th:inline="javascript">
-      ("use strict");
+      ('use strict');
       $(function () {
         calc_price();
-        $(".size").on("change", function () {
+        $('.size').on('change', function () {
           calc_price();
         });
 
-        $(".checkbox").on("change", function () {
+        $('.checkbox').on('change', function () {
           calc_price();
         });
 
-        $("#num").on("change", function () {
+        $('#num').on('change', function () {
           calc_price();
         });
 
         // 値段の計算をして変更する関数
         function calc_price() {
-          let size = $(".size:checked").val();
+          let size = $('.size:checked').val();
           let topping_count = 0;
-          topping_count = $("#topping input:checkbox:checked").length;
-          let num = $("#num").val();
+          topping_count = $('#topping input:checkbox:checked').length;
+          let num = $('#num').val();
           let size_price = 0;
           let topping_price = 0;
-          let size_priceM = /*[[${item.priceM}]]*/ "M";
-          let size_priceL = /*[[${item.priceL}]]*/ "L";
-          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ "M";
-          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ "L";
-          if (size === "M") {
+          let size_priceM = /*[[${item.priceM}]]*/ 'M';
+          let size_priceL = /*[[${item.priceL}]]*/ 'L';
+          let topping_priceM = /*[[${item.toppingList[0].priceM}]]*/ 'M';
+          let topping_priceL = /*[[${item.toppingList[0].priceL}]]*/ 'L';
+          if (size === 'M') {
             size_price = size_priceM;
             topping_price = topping_priceM * topping_count;
           } else {
@@ -243,7 +243,7 @@
             topping_price = topping_priceL * topping_count;
           }
           let price = (size_price + topping_price) * num;
-          $("#totalprice").text(price.toLocaleString());
+          $('#totalprice').text(price.toLocaleString());
         }
       });
     </script>

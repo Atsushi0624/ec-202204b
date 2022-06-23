@@ -22,6 +22,8 @@ public class OrderItem {
 	private Integer quantity;
 	/** サイズ */
 	private String size;
+	/** 評価 */
+	private Integer rate;
 	/** アイテム情報 */
 	private Item item;
 	/** トッピングリスト */
@@ -73,6 +75,12 @@ public class OrderItem {
 	public void setSize(String size) {
 		this.size = size;
 	}
+	public Integer getRate() {
+		return rate;
+	}
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
 	public Item getItem() {
 		return item;
 	}
@@ -89,7 +97,8 @@ public class OrderItem {
 	@Override
 	public String toString() {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
+				+ ", size=" + size + ", rate=" + rate + ", item=" + item + ", orderToppingList=" + orderToppingList
+				+ "]";
 	}
 	
 }

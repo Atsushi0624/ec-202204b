@@ -73,4 +73,19 @@ public class OrderItemRepository {
 
 		template.update(sql, param);
 	}
+	
+	/**
+	 * 指定IDの評価を更新.
+	 * 
+	 * @param rate 評価
+	 * @param id ID
+	 */
+	public void updateRate(Integer rate, Integer id) {
+		String sql = "UPDATE order_items SET rate = :rate "
+				+ "WHERE id = :id;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("rate", rate).addValue("id", id);
+
+		template.update(sql, param);
+	}
 }
