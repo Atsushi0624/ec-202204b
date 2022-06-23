@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <form th:action="@{/createDummyData}" method="post">
+      ダミーデータ数: <input type="text" name="num" /><br /><br />
+      <button>ダミーデータを作成</button>
+    </form>
+  </body>
+</html>
