@@ -65,7 +65,7 @@ public class ItemRepository {
 		String sql = "SELECT i.id, name, description,  image_path, price_m, price_l, deleted, "
 				+ "avg(oi.rate) as rate "
 				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
-				+ "WHERE name LIKE :name ORDER BY price_m";
+				+ "WHERE name ILIKE :name ORDER BY price_m";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + itemName + "%");
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;

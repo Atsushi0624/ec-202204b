@@ -27,12 +27,15 @@ public class ItemListController {
 	 * 
 	 * @param model    モデル
 	 * @param itemName 検索する商品名
-	 * @param sortKey 並び順を制御するリクエストパラメータ
+	 * @param sortKey  並び順を制御するリクエストパラメータ
 	 * @return 商品一覧
 	 */
 	@RequestMapping("")
 	public String showList(Model model, String itemName, String sortKey) {
 		List<Item> itemList = null;
+		// オートコンプリート用に全件リストを用意
+		List<Item> allItemList = itemListService.findAll();
+		model.addAttribute("allItemList", allItemList);
 		if (itemName != null) {
 			itemList = itemListService.searchByName(itemName);
 			if (itemList.size() == 0) {
