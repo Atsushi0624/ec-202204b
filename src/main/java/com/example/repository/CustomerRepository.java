@@ -3,6 +3,7 @@ package com.example.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -76,6 +77,23 @@ public class CustomerRepository {
 			return customerList.get(0);
 		}
 		
+	}
+	
+	/**
+	 * IDがMAXのダミーデータのダミー番号を取得.
+	 * 
+	 * @return ダミー番号
+	 */
+	public int findMaxDummyCutomerId() {
+		try {
+			String sql = "SELECT address FROM users WHERE password = 'dummy' GROUP BY id ORDER BY id DESC LIMIT 1;";
+			SqlParameterSource param = new MapSqlParameterSource();
+			String stringId = template.queryForObject(sql, param, String.class);
+			
+			return Integer.parseInt(stringId);
+		} catch (EmptyResultDataAccessException e) {
+			return 0;
+		}
 	}
 
 

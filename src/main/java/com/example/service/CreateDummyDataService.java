@@ -37,10 +37,12 @@ public class CreateDummyDataService {
 	 * @param maxQuantity 生成する数量の最大値
 	 */
 	public void createDummyData(int dummyUserNum, int maxDummyOrderItemNum, int maxQuantity) {
-		for(int i = 1; i <= dummyUserNum; i++) {
+		System.out.println(customerRepository.findMaxDummyCutomerId());
+		int start = customerRepository.findMaxDummyCutomerId() + 1;
+		for(int i = start; i < start + dummyUserNum; i++) {
 			Customer customer = new Customer();
 			customer.setName("ダミーユーザー" + i);
-			customer.setAddress("ダミー" );
+			customer.setAddress(String.valueOf(i));
 			customer.setEmail("dummy" + i + "@sample.co.jp");
 			customer.setZipcode("000-0000" );
 			customer.setPassword("dummy");

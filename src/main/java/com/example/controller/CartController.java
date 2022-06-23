@@ -45,8 +45,6 @@ public class CartController {
 	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
 		System.out.println(form);
-		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
-
 		Integer customerId = null;
 		Customer customer = (Customer)session.getAttribute("customer");
 		if(customer != null) {
