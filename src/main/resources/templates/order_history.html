@@ -185,36 +185,7 @@
                             th:data-rate="${orderItem.rate}"
                           ></span>
                         </p>
-                        <!-- <span
-                            class="star"
-                            id="1-star"
-                          >
-                          ★
-                          </span>
-                          <span
-                            class="star"
-                            id="2-star"
-                          >
-                          ★
-                          </span>
-                          <span
-                            class="star"
-                            id="3-star"
-                          >
-                          ★
-                          </span>
-                          <span
-                            class="star"
-                            id="4-star"
-                          >
-                          ★
-                          </span>
-                          <span
-                            class="star"
-                            id="5-star"
-                          >
-                          ★
-                          </span> -->
+
                       </div>
                       <div th:if="${orderItem.rate} == null">
                         <form th:action="@{/evaluateItem}" method="post">

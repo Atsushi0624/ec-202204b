@@ -78,7 +78,11 @@ public class ItemRepository {
 	 * @return 商品情報
 	 */
 	public Item load(Integer id) {
-		String sql = "SELECT id, name, description,  image_path, price_m, price_l, deleted FROM items WHERE id=:id";
+		String sql = "SELECT i.id, name, description,  image_path, price_m, price_l, deleted, "
+				+ "avg(oi.rate) as rate "
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id = i.id "
+				+ "WHERE i.id=:id "
+				+ "group by i.id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
