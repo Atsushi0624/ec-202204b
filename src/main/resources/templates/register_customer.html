@@ -94,6 +94,32 @@
                 <label for="email">メールアドレス</label>
               </div>
             </div>
+            <label>性別</label>
+            <div class="input-field col s12">
+              <div th:each="gender : ${genderMap}">
+                <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    th:value="${gender.value}"
+                    th:field="*{gender}"
+                    class="validate"
+                  />
+                  <span th:text="${gender.key}"></span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label>年代</label>
+              <select class="browser-default">
+                <option value="" disabled selected>Choose your option</option>
+                <span th:each="age:${ageMap}">
+                <option th:value="${age.value}"><span th:text="${age.key}"></span>
+                </span>
+                </option>
+              </select>
+              <br><br>
+            </div>
             <div th:errors="*{zipcode}" class="error"></div>
             <div class="row">
               <div class="input-field col s12">
