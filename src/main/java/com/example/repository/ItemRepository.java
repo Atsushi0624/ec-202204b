@@ -35,10 +35,7 @@ public class ItemRepository {
 		item.setPriceM(rs.getInt("price_m"));
 		item.setPriceL(rs.getInt("price_l"));
 		item.setDeleted(rs.getBoolean("deleted"));
-		String rate = rs.getString("rate");
-		if(rate != null) {
-			item.setAverageRate(rs.getInt("rate"));
-		}
+		item.setAverageRate(rs.getDouble("rate"));
 		ArrayList<Topping> toppingList = new ArrayList<>();
 		item.setToppingList(toppingList);
 		return item;
@@ -50,7 +47,10 @@ public class ItemRepository {
 	 * @return 商品リスト
 	 */
 	public List<Item> findAll() {
-		String sql = "SELECT id, name, description,  image_path, price_m, price_l, deleted FROM items ORDER BY price_m";
+		String sql = "SELECT i.id, name, description,  image_path, price_m, price_l, deleted, "
+				+ "avg(oi.rate) as rate "
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
+				+ "ORDER BY price_m";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
@@ -62,7 +62,10 @@ public class ItemRepository {
 	 * @return 検索された商品一覧
 	 */
 	public List<Item> findByName(String itemName) {
-		String sql = "SELECT id, name, description,  image_path, price_m, price_l, deleted FROM items WHERE name LIKE :name ORDER BY price_m";
+		String sql = "SELECT i.id, name, description,  image_path, price_m, price_l, deleted, "
+				+ "avg(oi.rate) as rate "
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
+				+ "WHERE name LIKE :name ORDER BY price_m";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + itemName + "%");
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
@@ -88,7 +91,8 @@ public class ItemRepository {
 	 */
 	public List<Item> findAllSortedBySales() {
 		String sql = "SELECT i.id, i.name, i.description, i.image_path, i.price_m, i.price_l, i.deleted,"
-				+ "sum((case when oi.quantity is null then 0 else oi.quantity end)) as sales "
+				+ "sum((case when oi.quantity is null then 0 else oi.quantity end)) as sales, "
+				+ "avg(oi.rate) as rate "
 				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
 				+ "ORDER BY sales desc;";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);

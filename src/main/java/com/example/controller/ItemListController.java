@@ -53,6 +53,11 @@ public class ItemListController {
 				}
 			}
 		}
+		
+		for(Item item: itemList) {
+			double averageRate = Math.round(item.getAverageRate() * 10) / 10;
+			item.setAverageRate(averageRate);
+		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";
 	}
