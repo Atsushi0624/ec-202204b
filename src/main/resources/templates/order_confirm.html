@@ -171,14 +171,14 @@
             <div class="row">
               <div class="input-field">
                 <div th:errors="*{destinationName}" class="error"></div>
-                <input th:field="*{destinationName}" id="name" type="text" th:text="${session.customer.name}"/>
+                <input name="destinationName" id="name" type="text" th:value="${session.customer.name}"/>
                 <label for="name">お名前</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
                 <div th:errors="*{destinationEmail}" class="error"></div>
-                <input th:field="*{destinationEmail}" id="email" type="email" th:text="${session.customer.email}"/>
+                <input name="destinationEmail" id="email" type="email" th:value="${session.customer.email}"/>
                 <label for="email">メールアドレス</label>
               </div>
             </div>
@@ -186,10 +186,10 @@
               <div class="input-field">
                 <div th:errors="*{destinationZipcode}" class="error"></div>
                 <input
-                  th:field="*{destinationZipcode}"
+                  name="destinationZipcode"
                   id="zipcode"
                   type="text"
-                  th:text="${session.customer.zipcode}"
+                  th:value="${session.customer.zipcode}"
                 />
                 <label for="zipcode">郵便番号</label>
                 <button id="get_address" class="btn" type="button">
@@ -201,10 +201,10 @@
               <div class="input-field">
                 <div th:errors="*{destinationAddress}" class="error"></div>
                 <input
-                  th:field="*{destinationAddress}"
+                  name="destinationAddress"
                   id="address"
                   type="text"
-                  th:text="${session.customer.address}"
+                  th:value="${session.customer.address}"
                 />
                 <label for="address">住所</label>
               </div>
@@ -212,7 +212,7 @@
             <div class="row">
               <div class="input-field">
                 <div th:errors="*{destinationTel}" class="error"></div>
-                <input th:field="*{destinationTel}" id="tel" type="tel" th:text="${session.customer.telephone}"/>
+                <input name="destinationTel" id="tel" type="tel" th:value="${session.customer.telephone}"/>
                 <label for="tel">電話番号</label>
               </div>
             </div>
