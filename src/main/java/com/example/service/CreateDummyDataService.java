@@ -62,14 +62,14 @@ public class CreateDummyDataService {
 				orderItem.setOrderId(orderId);
 				orderItem.setItemId(random.nextInt(MAX_ITEM_ID) + 1);
 				orderItem.setQuantity(random.nextInt(maxQuantity) + 1);
-				orderItem.setRate(random.nextInt(6));
 				int size = random.nextInt(2);
 				if(size == 0) {
 					orderItem.setSize("M");					
 				}else {
 					orderItem.setSize("L");	
 				}
-				orderItemRepository.insert(orderItem);
+				int orderItemId = orderItemRepository.insert(orderItem);
+				orderItemRepository.updateRate(random.nextInt(6), orderItemId);
 			}
 		}
 	}
