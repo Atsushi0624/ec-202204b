@@ -37,13 +37,13 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"
               th:href="@{/registCustomer/toRegistration}"
@@ -88,7 +88,7 @@
           <p>メールが届かない場合は「注文履歴」からご確認ください。</p>
         </div>
         <div class="row order-finished-btn">
-          <a class="btn" th:href="@{/show}">トップ画面を表示する</a>
+          <a class="btn" th:href="@{/}">トップ画面を表示する</a>
         </div>
       </div>
       <!-- end container -->

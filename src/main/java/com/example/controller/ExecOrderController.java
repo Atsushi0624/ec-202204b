@@ -62,11 +62,12 @@ public class ExecOrderController {
 	@RequestMapping("/exec_order")
 	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model){
 		LocalDateTime deliveryTime = null;
-		if (form.getDeliveryTimeList().size() == 2) { // form.getDeliveryTimeList()は日にちと時間がListで入っているので両方入っているか確認する
+		System.out.println(form);
+		if (!form.getDeliveryTimeList().contains("") && ! (form.getDeliveryTimeList().size()==0)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
 			// 配達日時のチェック
 			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) +":00:00";
 			deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			if(LocalDateTime.now().isBefore(deliveryTime.minusHours(3))) {
+			if(deliveryTime.isBefore(LocalDateTime.now().plusHours(3))) {
 				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "今から3時間以後の日時をご入力ください");
 				result.addError(fieldError);
 			}

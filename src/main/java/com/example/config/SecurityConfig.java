@@ -38,7 +38,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
 
-				.antMatchers("/show", "/detail", "/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin", "/cart/addItem", "/cart/showCart", "/cart/removeItem","/confirmOrder")
+				.antMatchers("/", "/detail", "/registCustomer/toRegistration", "/registCustomer/regist", "/toLogin", "/cart/addItem", "/cart/showCart", "/cart/removeItem","/confirmOrder")
 				.permitAll() // 「/」などのパスは全てのユーザに許可
 
 				// .antMatchers("/admin/**").hasRole("ADMIN") //
@@ -59,7 +59,7 @@ public class SecurityConfig {
 
 		http.logout() // ログアウトに関する設定
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**")) // ログアウトさせる際に遷移させるパス
-				.logoutSuccessUrl("/toLogin") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
+				.logoutSuccessUrl("/") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
 				.deleteCookies("JSESSIONID") // ログアウト後、Cookieに保存されているセッションIDを削除
 				.invalidateHttpSession(true); // true:ログアウト後、セッションを無効にする false:セッションを無効にしない
 		return http.build();

@@ -62,7 +62,7 @@ public class LoginController {
 			session.removeAttribute("toOrderConfirm");
 			return "redirect:/confirmOrder";			
 		}else {
-			return "redirect:/show";
+			return "redirect:/";
 		}
 	}
 	
