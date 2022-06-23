@@ -73,10 +73,14 @@ public class AnalizeRepository {
 			sql.append(String.valueOf(i));
 			sql.append(" then oi.rate end) end) as item");
 			sql.append(String.valueOf(i));
+			sql.append(",");
 		}
-		sql.append("from users as u left outer join orders as o ON u.id=o.user_id");
-		sql.append("left outer join order_items as oi ON o.id=oi.order_id");
-		sql.append("group by u.id;");
+		// 末尾から1文字分を削除
+		sql.setLength(sql.length()-1);
+		
+		sql.append(" from users as u left outer join orders as o ON u.id=o.user_id");
+		sql.append(" left outer join order_items as oi ON o.id=oi.order_id");
+		sql.append(" group by u.id;");
 		List<AnalizeData> analizeDataList = template.query(sql.toString(), ANALIZE_DATA_ROW_MAPPER);
 		return analizeDataList;
 		
