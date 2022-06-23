@@ -43,18 +43,28 @@ public class ItemListController {
 				itemList = itemListService.findAll();
 			}
 		} else {
-			// 最初のページ表示時や不正なリクエストパラメータの時はデフォルトの並び順で表示させる
+			// 最初のページ表示時や不正なリクエストパラメータの時は価格順で表示させる
 			if (sortKey == null) {
 				itemList = itemListService.findAll();
+				model.addAttribute("sortKey", "price");
 			} else {
 				if (sortKey.equals("rate")) {
 					itemList = itemListService.findAllSortedByRate();
+					model.addAttribute("sortKey", "rate");
 				} else if (sortKey.equals("sales")) {
 					itemList = itemListService.findAllSortedBySales();
+					model.addAttribute("sortKey", "sales");
 				} else {
 					itemList = itemListService.findAll();
+					model.addAttribute("sortKey", "price");
 				}
 			}
+		}
+		
+		// 評価を0.0の形式に変更
+		for(Item item: itemList) {
+			double averageRate = Math.round(item.getAverageRate() * 10) / 10.0;
+			item.setAverageRate(averageRate);
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";

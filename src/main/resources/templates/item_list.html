@@ -27,6 +27,7 @@
     <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
     <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
     <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_history.css}" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -101,10 +102,9 @@
 
 	        </div>
 	        <select class="browser-default" onChange="location.href=value;">
-		          <option value="/ec-202204b/" selected>並び替える</option>
-		          <option value="/ec-202204b/?sortKey=default">デフォルト</option>
-		          <option value="/ec-202204b/?sortKey=sales">売り上げ順</option>
-		          <option value="/ec-202204b/?sortKey=rate">評価順</option>
+		          <option value="/ec-202204b/?sortKey=default" th:selected="${sortKey} == 'price'">価格順</option>
+		          <option value="/ec-202204b/?sortKey=sales" th:selected="${sortKey} == 'sales'">売り上げ順</option>
+		          <option value="/ec-202204b/?sortKey=rate" th:selected="${sortKey} == 'rate'">評価順</option>
 	        </select>
 
           <span th:text="${noItemMessage}"></span>
@@ -130,6 +130,12 @@
             </div>
             <a th:href="@{|/detail?id=${item.id}|}" th:text="${item.name}"></a
             ><br />
+            <p class="result-rating-rate">
+              <span
+                class="star5_rating"
+                th:data-rate="${item.averageRate}"
+              ></span>
+            </p>
             <span class="price">M</span>
             <span th:text="${item.priceM}"></span>円(税抜)<br />
             <span class="price">L</span>
