@@ -97,7 +97,12 @@
             <div th:errors="*{zipcode}" class="error"></div>
             <div class="row">
               <div class="input-field col s12">
-                <input th:field="*{zipcode}" id="zipcode" type="text" />
+                <input
+                  th:field="*{zipcode}"
+                  id="zipcode"
+                  type="text"
+                  placeholder="郵便番号はハイフンをつけて入力してください"
+                />
                 <label for="zipcode">郵便番号</label>
                 <button id="get_address" class="btn" type="button">
                   <span>住所検索</span>
@@ -114,7 +119,12 @@
             <div th:errors="*{telephone}" class="error"></div>
             <div class="row">
               <div class="input-field col s12">
-                <input th:field="*{telephone}" id="tel" type="tel" />
+                <input
+                  th:field="*{telephone}"
+                  id="tel"
+                  type="tel"
+                  placeholder="電話番号はハイフンをつけて入力してください"
+                />
                 <label for="tel">電話番号</label>
               </div>
             </div>
@@ -126,6 +136,7 @@
                   id="password"
                   type="password"
                   class="validate"
+                  placeholder="パスワードは８文字以上１６文字以内で設定してください"
                 />
                 <label for="password">パスワード</label>
               </div>
