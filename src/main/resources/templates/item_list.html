@@ -113,8 +113,73 @@
     </div>
 
     <!-- item list -->
-    
     <div class="item-wrapper">
+      <div class="recommend box">
+        <div class="page-title">あなたへのおすすめ</div>
+          <div class="recommend-items">
+            <div class="recommend-item">
+              <div class="item-icon">
+                <a th:href="@{|/detail?id=1|}"
+                  ><img th:src="@{/img/1}"
+                /></a>
+              </div>
+              <a th:href="@{/detail?id=1}" th:text="test"></a
+              ><br />
+              <p class="result-rating-rate">
+                <span
+                  class="star5_rating"
+                  th:data-rate="5"
+                ></span>
+                </p>
+              <span class="price">M</span>
+              <span th:text="250"></span>円(税抜)<br />
+              <span class="price">L</span>
+              <span th:text="300"></span>円(税抜)<br />
+            </div>
+          
+            <div class="recommend-item">
+              <div class="item-icon">
+                <a th:href="@{/detail?id=1}"
+                  ><img th:src="@{/img/1}"
+                /></a>
+              </div>
+              <a th:href="@{/detail?id=1}" th:text="test"></a
+              ><br />
+              <p class="result-rating-rate">
+                <span
+                  class="star5_rating"
+                  th:data-rate="5"
+                ></span>
+              </p>
+              <span class="price">M</span>
+              <span th:text="250"></span>円(税抜)<br />
+              <span class="price">L</span>
+              <span th:text="300"></span>円(税抜)<br />
+            </div>
+          
+            <div class="recommend-item">
+              <div class="item-icon">
+                <a th:href="@{/detail?id=1}"
+                  ><img th:src="@{/img/1}"
+                /></a>
+              </div>
+              <a th:href="@{/detail?id=1}" th:text="test"></a
+              ><br />
+              <p class="result-rating-rate">
+                <span
+                  class="star5_rating"
+                  th:data-rate="5"
+                ></span>
+              </p>
+              <span class="price">M</span>
+              <span th:text="250"></span>円(税抜)<br />
+              <span class="price">L</span>
+              <span th:text="300"></span>円(税抜)<br />
+            </div>
+          </div>
+        </div>
+      
+      
       <div class="container">
       
     
@@ -143,7 +208,7 @@
           </div>
         </div>
       </div>
-    </div>
+     </div>
     
 
     <footer>
