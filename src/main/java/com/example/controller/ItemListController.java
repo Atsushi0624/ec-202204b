@@ -40,16 +40,20 @@ public class ItemListController {
 				itemList = itemListService.findAll();
 			}
 		} else {
-			// 最初のページ表示時や不正なリクエストパラメータの時はデフォルトの並び順で表示させる
+			// 最初のページ表示時や不正なリクエストパラメータの時は価格順で表示させる
 			if (sortKey == null) {
 				itemList = itemListService.findAll();
+				model.addAttribute("sortKey", "price");
 			} else {
 				if (sortKey.equals("rate")) {
 					itemList = itemListService.findAllSortedByRate();
+					model.addAttribute("sortKey", "rate");
 				} else if (sortKey.equals("sales")) {
 					itemList = itemListService.findAllSortedBySales();
+					model.addAttribute("sortKey", "sales");
 				} else {
 					itemList = itemListService.findAll();
+					model.addAttribute("sortKey", "price");
 				}
 			}
 		}
