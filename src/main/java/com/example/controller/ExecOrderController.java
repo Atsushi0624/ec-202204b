@@ -37,7 +37,7 @@ public class ExecOrderController {
 
 	@Autowired
 	ExecOrderService execOrderService;
-	
+
 	@Autowired
 	private ConfirmOrderController confirmOrderController;
 
@@ -54,26 +54,26 @@ public class ExecOrderController {
 	/**
 	 * 注文を実行します.
 	 * 
-	 * @param form　注文フォーム
+	 * @param form   注文フォーム
 	 * @param result 入力値チェック用のBindingResult
-	 * @param model 注文確認画面に戻るメソッドの引数に使用
+	 * @param model  注文確認画面に戻るメソッドの引数に使用
 	 * @return 注文完了画面
 	 */
 	@RequestMapping("/exec_order")
-	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model){
+	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model) {
 		LocalDateTime deliveryTime = null;
 		System.out.println(form);
-		if (!form.getDeliveryTimeList().contains("") && ! (form.getDeliveryTimeList().size()==0)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
+		if (!form.getDeliveryTimeList().contains("") && !(form.getDeliveryTimeList().size() == 0)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
 			// 配達日時のチェック
-			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) +":00:00";
+			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) + ":00:00";
 			deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			if(deliveryTime.isBefore(LocalDateTime.now().plusHours(3))) {
+			if (deliveryTime.isBefore(LocalDateTime.now().plusHours(3))) {
 				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "今から3時間以後の日時をご入力ください");
 				result.addError(fieldError);
 			}
-		}else {
-				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "配達日時を選択してください");
-				result.addError(fieldError);
+		} else {
+			FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTimeList", "配達日時を選択してください");
+			result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
 			return confirmOrderController.toOrderConfirm(1, model);
