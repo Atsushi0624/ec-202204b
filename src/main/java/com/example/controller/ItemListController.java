@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
+import com.example.service.AnalizeService;
 import com.example.service.ItemListService;
 
 /**
@@ -21,6 +22,9 @@ import com.example.service.ItemListService;
 public class ItemListController {
 	@Autowired
 	private ItemListService itemListService;
+	
+	@Autowired
+	private AnalizeService analizeService;
 
 	/**
 	 * 商品一覧を検索して表示する.
@@ -32,6 +36,9 @@ public class ItemListController {
 	 */
 	@RequestMapping("")
 	public String showList(Model model, String itemName, String sortKey) {
+		List<Item> recommendItemList = analizeService.getRecommendItems();
+		model.addAttribute("recommendItemList", recommendItemList);
+		
 		List<Item> itemList = null;
 		// オートコンプリート用に全件リストを用意
 		List<Item> allItemList = itemListService.findAll();

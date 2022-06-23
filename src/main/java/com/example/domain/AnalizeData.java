@@ -19,7 +19,7 @@ public class AnalizeData {
 	 * ただしrateはcustomerごとの評価の平均値が入る
 	 */
 	private List<Item> itemList;
-
+	
 	public Customer getCustomer() {
 		return customer;
 	}
