@@ -33,7 +33,7 @@ public class OrderHistoryController {
 	 * 注文履歴を表示.
 	 * 
 	 * @param model
-	 * @return
+	 * @return 注文履歴画面
 	 */
 	@RequestMapping("/showOrderHistory")
 	public String showOrderHistory(Model model) {
@@ -44,5 +44,19 @@ public class OrderHistoryController {
 		}
 		System.out.println(orderList);
 		return "order_history";
+	}
+	
+	/**
+	 * 商品を評価.
+	 * 
+	 * @return 注文履歴画面
+	 */
+	@RequestMapping("/evaluateItem")
+	public String evaluateItem(Integer rate, Integer orderItemId) {
+		if(rate == null) {
+			rate = 0;
+		}
+		orderHistoryService.updateRate(rate, orderItemId);
+		return "redirect:/showOrderHistory";
 	}
 }

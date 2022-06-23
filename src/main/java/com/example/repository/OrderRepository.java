@@ -72,6 +72,10 @@ public class OrderRepository {
 					orderItem.setItemId(rs.getInt("item_id"));
 					orderItem.setQuantity(rs.getInt("quantity"));
 					orderItem.setSize(rs.getString("size"));
+					String rate = rs.getString("rate");
+					if(rate != null) {
+						orderItem.setRate(rs.getInt("rate"));
+					}
 
 					Item item = new Item();
 					item.setName(rs.getString("i_name"));
@@ -139,7 +143,7 @@ public class OrderRepository {
 	 * @return 注文情報
 	 */
 	public Order load(Integer orderId) {
-		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
+		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, rate, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
 				+ "FROM orders AS o "
 				+ "LEFT JOIN order_items AS oi "
 				+ "ON o.id = oi.order_id "
@@ -166,7 +170,7 @@ public class OrderRepository {
 	 * @return 注文情報一覧
 	 */
 	public List<Order> findByCustomerId(Integer customerId) {
-		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
+		String sql = "SELECT o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, oi.id AS oi_id, item_id, quantity, size, rate, i.name AS i_name, description, i.price_m AS i_price_m, i.price_l AS i_price_l, image_path, ot.id AS ot_id, topping_id, order_item_id, t.name AS t_name, t.price_m AS t_price_m, t.price_l AS t_price_l "
 				+ "FROM orders AS o "
 				+ "LEFT JOIN order_items AS oi "
 				+ "ON o.id = oi.order_id "
