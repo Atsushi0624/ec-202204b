@@ -127,7 +127,7 @@ public class OrderItemRepository {
 	 * @return 売り上げ順にならんだ商品のリスト
 	 */
 	public List<Map<Item, Integer>> rankedItemListByAgeAndGender(String age, String gender) {
-		String sql = "select i.id as id, i.name as name, i.description as description, i.image_path image_path, i.price_m price_m, i.price_l price_l, i.deleted deleted sales "
+		String sql = "select i.id as id, i.name as name, i.description as description, i.image_path image_path, i.price_m price_m, i.price_l price_l, i.deleted as deleted, sales "
 				+ "from items as i " + " left outer join " + "(SELECT oi.item_id, sum(quantity) as sales "
 				+ " FROM order_items as oi " + " left outer join orders as o ON o.id = oi.order_id "
 				+ " left outer join users as u ON o.user_id = u.id " + " where u.age=:age AND u.gender=:gender "

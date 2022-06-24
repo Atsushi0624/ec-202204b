@@ -37,6 +37,7 @@ public class CreateDummyDataService {
 	 * @param maxQuantity 生成する数量の最大値
 	 */
 	public void createDummyData(int dummyUserNum, int maxDummyOrderItemNum, int maxQuantity) {
+		Random random = new Random();
 		int start = customerRepository.findMaxDummyCutomerId() + 1;
 		for(int i = start; i < start + dummyUserNum; i++) {
 			Customer customer = new Customer();
@@ -46,6 +47,26 @@ public class CreateDummyDataService {
 			customer.setZipcode("000-0000" );
 			customer.setPassword("dummy");
 			customer.setTelephone("000-0000-0000");
+			int gender = random.nextInt(2);
+			if(gender == 0) {
+				customer.setGender("男性");					
+			}else {
+				customer.setGender("女性");	
+			}
+			int age = random.nextInt(6);
+			if(age == 0) {
+				customer.setAge("10代");		
+			}else if(age == 1){
+				customer.setAge("20代");	
+			}else if(age == 2){
+				customer.setAge("30代");	
+			}else if(age == 3){
+				customer.setAge("40代");	
+			}else if(age == 4){
+				customer.setAge("50代");	
+			}else{
+				customer.setAge("60代");	
+			}
 			int customerId = customerRepository.insert(customer);
 			
 			Order order = new Order();
@@ -55,7 +76,6 @@ public class CreateDummyDataService {
 			int orderId = orderRepository.insert(order);
 			
 			// 注文商品情報を登録
-			Random random = new Random();
 			for(int j = 1; j <= maxDummyOrderItemNum; j ++) {
 				OrderItem orderItem = new OrderItem();
 				orderItem.setOrderId(orderId);
@@ -79,6 +99,7 @@ public class CreateDummyDataService {
 	 * @return 採番された顧客ID
 	 */
 	public int createDummyUser() {
+		Random random = new Random();
 		int dummyId = customerRepository.findMaxDummyCutomerId() + 1;
 		Customer customer = new Customer();
 		customer.setName("ダミーユーザー" + dummyId);
@@ -87,6 +108,26 @@ public class CreateDummyDataService {
 		customer.setZipcode("000-0000" );
 		customer.setPassword("dummy");
 		customer.setTelephone("000-0000-0000");
+		int gender = random.nextInt(2);
+		if(gender == 0) {
+			customer.setGender("男性");					
+		}else {
+			customer.setGender("女性");	
+		}
+		int age = random.nextInt(6);
+		if(age == 0) {
+			customer.setAge("10代");		
+		}else if(age == 1){
+			customer.setAge("20代");	
+		}else if(age == 2){
+			customer.setAge("30代");	
+		}else if(age == 3){
+			customer.setAge("40代");	
+		}else if(age == 4){
+			customer.setAge("50代");	
+		}else{
+			customer.setAge("60代");	
+		}
 		int customerId = customerRepository.insert(customer);
 		
 		return customerId;

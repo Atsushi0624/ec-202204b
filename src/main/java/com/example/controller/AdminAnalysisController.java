@@ -1,5 +1,6 @@
 package com.example.controller;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,12 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.service.AdminAnalysisService;
-
 /**
  * @author nao.yamada
  *
  */
+
+import com.example.domain.Item;
+import com.example.service.AdminAnalysisService;
+import com.example.service.ItemListService;
+
+
 @RequestMapping("/adminAnalysis")
 @Controller
 public class AdminAnalysisController {
@@ -27,6 +32,8 @@ public class AdminAnalysisController {
 	@Autowired
 	private AdminAnalysisService adminAnalysisService;
 
+	@Autowired
+	private ItemListService itemListService;
 	/**
 	 * 商品別円グラフを表示.
 	 * 
@@ -34,13 +41,17 @@ public class AdminAnalysisController {
 	 */
 	@RequestMapping("/pieChart")
 	public String displayPieChart(Integer itemId, Model model) {
-		if (itemId == null) {
+		List<Item> allItemList = itemListService.findAll();
+		model.addAttribute("itemList", allItemList);
+		if(itemId == null) {
 			itemId = 1;
 		}
+		model.addAttribute("selectedItemId", itemId);
+
 //		Integer[] agePercentArray;
 //		Integer[] genderPercentArray;
-		List<Integer> agePercentList = new ArrayList<>(2);
-		List<Integer> genderPercentList = new ArrayList<>(AGE_NUM);
+		List<String> agePercentList = new ArrayList<>(2);
+		List<String> genderPercentList = new ArrayList<>(AGE_NUM);
 		
 		
 		// Map<male, 男性の数> Map<age20, 20代の数>のように値が格納されている
@@ -68,8 +79,9 @@ public class AdminAnalysisController {
 			System.out.println(genderPercentList.toString());
 			
 		}
-		model.addAttribute("agePercentArray", agePercentList);
-		model.addAttribute("genderPercentArray", genderPercentList);
+		model.addAttribute("agePercentList", agePercentList);
+		model.addAttribute("genderPercentList", genderPercentList);
+
 		return "pie_chart";
 	}
 	
@@ -78,16 +90,17 @@ public class AdminAnalysisController {
 	 * 
 	 * @param list
 	 */
-	public List<Integer> toPercent(List<Integer> list) {
-		List<Integer> percentList = new ArrayList<>(list.size());
+	public List<String> toPercent(List<Integer> list) {
+		List<String> percentList = new ArrayList<>(list.size());
 		System.out.println(list);
 		int total = 0;
 		for (int elem : list) {
 			total += elem;
 		}
 		for (int i = 0; i < list.size(); i++ ) {
-			percentList.add((int)((list.get(i)/total) * 100));
+			percentList.add(String.valueOf( (Integer)((list.get(i)/total) * 100)));
 		}
+		
 		System.out.println(percentList);
 		return percentList;
 	}
