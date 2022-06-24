@@ -76,13 +76,18 @@ public class AdminAnalysisController {
 
 	@RequestMapping("/ranking")
 	public String displayRanking(Model model, String age, String gender) {
-		System.out.println(age);
+		if(age == null) {
+			age = "10代";
+		}
+		if(gender == null) {
+			gender = "男性";
+		}
 		List<Map<Item, Integer>> itemList = adminAnalysisService.rankedItemList(age, gender);
 		List<String> items = new ArrayList<>();
 		List<Integer> sales = new ArrayList<>();
 		for (Map<Item, Integer> itemMap : itemList) {
 			Set<Item> keySet = itemMap.keySet();
-			Iterator iterator = keySet.iterator();
+			Iterator<Item> iterator = keySet.iterator();
 			Item item = (Item) iterator.next();
 			Integer sale = itemMap.get(item);
 			items.add(item.getName());
