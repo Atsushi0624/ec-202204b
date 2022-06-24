@@ -88,4 +88,8 @@ public class OrderItemRepository {
 
 		template.update(sql, param);
 	}
+	
+//	public List<Integer> rankedItemListByAgeAndGender(String age, String gender){
+//		String sql = "select ";
+//	}
 }
