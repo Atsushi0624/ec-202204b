@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <!--Import Google Icon Font-->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -50,58 +51,45 @@
     </header> -->
     <div>
       <div class="item-wrapper" style="display: flex">
-        <select
-          class="browser-default"
-          name="age"
-          onChange="location.href=value;"
-        >
-          <option
-            value="/ec-202204b/ranking/?rankingKey=10"
-            th:selected="${rankingKey}==10"
-          >
-            10代
-          </option>
-          <option
-            value="/ec-202204b/ranking/?rankingKey=20"
-            th:selected="${rankingKey}==20"
-          >
-            20代
-          </option>
-          <option
-            value="/ec-202204b/ranking/?rankingKey=30"
-            th:selected="${rankingKey}==30"
-          >
-            30代
-          </option>
-        </select>
-        <select
-          class="browser-default"
-          name="gender"
-          onChange="location.href=value;"
-        >
-          <option
-            value="/ec-202204b/ranking/?rankingKey=male"
-            th:selected="${rankingKey}==male"
-          >
-            男
-          </option>
-          <option
-            value="/ec-202204b/ranking/?rankingKey=female"
-            th:selected="${rankingKey}==female"
-          >
-            女
-          </option>
-        </select>
+        <form th:action="@{/ranking}" method="post">
+          <select class="browser-default" name="age">
+            <option th:value="10">10代</option>
+            <option th:value="20">20代</option>
+            <option th:value="30">30代</option>
+          </select>
+          <select class="browser-default" name="gender">
+            <option th:value="男">男性</option>
+            <option th:value="女">女性</option>
+          </select>
+          <button>検索</button>
+        </form>
       </div>
     </div>
     <div>
-      <span th:each="item:${itemList}">
-        <p>
-          <span></span>.
-          <span th:text="${item.name}"></span>
-        </p>
-        <hr />
-      </span>
+      <canvas id="ChartDemo"></canvas>
+      <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var ctx = document.getElementById("ChartDemo").getContext("2d");
+        var ChartDemo = new Chart(ctx, {
+          type: "horizontalBar",
+          data: {
+            labels: /*[[ ${items} ]]*/ "",
+            datasets: [
+              {
+                label: "Chart-1",
+                borderColor: "rgb(255, 0, 0)",
+                lineTension: 0,
+                fill: false,
+                data: /*[[ ${sales} ]]*/ "",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+          },
+        });
+        /*]]>*/
+      </script>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

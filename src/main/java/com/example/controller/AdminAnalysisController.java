@@ -1,13 +1,24 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/adminAnalysis")
+import com.example.domain.Item;
+import com.example.service.AdminAnalysisService;
+
+@RequestMapping("")
 @Controller
 public class AdminAnalysisController {
 	@Autowired
-	private ItemListService itemListService;
+	private AdminAnalysisService adminAnalysisService;
 
 	/**
 	 * 商品別円グラフを表示.
@@ -20,18 +31,22 @@ public class AdminAnalysisController {
 	}
 
 	@RequestMapping("/ranking")
-	public String displayRanking(Model model, String ageKey, String genderKey) {
-		List<Item> itemList = null;
-		if (ageKey == null) {
-			itemList = itemListService.findAll();
-			model.addAttribute("rankingKey", "10");
-		} else if (ageKey.equals("20")) {
-			model.addAttribute("rankingKey", "10");
-		} else if (ageKey.equals("30")) {
-			model.addAttribute("rankingKey", "10");
+	public String displayRanking(Model model, String age, String gender) {
+		List<Map<Item, Integer>> itemList = adminAnalysisService.rankedItemList(age, gender);
+		List<String> items = new ArrayList<>();
+		List<Integer> sales = new ArrayList<>();
+		for (Map<Item, Integer> itemMap : itemList) {
+			Set<Item> keySet = itemMap.keySet();
+			Iterator iterator = keySet.iterator();
+			Item item = (Item) iterator.next();
+			Integer sale = itemMap.get(item);
+			items.add(item.getName());
+			sales.add(sale);
 		}
-		int rank = 0;
-		model.addAttribute("itemList", itemList);
+		model.addAttribute("items", items);
+		model.addAttribute("sales", sales);
+
+		// model.addAttribute("itemList", itemList);
 		return "ranking";
 	}
 }
