@@ -1,6 +1,7 @@
 -- ユーザー
 drop table if exists users cascade;
 
+drop table if exists users cascade;
 create table users (
  id serial primary key
  , name varchar(100) not null
