@@ -92,6 +92,13 @@ public class CreateDummyDataService {
 		return customerId;
 	}
 	
+	/**
+	 * ダミーオーダーの生成.
+	 * 
+	 * @param customerId　顧客ID
+	 * @param itemId 商品ID
+	 * @param rate 評価
+	 */
 	public void createDummyOrder(int customerId, int itemId, int rate) {
 		Order order = new Order();
 		order.setCustomerId(customerId);

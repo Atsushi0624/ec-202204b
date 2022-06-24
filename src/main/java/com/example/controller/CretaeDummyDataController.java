@@ -45,6 +45,12 @@ public class CretaeDummyDataController {
 		return "redirect:/toDummyForm";
 	}
 	
+	/**
+	 * ダミーユーザを生成する.
+	 * 
+	 * @param model
+	 * @return ダミーデータ生成フォーム画面
+	 */
 	@RequestMapping("/createDummyUser")
 	public String createDummyUser(Model model) {
 		int customerId = service.createDummyUser();
@@ -53,6 +59,14 @@ public class CretaeDummyDataController {
 		return toFormPage(model);
 	}
 	
+	/**
+	 * ダミーオーダーを生成する.
+	 * 
+	 * @param customerId 顧客ID
+	 * @param itemId 商品ID
+	 * @param rate 評価
+	 * @return ダミーデータ生成フォーム画面
+	 */
 	@RequestMapping("/createDummyOrder")
 	public String createDummyOrder(int customerId, int itemId, int rate) {
 		service.createDummyOrder(customerId, itemId, rate);
