@@ -27,7 +27,7 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a th:href="@{/show}">
+            <a th:href="@{/}">
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
@@ -62,7 +62,7 @@
           </div>
           <br /><br />
           <div th:if="${agePercentList} == null">
-          	<h2>購入データがありません</h2>
+            <h2>購入データがありません</h2>
           </div>
           <div th:if="${agePercentList} != null" class="graph-box">
             <div class="chart-area">
