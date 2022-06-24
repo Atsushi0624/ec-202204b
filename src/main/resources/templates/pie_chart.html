@@ -25,36 +25,11 @@
           </div>
 
           <div class="header-right">
-            <a th:href="@{/show}">商品一覧</a>
+            <a href="@{/show}">性別・年代別分析</a>
             <a
-              th:if="${session.customer} == null"
-              th:href="@{/registCustomer/toRegistration}"
-              >会員登録</a
+            href="@{/registCustomer/toRegistration}"
+              >商品別分析</a
             >
-            <a th:href="@{/cart/showCart}">
-              <i class="fas fa-shopping-cart"> </i>カート
-            </a>
-            <a
-              th:if="${session.customer} == null"
-              th:href="@{/toLogin}"
-              class="login"
-            >
-              <i class="fas fa-sign-in-alt"></i>ログイン
-            </a>
-            <a
-              th:unless="${session.customer} == null"
-              th:href="@{/toLogout}"
-              class="login"
-            >
-              <i class="fas fa-sign-out-alt"></i>ログアウト
-            </a>
-            <a
-              th:unless="${session.customer} == null"
-              th:href="@{/showOrderHistory}"
-              class="login"
-            >
-              <i class="fas fa-sign-out-alt"></i>注文履歴
-            </a>
           </div>
         </div>
       </div>

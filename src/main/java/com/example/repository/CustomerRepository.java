@@ -52,7 +52,7 @@ public class CustomerRepository {
 	 * 
 	 */
 
-	public void insert(Customer customer) {
+	public int insert(Customer customer) {
 		String sql = "INSERT INTO users (name,email,password,zipcode,address,telephone,age,gender) values (:name,:email,:password,:zipcode,:address,:telephone,:age,:gender)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(customer);
 		
@@ -99,7 +99,4 @@ public class CustomerRepository {
 			return 0;
 		}
 	}
-
-	}
-
 }
