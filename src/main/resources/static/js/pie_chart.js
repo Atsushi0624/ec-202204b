@@ -44,12 +44,19 @@ $('#age-graph').on('inview', function (event, isInView) {
       type: 'pie', //グラフのタイプ
       data: {
         //グラフのデータ
-        labels: ['IT', '営業', '不動産', '医療'], //データの名前
+        labels: ['10代', '20代', '30代', '40代', '50代', '60代'], //データの名前
         datasets: [
           {
-            label: '職種別比率', //グラフのタイトル
-            backgroundColor: ['#BB5179', '#FAFF67', '#58A27C', '#3C00FF'], //グラフの背景色
-            data: ['20', '30', '10', '40'], //データ
+            label: '年代別', //グラフのタイトル
+            backgroundColor: [
+              '#BB5179',
+              '#FAFF67',
+              '#58A27C',
+              '#3C00FF',
+              '#ffa500',
+              '#00ff7f',
+            ], //グラフの背景色
+            data: ['20', '30', '10', '10', '15', '15'], //データ
           },
         ],
       },
@@ -76,8 +83,8 @@ $('#age-graph').on('inview', function (event, isInView) {
         title: {
           //上部タイトル表示の設定
           display: true,
-          fontSize: 10,
-          text: '単位：%',
+          fontSize: 20,
+          text: '年代別売り上げ数',
         },
       },
     });
@@ -87,12 +94,12 @@ $('#age-graph').on('inview', function (event, isInView) {
       type: 'pie', //グラフのタイプ
       data: {
         //グラフのデータ
-        labels: ['IT', '営業', '不動産', '医療'], //データの名前
+        labels: ['男性', '女性'], //データの名前
         datasets: [
           {
-            label: '職種別比率', //グラフのタイトル
-            backgroundColor: ['#BB5179', '#FAFF67', '#58A27C', '#3C00FF'], //グラフの背景色
-            data: ['20', '30', '10', '40'], //データ
+            label: '性別別', //グラフのタイトル
+            backgroundColor: ['#3C00FF', '#BB5179'], //グラフの背景色
+            data: ['80', '20'], //データ
           },
         ],
       },
@@ -119,8 +126,8 @@ $('#age-graph').on('inview', function (event, isInView) {
         title: {
           //上部タイトル表示の設定
           display: true,
-          fontSize: 10,
-          text: '単位：%',
+          fontSize: 20,
+          text: '性別別売り上げ数',
         },
       },
     });

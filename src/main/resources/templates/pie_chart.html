@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクカフェ</title>
+    <title>管理者ページ</title>
     <link rel="stylesheet" th:href="@{/css/common.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/footer.css}" />
@@ -32,9 +32,9 @@
             </a>
           </div>
           <div class="header-right">
-            <a href="@{/show}">性別・年代別分析</a>
+            <a href="@{/adminAnalysis/}">性別・年代別分析</a>
             <a
-            href="@{/registCustomer/toRegistration}"
+            href="@{/adminAnalysis/pieChart}"
               >商品別分析</a
             >
           </div>
@@ -46,9 +46,15 @@
         <h1 style="color: black" class="page-title">管理者ページ</h1>
         
         <div class="centering">
-        <h3 style="color: black">
+        <h2 style="color: black">
           商品別分析
-        </h3>
+        </h2>
+        <div>
+        <select class="browser-default" onChange="location.href=value;" style="width:300px;">
+	          <option th:each="item: ${itemList}" th:value="'/ec-202204b/adminAnalysis/pieChart?itemId=' + ${item.id}" th:text="${item.name}" th:selected="${item.id == selectedItemId}">抹茶フラペチーノ</option>
+        </select>
+        </div>
+        <br><br>
         <div class="graph-box">
             <div class="chart-area">
 				<canvas id="age-graph"></canvas>
@@ -75,6 +81,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
 	<!--自作のJS-->
-	<script th:src="@{/js/pie_chart.js}"></script>
+	<script th:inline="javascript" th:src="@{/js/pie_chart.js}"></script>
   </body>
 </html>
