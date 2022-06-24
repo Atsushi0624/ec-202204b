@@ -52,15 +52,15 @@ public class CustomerRepository {
 	 * 
 	 */
 
-	public void insert(Customer customer) {
+	public int insert(Customer customer) {
 		String sql = "INSERT INTO users (name,email,password,zipcode,address,telephone,age,gender) values (:name,:email,:password,:zipcode,:address,:telephone,:age,:gender)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(customer);
-		
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String[] keyColumnNames = {"id"};
-		
+		String[] keyColumnNames = { "id" };
+
 		template.update(sql, param, keyHolder, keyColumnNames);
-		
+
 		return keyHolder.getKey().intValue();
 	}
 
@@ -80,9 +80,8 @@ public class CustomerRepository {
 			return customerList.get(0);
 		}
 
-		
 	}
-	
+
 	/**
 	 * IDがMAXのダミーデータのダミー番号を取得.
 	 * 
@@ -93,13 +92,11 @@ public class CustomerRepository {
 			String sql = "SELECT address FROM users WHERE password = 'dummy' GROUP BY id ORDER BY id DESC LIMIT 1;";
 			SqlParameterSource param = new MapSqlParameterSource();
 			String stringId = template.queryForObject(sql, param, String.class);
-			
+
 			return Integer.parseInt(stringId);
 		} catch (EmptyResultDataAccessException e) {
 			return 0;
 		}
-	}
-
 	}
 
 }
