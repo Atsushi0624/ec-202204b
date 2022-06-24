@@ -76,6 +76,7 @@ public class AdminAnalysisController {
 
 	@RequestMapping("/ranking")
 	public String displayRanking(Model model, String age, String gender) {
+		System.out.println(age);
 		List<Map<Item, Integer>> itemList = adminAnalysisService.rankedItemList(age, gender);
 		List<String> items = new ArrayList<>();
 		List<Integer> sales = new ArrayList<>();
