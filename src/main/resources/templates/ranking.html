@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクカフェ</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/top.css}" />
+    <link rel="stylesheet" th:href="@{css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{css/ranking.css}" />
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  </head>
+  <body>
+    <!-- <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a th:href="@{/show}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
+            </a>
+          </div>
+
+          <div class="header-right">
+            <a href="@{/show}">性別・年代別分析</a>
+            <a href="@{/registCustomer/toRegistration}">商品別分析</a>
+          </div>
+        </div>
+      </div>
+    </header> -->
+    <div>
+      <div class="item-wrapper" style="display: flex">
+        <form th:action="@{/ranking}" method="post">
+          <select class="browser-default" name="age">
+            <option th:value="10">10代</option>
+            <option th:value="20">20代</option>
+            <option th:value="30">30代</option>
+          </select>
+          <select class="browser-default" name="gender">
+            <option th:value="男">男性</option>
+            <option th:value="女">女性</option>
+          </select>
+          <button>検索</button>
+        </form>
+      </div>
+    </div>
+    <div>
+      <canvas id="ChartDemo"></canvas>
+      <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var ctx = document.getElementById("ChartDemo").getContext("2d");
+        var ChartDemo = new Chart(ctx, {
+          type: "horizontalBar",
+          data: {
+            labels: /*[[ ${items} ]]*/ "",
+            datasets: [
+              {
+                label: "Chart-1",
+                borderColor: "rgb(255, 0, 0)",
+                lineTension: 0,
+                fill: false,
+                data: /*[[ ${sales} ]]*/ "",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+          },
+        });
+        /*]]>*/
+      </script>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </body>
+</html>
