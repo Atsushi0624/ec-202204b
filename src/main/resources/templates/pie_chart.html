@@ -4,11 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ラクラクカフェ</title>
-    <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/top.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_history.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin_analysis.css}" />
     <link
       href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
       rel="stylesheet"
@@ -23,7 +31,6 @@
               <img class="logo" th:src="@{/img/header_logo.png}" />
             </a>
           </div>
-
           <div class="header-right">
             <a href="@{/show}">性別・年代別分析</a>
             <a
@@ -36,12 +43,26 @@
     </header>
     <div class="top-wrapper">
       <div class="container">
-        <h1 style="color: black" class="page-title">404 Not Found</h1>
+        <h1 style="color: black" class="page-title">管理者ページ</h1>
+        
+        <div class="centering">
         <h3 style="color: black">
-          申し訳ございません。お探しのページは見つかりませんでした。
+          商品別分析
         </h3>
+        <div class="graph-box">
+            <div class="chart-area">
+				<canvas id="age-graph"></canvas>
+			</div>
+			
+			<div class="chart-area">
+				<canvas id="gender-graph"></canvas>
+			</div>
+        </div>
+        </div>
       </div>
     </div>
+    
+    
     <footer>
       <div class="container">
         <img th:src="@{/img/header_logo.png}" />
@@ -50,5 +71,10 @@
     </footer>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+	<!--自作のJS-->
+	<script th:src="@{/js/pie_chart.js}"></script>
   </body>
 </html>
