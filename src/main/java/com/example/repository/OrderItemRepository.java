@@ -155,7 +155,11 @@ public class OrderItemRepository {
 				+ "left outer join orders as o ON oi.order_id=o.id " + "left outer join users as u ON u.id=o.user_id "
 				+ "group by oi.item_id " + "having oi.item_id=:itemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
-		return template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER).get(0);
+		List<Map<String, Integer>> ageGenderMapList = template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER);
+		if (ageGenderMapList.size() == 0) {
+			return null;
+		}
+		return ageGenderMapList.get(0);
 
 	}
 }

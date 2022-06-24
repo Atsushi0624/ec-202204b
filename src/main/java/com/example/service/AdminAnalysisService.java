@@ -32,6 +32,10 @@ public class AdminAnalysisService {
 		return orderItemRepository.rankedItemListByAgeAndGender(age, gender);
 	}
 	
+	/**
+	 * @param itemId
+	 * @return
+	 */
 	public Map<String, Integer> getAgeGenderMapByItem(int itemId){
 		return orderItemRepository.getAgeGenderMapByItem(itemId);
 	}
