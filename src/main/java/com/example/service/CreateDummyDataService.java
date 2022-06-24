@@ -37,7 +37,6 @@ public class CreateDummyDataService {
 	 * @param maxQuantity 生成する数量の最大値
 	 */
 	public void createDummyData(int dummyUserNum, int maxDummyOrderItemNum, int maxQuantity) {
-		System.out.println(customerRepository.findMaxDummyCutomerId());
 		int start = customerRepository.findMaxDummyCutomerId() + 1;
 		for(int i = start; i < start + dummyUserNum; i++) {
 			Customer customer = new Customer();
@@ -72,5 +71,46 @@ public class CreateDummyDataService {
 				orderItemRepository.updateRate(random.nextInt(6), orderItemId);
 			}
 		}
+	}
+	
+	/**
+	 * ダミーユーザーの生成.
+	 * 
+	 * @return 採番された顧客ID
+	 */
+	public int createDummyUser() {
+		int dummyId = customerRepository.findMaxDummyCutomerId() + 1;
+		Customer customer = new Customer();
+		customer.setName("ダミーユーザー" + dummyId);
+		customer.setAddress(String.valueOf(dummyId));
+		customer.setEmail("dummy" + dummyId + "@sample.co.jp");
+		customer.setZipcode("000-0000" );
+		customer.setPassword("dummy");
+		customer.setTelephone("000-0000-0000");
+		int customerId = customerRepository.insert(customer);
+		
+		return customerId;
+	}
+	
+	public void createDummyOrder(int customerId, int itemId, int rate) {
+		Order order = new Order();
+		order.setCustomerId(customerId);
+		order.setStatus(0);
+		order.setTotalPrice(0);
+		int orderId = orderRepository.insert(order);
+		
+		OrderItem orderItem = new OrderItem();
+		orderItem.setOrderId(orderId);
+		orderItem.setItemId(itemId);
+		Random random = new Random();
+		orderItem.setQuantity(1);
+		int size = random.nextInt(2);
+		if(size == 0) {
+			orderItem.setSize("M");					
+		}else {
+			orderItem.setSize("L");	
+		}
+		int orderItemId = orderItemRepository.insert(orderItem);
+		orderItemRepository.updateRate(rate, orderItemId);
 	}
 }

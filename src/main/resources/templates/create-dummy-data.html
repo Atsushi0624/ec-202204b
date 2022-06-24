@@ -5,9 +5,25 @@
     <title>Insert title here</title>
   </head>
   <body>
+  	<h1>ダミーデータの作成</h1>
     <form th:action="@{/createDummyData}" method="post">
       ダミーデータ数: <input type="text" name="num" /><br /><br />
       <button>ダミーデータを作成</button>
+    </form>
+    <br><br>
+    <h1>ダミーユーザの作成</h1>
+    <form th:action="@{/createDummyUser}" method="post">
+      <button>ダミーユーザを作成</button>
+    </form>
+    <br>
+    <div th:text="${customerId}"></div>
+    <br><br>
+    <h1>ダミーオーダーの作成</h1>
+    <form th:action="@{/createDummyOrder}" method="post">
+      customerId: <input type="text" name="customerId" /><br />
+      itemId: <input type="text" name="itemId" /><br />
+      rate: <input type="text" name="rate" value="5"/><br /><br />
+      <button>ダミーオーダーを作成</button>
     </form>
   </body>
 </html>

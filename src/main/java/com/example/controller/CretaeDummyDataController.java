@@ -2,6 +2,7 @@ package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.service.CreateDummyDataService;
@@ -25,7 +26,7 @@ public class CretaeDummyDataController {
 	 * @return ダミーデータ生成フォーム画面
 	 */
 	@RequestMapping("/toDummyForm")
-	public String toFormPage() {
+	public String toFormPage(Model model) {
 		return "create-dummy-data";
 	}
 	
@@ -40,6 +41,21 @@ public class CretaeDummyDataController {
 		if(num != null) {
 			service.createDummyData(num, MAX_ORDER_ITEM_NUM, MAX_QUANTITY);
 		}
+		
+		return "redirect:/toDummyForm";
+	}
+	
+	@RequestMapping("/createDummyUser")
+	public String createDummyUser(Model model) {
+		int customerId = service.createDummyUser();
+		
+		model.addAttribute("customerId", customerId);
+		return toFormPage(model);
+	}
+	
+	@RequestMapping("/createDummyOrder")
+	public String createDummyOrder(int customerId, int itemId, int rate) {
+		service.createDummyOrder(customerId, itemId, rate);
 		
 		return "redirect:/toDummyForm";
 	}

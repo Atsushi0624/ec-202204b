@@ -47,7 +47,6 @@ public class AnalizeService {
 		}
 		// ログイン中の顧客を取得
 		Customer logedinCustomer = (Customer) session.getAttribute("customer");
-		logedinCustomer.getId();
 		List<Double> logedInCustomerRates = null;
 
 		int itemNum = itemRepository.getItemNum();
@@ -58,28 +57,34 @@ public class AnalizeService {
 
 		for (AnalizeData data : analizeRepository.getdata()) {
 			Customer customer = data.getCustomer();
+			
 			List<Double> customerRateList = new ArrayList<>();
 			for (Item item : data.getItemList()) {
 				customerRateList.add(item.getAverageRate());
 			}
-			analizeDataMap.put(customer, customerRateList);
 			
-			// ログイン中の顧客の商品評価のベクトルを取得
-			if (customer.getId().equals(logedinCustomer.getId())) {
+			if(customer.getId() == logedinCustomer.getId()) {
+				// ログイン中の顧客の商品評価のベクトルを取得
 				logedInCustomerRates = List.copyOf(customerRateList);
+				continue;
 			}
+			
+			analizeDataMap.put(customer, customerRateList);
 		}
 		
 		// 最も評価の似ている評価ベクトルを取得
 		List<Double> mostSimilerList = null;
+		Customer mostSimilarCustomer = null;
 		double minDist = 100.0;
 		for (Entry<Customer, List<Double>> data : analizeDataMap.entrySet()) {
 			Double dist = calcEuclideanDist(logedInCustomerRates, data.getValue());
 			if (dist < minDist) {
 				minDist = dist;
 				mostSimilerList = data.getValue();
+				mostSimilarCustomer = data.getKey();
 			}
 		}
+		System.out.println("mostSimilar: " + mostSimilarCustomer);
 		
 		// 評価ベクトルから値の大きい評価値上位３つを取得する
 		Map<Integer, Double> rateAndItemIdMap = new HashMap<>();
