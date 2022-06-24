@@ -27,6 +27,7 @@ public class RegistCustomerForm {
 	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください")
 	@Length(min = 8, max = 16, message = "パスワードは８文字以上１６文字以内で設定してください")
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[.?/-])[a-zA-Z0-9.?/-]$", message = "パスワードは大文字と記号を1つ以上入力してください")
 	private String password;
 	/** 確認用パスワード */
 	@NotBlank(message = "確認用パスワードを入力してください")
