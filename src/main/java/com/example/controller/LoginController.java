@@ -50,7 +50,7 @@ public class LoginController {
 	public String afterLogin(@AuthenticationPrincipal LoginCustomer customer) {
 		session.setAttribute("customer", customer.getCustomer());
 		if(customer.getUsername().equals("admin@admin.com")){
-			session.setAttribute("idAdmin", true);
+			session.setAttribute("isAdmin", true);
 		}
 		
 		
