@@ -91,17 +91,21 @@ public class AdminAnalysisController {
 	 * @param list
 	 */
 	public List<String> toPercent(List<Integer> list) {
-		List<String> percentList = new ArrayList<>(list.size());
+		System.out.println("======================");
+		List<String> percentList = new ArrayList<>();
 		System.out.println(list);
 		int total = 0;
 		for (int elem : list) {
 			total += elem;
 		}
 		for (int i = 0; i < list.size(); i++ ) {
-			percentList.add(String.valueOf( (Integer)((list.get(i)/total) * 100)));
+			System.out.println(percentList);
+			percentList.add(String.valueOf( (int)(((double)list.get(i)/total) * 100)));
+			System.out.println(percentList);
 		}
 		
 		System.out.println(percentList);
+		System.out.println("======================");
 		return percentList;
 	}
 }
