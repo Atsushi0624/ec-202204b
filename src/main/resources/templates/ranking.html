@@ -51,15 +51,15 @@
     </header> -->
     <div>
       <div class="item-wrapper" style="display: flex">
-        <form th:action="@{/ranking}" method="post">
+        <form th:action="@{/adminAnalysis/ranking}" method="post">
           <select class="browser-default" name="age">
-            <option th:value="10">10代</option>
-            <option th:value="20">20代</option>
-            <option th:value="30">30代</option>
+            <option th:value="10代">10代</option>
+            <option th:value="20代">20代</option>
+            <option th:value="30代">30代</option>
           </select>
           <select class="browser-default" name="gender">
-            <option th:value="男">男性</option>
-            <option th:value="女">女性</option>
+            <option th:value="男性">男性</option>
+            <option th:value="女性">女性</option>
           </select>
           <button>検索</button>
         </form>
@@ -68,6 +68,7 @@
     <div>
       <canvas id="ChartDemo"></canvas>
       <script type="text/javascript" th:inline="javascript">
+        console.log(/*[[ ${sales} ]]*/);
         /*<![CDATA[*/
         var ctx = document.getElementById("ChartDemo").getContext("2d");
         var ChartDemo = new Chart(ctx, {
