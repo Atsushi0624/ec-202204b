@@ -48,8 +48,6 @@ public class AdminAnalysisController {
 		}
 		model.addAttribute("selectedItemId", itemId);
 
-//		Integer[] agePercentArray;
-//		Integer[] genderPercentArray;
 		List<String> agePercentList = new ArrayList<>(2);
 		List<String> genderPercentList = new ArrayList<>(AGE_NUM);
 		
@@ -57,8 +55,6 @@ public class AdminAnalysisController {
 		// Map<male, 男性の数> Map<age20, 20代の数>のように値が格納されている
 		Map<String, Integer> ageGenderCountMap = adminAnalysisService.getAgeGenderMapByItem(itemId);
 		if (ageGenderCountMap == null ) {
-//			agePercentArray = new Integer[AGE_NUM];
-//			genderPercentArray = new Integer[AGE_NUM];
 		}else {
 			// mapから「数」のみのListに変換する
 			List<Integer> ageCountList = new ArrayList<>(Arrays.asList(ageGenderCountMap.get("male"),ageGenderCountMap.get("female")));
@@ -72,15 +68,9 @@ public class AdminAnalysisController {
 			agePercentList = toPercent(ageCountList);
 			genderPercentList = toPercent(genderCountList);
 			
-//			agePercentArray = (Integer[])agePercentList.toArray();
-//			genderPercentArray = (Integer[])genderPercentList.toArray();
-			
-			System.out.println(agePercentList.toString());
-			System.out.println(genderPercentList.toString());
-			
+			model.addAttribute("agePercentList", agePercentList);
+			model.addAttribute("genderPercentList", genderPercentList);
 		}
-		model.addAttribute("agePercentList", agePercentList);
-		model.addAttribute("genderPercentList", genderPercentList);
 
 		return "pie_chart";
 	}
@@ -91,21 +81,15 @@ public class AdminAnalysisController {
 	 * @param list
 	 */
 	public List<String> toPercent(List<Integer> list) {
-		System.out.println("======================");
 		List<String> percentList = new ArrayList<>();
-		System.out.println(list);
 		int total = 0;
 		for (int elem : list) {
 			total += elem;
 		}
 		for (int i = 0; i < list.size(); i++ ) {
-			System.out.println(percentList);
 			percentList.add(String.valueOf( (int)(((double)list.get(i)/total) * 100)));
-			System.out.println(percentList);
 		}
 		
-		System.out.println(percentList);
-		System.out.println("======================");
 		return percentList;
 	}
 }
