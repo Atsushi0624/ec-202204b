@@ -94,6 +94,7 @@
                 <label for="email">メールアドレス</label>
               </div>
             </div>
+            <div th:errors="*{gender}" class="error"></div>
             <label>性別</label>
             <div class="input-field col s12">
               <div th:each="gender : ${genderMap}">
@@ -110,9 +111,10 @@
               </div>
             </div>
             <div>
+              <div th:errors="*{age}" class="error"></div>
               <label>年代</label>
-              <select class="browser-default">
-                <option value="" disabled selected>Choose your option</option>
+              <select style="display: block;" name="age">
+                <option value="" disabled selected>選択してください</option>
                 <span th:each="age:${ageMap}">
                 <option th:value="${age.value}"><span th:text="${age.key}"></span>
                 </span>

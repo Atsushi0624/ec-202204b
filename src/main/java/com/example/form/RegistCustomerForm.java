@@ -42,10 +42,12 @@ public class RegistCustomerForm {
 	@NotBlank(message = "電話番号を入力してください")
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
-
+	/** 性別 */
+	@NotBlank(message = "性別を選択してください")
 	private String gender;
-
-	private Integer age;
+	/** 年齢 */
+	@NotBlank(message = "年齢を選択してください")
+	private String age;
 
 	public String getGender() {
 		return gender;
@@ -55,11 +57,11 @@ public class RegistCustomerForm {
 		this.gender = gender;
 	}
 
-	public Integer getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 

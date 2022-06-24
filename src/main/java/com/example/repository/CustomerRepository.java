@@ -36,6 +36,8 @@ public class CustomerRepository {
 		customer.setZipcode(rs.getString("zipcode"));
 		customer.setAddress(rs.getString("address"));
 		customer.setTelephone(rs.getString("telephone"));
+		customer.setGender(rs.getString("gender"));
+		customer.setAge(rs.getString("age"));
 		return customer;
 	};
 
