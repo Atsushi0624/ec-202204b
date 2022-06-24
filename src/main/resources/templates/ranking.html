@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import Materialize CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Import Font Wesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクカフェ</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/top.css}" />
+    <link rel="stylesheet" th:href="@{css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{css/ranking.css}" />
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  </head>
+  <body>
+    <!-- <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a th:href="@{/show}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
+            </a>
+          </div>
+
+          <div class="header-right">
+            <a href="@{/show}">性別・年代別分析</a>
+            <a href="@{/registCustomer/toRegistration}">商品別分析</a>
+          </div>
+        </div>
+      </div>
+    </header> -->
+    <div>
+      <div class="item-wrapper" style="display: flex">
+        <select
+          class="browser-default"
+          name="age"
+          onChange="location.href=value;"
+        >
+          <option
+            value="/ec-202204b/ranking/?rankingKey=10"
+            th:selected="${rankingKey}==10"
+          >
+            10代
+          </option>
+          <option
+            value="/ec-202204b/ranking/?rankingKey=20"
+            th:selected="${rankingKey}==20"
+          >
+            20代
+          </option>
+          <option
+            value="/ec-202204b/ranking/?rankingKey=30"
+            th:selected="${rankingKey}==30"
+          >
+            30代
+          </option>
+        </select>
+        <select
+          class="browser-default"
+          name="gender"
+          onChange="location.href=value;"
+        >
+          <option
+            value="/ec-202204b/ranking/?rankingKey=male"
+            th:selected="${rankingKey}==male"
+          >
+            男
+          </option>
+          <option
+            value="/ec-202204b/ranking/?rankingKey=female"
+            th:selected="${rankingKey}==female"
+          >
+            女
+          </option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <span th:each="item:${itemList}">
+        <p>
+          <span></span>.
+          <span th:text="${item.name}"></span>
+        </p>
+        <hr />
+      </span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </body>
+</html>
