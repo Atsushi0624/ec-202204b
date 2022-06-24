@@ -105,6 +105,13 @@ public class OrderItemRepository {
 		template.update(sql, param);
 	}
 
+	/**
+	 * 年代と性別別に売り上げ順の商品リストを返す.
+	 * 
+	 * @param age 年代
+	 * @param gender 性別
+	 * @return 売り上げ順にならんだ商品のリスト
+	 */
 	public List<Map<Item, Integer>> rankedItemListByAgeAndGender(String age, String gender) {
 		String sql = "select i.id as id, i.name as name, i.description as description, i.image_path image_path, i.price_m price_m, i.price_l price_l, i.deleted deleted sales "
 				+ "from items as i " + " left outer join " + "(SELECT oi.item_id, sum(quantity) as sales "
