@@ -86,19 +86,28 @@ public class AnalizeService {
 		}
 		System.out.println("mostSimilar: " + mostSimilarCustomer);
 		
-		// 評価ベクトルから値の大きい評価値上位３つを取得する
-		Map<Integer, Double> rateAndItemIdMap = new HashMap<>();
-		for (int i=0; i<mostSimilerList.size(); i++ ) {
-			rateAndItemIdMap.put(i, mostSimilerList.get(i));
+		// おすすめ商品のID（顧客が一人の時はこの値が使われる）
+		int firstItemId = 1;
+		int secondItemId = 2;
+		int thirdItemId = 3;
+		
+		if (mostSimilarCustomer != null) {
+			// 評価ベクトルから値の大きい評価値上位３つを取得する
+			Map<Integer, Double> rateAndItemIdMap = new HashMap<>();
+			for (int i=0; i<mostSimilerList.size(); i++ ) {
+				rateAndItemIdMap.put(i, mostSimilerList.get(i));
+			}
+			List<Entry<Integer, Double>> rateAndItemIdList = new ArrayList<>(rateAndItemIdMap.entrySet());
+			rateAndItemIdList.sort(Entry.comparingByValue());
+			Collections.reverse(rateAndItemIdList);
+			
+			// おすすめ商品のIDを修正
+			firstItemId = rateAndItemIdList.get(0).getKey();
+			secondItemId = rateAndItemIdList.get(1).getKey();
+			thirdItemId = rateAndItemIdList.get(2).getKey();
 		}
-		List<Entry<Integer, Double>> rateAndItemIdList = new ArrayList<>(rateAndItemIdMap.entrySet());
-		rateAndItemIdList.sort(Entry.comparingByValue());
-		Collections.reverse(rateAndItemIdList);
 		
 		// おすすめ商品をListに入れる
-		int firstItemId = rateAndItemIdList.get(0).getKey();
-		int secondItemId = rateAndItemIdList.get(1).getKey();
-		int thirdItemId = rateAndItemIdList.get(2).getKey();
 		List<Item> recommendItemList = new ArrayList<>();
 		recommendItemList.add(itemRepository.load(firstItemId));
 		recommendItemList.add(itemRepository.load(secondItemId));
