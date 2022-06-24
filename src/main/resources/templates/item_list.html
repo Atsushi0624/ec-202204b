@@ -45,6 +45,7 @@
           </div>
 
           <div class="header-right">
+          <a th:if="${session.isAdmin == true}" th:href="@{/adminAnalysis/pieChart}">管理者ページ</a>
             <a th:href="@{/}">商品一覧</a>
             <a
               th:if="${session.customer} == null"

@@ -46,6 +46,7 @@ public class ItemListController {
 		// ログイン状態のときおすすめ商品を表示させる
 		Customer customer = (Customer)session.getAttribute("customer");
 		if(customer != null) {
+			System.out.println(customer.getPassword());
 			List<Item> recommendItemList = analizeService.getRecommendItems();
 			// 評価を0.0の形式に変更
 			for(Item item: recommendItemList) {

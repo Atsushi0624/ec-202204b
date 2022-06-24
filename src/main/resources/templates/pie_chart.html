@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理者ページ</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/register_admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/item_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart_list.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_confirm.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_finished.css}" />
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <link rel="stylesheet" th:href="@{/css/order_history.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin_analysis.css}" />
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a th:href="@{/}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
+            </a>
+          </div>
+          <div class="header-right">
+            <a th:href="@{/adminAnalysis/ranking}">性別・年代別分析</a>
+            <a th:href="@{/adminAnalysis/pieChart}">商品別分析</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1 style="color: black" class="page-title">管理者ページ</h1>
+
+        <div class="centering">
+          <h2 style="color: black">商品別分析</h2>
+          <div>
+            <select
+              class="browser-default"
+              onChange="location.href=value;"
+              style="width: 300px"
+            >
+              <option
+                th:each="item: ${itemList}"
+                th:value="'/ec-202204b/adminAnalysis/pieChart?itemId=' + ${item.id}"
+                th:text="${item.name}"
+                th:selected="${item.id == selectedItemId}"
+              >
+                抹茶フラペチーノ
+              </option>
+            </select>
+          </div>
+          <br /><br />
+          <div th:if="${agePercentList} == null">
+            <h2>購入データがありません</h2>
+          </div>
+          <div th:if="${agePercentList} != null" class="graph-box">
+            <div class="chart-area">
+              <canvas id="age-graph"></canvas>
+            </div>
+
+            <div class="chart-area">
+              <canvas id="gender-graph"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <img th:src="@{/img/header_logo.png}" />
+        <p>アロハな気分をあなたにお届け！</p>
+      </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+    <!--自作のJS-->
+    <script th:inline="javascript">
+      /**
+       *
+       */ //値をグラフに表示させる
+      Chart.plugins.register({
+        afterDatasetsDraw: function (chart, easing) {
+          var ctx = chart.ctx;
+
+          chart.data.datasets.forEach(function (dataset, i) {
+            var meta = chart.getDatasetMeta(i);
+            if (!meta.hidden) {
+              meta.data.forEach(function (element, index) {
+                // 値の表示
+                ctx.fillStyle = "rgb(0, 0, 0,0.8)"; //文字の色
+                var fontSize = 12; //フォントサイズ
+                var fontStyle = "normal"; //フォントスタイル
+                var fontFamily = "Arial"; //フォントファミリー
+                ctx.font = Chart.helpers.fontString(
+                  fontSize,
+                  fontStyle,
+                  fontFamily
+                );
+
+                var dataString = dataset.data[index].toString();
+
+                // 値の位置
+                ctx.textAlign = "center"; //テキストを中央寄せ
+                ctx.textBaseline = "middle"; //テキストベースラインの位置を中央揃え
+
+                var padding = 5; //余白
+                var position = element.tooltipPosition();
+                ctx.fillText(
+                  dataString,
+                  position.x,
+                  position.y - fontSize / 2 - padding
+                );
+              });
+            }
+          });
+        },
+      });
+
+      //=========== 円グラフ ============//
+      $("#age-graph").on("inview", function (event, isInView) {
+        let genderPercentList = /*[[${genderPercentList}]]*/ [];
+        //画面上に入ったらグラフを描画
+        if (isInView) {
+          var ctx = document.getElementById("age-graph"); //グラフを描画したい場所のid
+          var chart = new Chart(ctx, {
+            type: "pie", //グラフのタイプ
+            data: {
+              //グラフのデータ
+              labels: ["10代", "20代", "30代", "40代", "50代", "60代"], //データの名前
+              datasets: [
+                {
+                  label: "年代別", //グラフのタイトル
+                  backgroundColor: [
+                    "#BB5179",
+                    "#FAFF67",
+                    "#58A27C",
+                    "#3C00FF",
+                    "#ffa500",
+                    "#00ff7f",
+                  ], //グラフの背景色
+                  data: genderPercentList, //データ
+                },
+              ],
+            },
+
+            options: {
+              //グラフのオプション
+              maintainAspectRatio: false, //CSSで大きさを調整するため、自動縮小をさせない
+              legend: {
+                display: true, //グラフの説明を表示
+              },
+              tooltips: {
+                //グラフへカーソルを合わせた際の詳細表示の設定
+                callbacks: {
+                  label: function (tooltipItem, data) {
+                    return (
+                      data.labels[tooltipItem.index] +
+                      ": " +
+                      data.datasets[0].data[tooltipItem.index] +
+                      "%"
+                    ); //%を最後につける
+                  },
+                },
+              },
+              title: {
+                //上部タイトル表示の設定
+                display: true,
+                fontSize: 20,
+                text: "年代別売り上げ数",
+              },
+            },
+          });
+
+          var ctx = document.getElementById("gender-graph"); //グラフを描画したい場所のid
+          let agePercentList = /*[[${agePercentList}]]*/ [];
+          var chart = new Chart(ctx, {
+            type: "pie", //グラフのタイプ
+            data: {
+              //グラフのデータ
+              labels: ["男性", "女性"], //データの名前
+              datasets: [
+                {
+                  label: "性別別", //グラフのタイトル
+                  backgroundColor: ["#3C00FF", "#BB5179"], //グラフの背景色
+                  data: agePercentList, //データ
+                },
+              ],
+            },
+
+            options: {
+              //グラフのオプション
+              maintainAspectRatio: false, //CSSで大きさを調整するため、自動縮小をさせない
+              legend: {
+                display: true, //グラフの説明を表示
+              },
+              tooltips: {
+                //グラフへカーソルを合わせた際の詳細表示の設定
+                callbacks: {
+                  label: function (tooltipItem, data) {
+                    return (
+                      data.labels[tooltipItem.index] +
+                      ": " +
+                      data.datasets[0].data[tooltipItem.index] +
+                      "%"
+                    ); //%を最後につける
+                  },
+                },
+              },
+              title: {
+                //上部タイトル表示の設定
+                display: true,
+                fontSize: 20,
+                text: "性別別売り上げ数",
+              },
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

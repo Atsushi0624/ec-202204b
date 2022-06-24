@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -47,6 +49,11 @@ public class LoginController {
 	@RequestMapping("/afterLogin")
 	public String afterLogin(@AuthenticationPrincipal LoginCustomer customer) {
 		session.setAttribute("customer", customer.getCustomer());
+		if(customer.getUsername().equals("admin@admin.com")){
+			session.setAttribute("isAdmin", true);
+		}
+		
+		
 		
 		// dummyCustomerIdがセットされていればcustomerIDの更新を行う
 		Integer dummyCustomerId = (Integer)session.getAttribute("dummyCustomerId");
@@ -74,6 +81,9 @@ public class LoginController {
 	@RequestMapping("/toLogout")
 	public String beforeLogout() {
 		session.removeAttribute("customer");
+		session.setAttribute("idAdmin", false);
 		return "redirect:/logout";
 	}
+	
+	
 }
