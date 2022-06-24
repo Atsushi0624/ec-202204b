@@ -146,3 +146,25 @@
   padding-top: 30px;
   padding-right: 130px;
 }
+
+.recommend-items{
+  display: flex;
+  justify-content: center;
+}
+
+.recommend-item{
+  flex: 0 0 320px; /* paddingやborder含むitem全体の横幅を320pxにする */
+  padding: 20px;
+}
+
+.recommend{
+  width: 1000px;
+}
+
+.box{
+  margin: 1em 0;
+  padding: 1em;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+}
