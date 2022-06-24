@@ -23,10 +23,10 @@ import com.example.domain.Customer;
  */
 @Repository
 public class CustomerRepository {
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+
 	/**
 	 * Customerオブジェクトを生成するローマッパー.
 	 */
@@ -39,9 +39,11 @@ public class CustomerRepository {
 		customer.setZipcode(rs.getString("zipcode"));
 		customer.setAddress(rs.getString("address"));
 		customer.setTelephone(rs.getString("telephone"));
+		customer.setGender(rs.getString("gender"));
+		customer.setAge(rs.getString("age"));
 		return customer;
 	};
-	
+
 	/**
 	 * Customer挿入する.
 	 * 
@@ -49,8 +51,9 @@ public class CustomerRepository {
 	 * @retrun 採番されたID
 	 * 
 	 */
-	public int insert(Customer customer) {
-		String sql = "INSERT INTO users (name,email,password,zipcode,address,telephone) values (:name,:email,:password,:zipcode,:address,:telephone)";
+
+	public void insert(Customer customer) {
+		String sql = "INSERT INTO users (name,email,password,zipcode,address,telephone,age,gender) values (:name,:email,:password,:zipcode,:address,:telephone,:age,:gender)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(customer);
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -60,7 +63,7 @@ public class CustomerRepository {
 		
 		return keyHolder.getKey().intValue();
 	}
-	
+
 	/**
 	 * メールアドレスで顧客を検索します.
 	 * 
@@ -68,14 +71,15 @@ public class CustomerRepository {
 	 * @return 顧客情報
 	 */
 	public Customer findByEmail(String email) {
-		String sql = "select id,name,email,password,zipcode,address,telephone from users where email=:email";
+		String sql = "select id,name,email,password,zipcode,address,telephone,age,gender from users where email=:email";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		List<Customer> customerList = template.query(sql, param, CUSTOMER_ROW_MAPPER);
 		if (customerList.size() == 0) {
 			return null;
-		}else {
+		} else {
 			return customerList.get(0);
 		}
+
 		
 	}
 	
@@ -96,5 +100,6 @@ public class CustomerRepository {
 		}
 	}
 
+	}
 
 }

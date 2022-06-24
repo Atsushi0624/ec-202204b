@@ -22,11 +22,11 @@ public class RegistCustomerForm {
 	private String firstName;
 	/** メールアドレス */
 	@NotBlank(message = "メールアドレスを入力してください")
-	@Email(message="メールアドレスの形式が不正です")
+	@Email(message = "メールアドレスの形式が不正です")
 	private String email;
 	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください")
-	@Length(min=8, max=16, message="パスワードは８文字以上１６文字以内で設定してください")
+	@Length(min = 8, max = 16, message = "パスワードは８文字以上１６文字以内で設定してください")
 	private String password;
 	/** 確認用パスワード */
 	@NotBlank(message = "確認用パスワードを入力してください")
@@ -42,6 +42,28 @@ public class RegistCustomerForm {
 	@NotBlank(message = "電話番号を入力してください")
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
+	/** 性別 */
+	@NotBlank(message = "性別を選択してください")
+	private String gender;
+	/** 年齢 */
+	@NotBlank(message = "年齢を選択してください")
+	private String age;
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
 
 	public String getFamilyName() {
 		return familyName;
