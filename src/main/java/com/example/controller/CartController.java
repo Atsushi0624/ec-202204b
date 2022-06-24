@@ -45,8 +45,6 @@ public class CartController {
 	@RequestMapping("/addItem")
 	public String addOrderItem(CartForm form) {
 		System.out.println(form);
-		// TODO: 顧客IDをSpringSecurityから取ってくるように変更
-
 		Integer customerId = null;
 		Customer customer = (Customer)session.getAttribute("customer");
 		if(customer != null) {
@@ -58,10 +56,6 @@ public class CartController {
 		
 		int orderId = cartService.getOrCreateOrderId(customerId);
 		
-		// totalPriceの更新
-		Order order = cartService.getOrder(orderId);
-		order.setTotalPrice(order.getCalcTotalPrice());
-		cartService.update(order);
 		
 		// 注文商品情報を登録
 		OrderItem orderItem = new OrderItem();
@@ -82,6 +76,11 @@ public class CartController {
 			}
 		}
 			
+		// totalPriceの更新
+		Order order = cartService.getOrder(orderId);
+		order.setTotalPrice(order.getCalcTotalPrice());
+		cartService.update(order);
+		
 		return "redirect:/cart/showCart";
 	}
 

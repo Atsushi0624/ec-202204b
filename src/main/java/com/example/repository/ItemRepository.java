@@ -40,6 +40,7 @@ public class ItemRepository {
 		item.setToppingList(toppingList);
 		return item;
 	};
+	
 
 	/**
 	 * 商品を全件取得する.
@@ -115,5 +116,17 @@ public class ItemRepository {
 				+ "ORDER BY rate desc NULLS last";
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
+	}
+	
+	/**
+	 * 現在の商品数を返します.
+	 * 
+	 * @return　商品数
+	 */
+	public Integer getItemNum () {
+		String sql = "select count(id) as numItem from items;";
+		SqlParameterSource param = new MapSqlParameterSource();
+		Integer numItem = template.queryForObject(sql, param,Integer.class);
+		return numItem;
 	}
 }

@@ -113,8 +113,34 @@
     </div>
 
     <!-- item list -->
-    
     <div class="item-wrapper">
+      <div th:if="${session.customer} != null" class="recommend box">
+        <div class="page-title">あなたへのおすすめ</div>
+          <div class="recommend-items">
+            <div th:each="recommendItem: ${recommendItemList}" class="recommend-item">
+              <div class="item-icon">
+                <a th:href="@{|/detail?id=${recommendItem.id}|}"
+                  ><img th:src="@{|/img/${recommendItem.imagePath}|}"
+                /></a>
+              </div>
+              <a th:href="@{|/detail?id=${recommendItem.id}|}" th:text="${recommendItem.name}"></a
+              ><br />
+              <p class="result-rating-rate">
+                <span
+                  class="star5_rating"
+                  th:data-rate="${recommendItem.averageRate}"
+                ></span>
+                </p>
+              <span class="price">M</span>
+              <span th:text="${recommendItem.priceM}"></span>円(税抜)<br />
+              <span class="price">L</span>
+              <span th:text="${recommendItem.priceL}"></span>円(税抜)<br />
+            </div>
+            
+          </div>
+        </div>
+      
+      
       <div class="container">
       
     
@@ -143,7 +169,7 @@
           </div>
         </div>
       </div>
-    </div>
+     </div>
     
 
     <footer>
