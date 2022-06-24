@@ -22,6 +22,10 @@ public class Customer {
 	/** 電話番号 */
 	private String telephone;
 
+	private String gender;
+
+	private String age;
+
 	public Integer getId() {
 		return id;
 	}
@@ -76,6 +80,22 @@ public class Customer {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
 	}
 
 	@Override
