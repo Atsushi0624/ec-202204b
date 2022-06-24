@@ -144,7 +144,7 @@ public class OrderItemRepository {
 	 * @return 各商品のを買った顧客の性別、年代別の数
 	 */
 	public Map<String, Integer> getAgeGenderMapByItem(int itemId) {
-		String sql = "select" + "sum(case when u.gender='男性' then 1 else 0 end) as male "
+		String sql = "select " + "sum(case when u.gender='男性' then 1 else 0 end) as male "
 					+ ",sum(case when u.gender='女性' then 1 else 0 end) as female "
 					+ ",sum(case when u.age='10代' then 1 else 0 end) as \"age10\" "
 					+ ",sum(case when u.age='20代' then 1 else 0 end) as \"age20\" "
@@ -155,7 +155,11 @@ public class OrderItemRepository {
 					+ "left outer join orders as o ON oi.order_id=o.id " + "left outer join users as u ON u.id=o.user_id "
 					+ "group by oi.item_id " + "having oi.item_id=:itemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
-		return template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER).get(0);
+		List<Map<String, Integer>> ageGenderMapList =  template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER);
+		if (ageGenderMapList.size() == 0){
+			return null;
+		}
+		return ageGenderMapList.get(0);
 
 	}
 }
