@@ -145,18 +145,18 @@ public class OrderItemRepository {
 	 */
 	public Map<String, Integer> getAgeGenderMapByItem(int itemId) {
 		String sql = "select " + "sum(case when u.gender='男性' then 1 else 0 end) as male "
-					+ ",sum(case when u.gender='女性' then 1 else 0 end) as female "
-					+ ",sum(case when u.age='10代' then 1 else 0 end) as \"age10\" "
-					+ ",sum(case when u.age='20代' then 1 else 0 end) as \"age20\" "
-					+ ",sum(case when u.age='30代' then 1 else 0 end) as \"age30\" "
-					+ ",sum(case when u.age='40代' then 1 else 0 end) as \"age40\" "
-					+ ",sum(case when u.age='50代' then 1 else 0 end) as \"age50\" "
-					+ ",sum(case when u.age='60代' then 1 else 0 end) as \"age60\" " + "from " + "order_items as oi "
-					+ "left outer join orders as o ON oi.order_id=o.id " + "left outer join users as u ON u.id=o.user_id "
-					+ "group by oi.item_id " + "having oi.item_id=:itemId";
+				+ ",sum(case when u.gender='女性' then 1 else 0 end) as female "
+				+ ",sum(case when u.age='10代' then 1 else 0 end) as \"age10\" "
+				+ ",sum(case when u.age='20代' then 1 else 0 end) as \"age20\" "
+				+ ",sum(case when u.age='30代' then 1 else 0 end) as \"age30\" "
+				+ ",sum(case when u.age='40代' then 1 else 0 end) as \"age40\" "
+				+ ",sum(case when u.age='50代' then 1 else 0 end) as \"age50\" "
+				+ ",sum(case when u.age='60代' then 1 else 0 end) as \"age60\" " + "from " + "order_items as oi "
+				+ "left outer join orders as o ON oi.order_id=o.id " + "left outer join users as u ON u.id=o.user_id "
+				+ "group by oi.item_id " + "having oi.item_id=:itemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
-		List<Map<String, Integer>> ageGenderMapList =  template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER);
-		if (ageGenderMapList.size() == 0){
+		List<Map<String, Integer>> ageGenderMapList = template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER);
+		if (ageGenderMapList.size() == 0) {
 			return null;
 		}
 		return ageGenderMapList.get(0);

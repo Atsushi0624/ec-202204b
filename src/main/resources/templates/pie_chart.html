@@ -61,7 +61,10 @@
             </select>
           </div>
           <br /><br />
-          <div class="graph-box">
+          <div th:if="${agePercentList} == null">
+          	<h2>購入データがありません</h2>
+          </div>
+          <div th:if="${agePercentList} != null" class="graph-box">
             <div class="chart-area">
               <canvas id="age-graph"></canvas>
             </div>

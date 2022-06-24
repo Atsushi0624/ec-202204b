@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <title>折れ線グラフサンプル</title>
+  </head>
+  <body>
+    <canvas id="ChartDemo"></canvas>
+    <script type="text/javascript" th:inline="javascript">
+      /*<![CDATA[*/
+      var ctx = document.getElementById("ChartDemo").getContext("2d");
+      var ChartDemo = new Chart(ctx, {
+        type: "horizontalBar",
+        data: {
+          // コントローラーで格納したlabelを変数式で取り出すだけ。
+          labels: /*[[ ${items} ]]*/ "",
+          datasets: [
+            {
+              label: "Chart-1",
+              borderColor: "rgb(255, 0, 0)",
+              lineTension: 0,
+              fill: false,
+              // 上記と同様、pointを変数式で取り出しているだけです。
+              data: /*[[ ${sales} ]]*/ "",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      /*]]>*/
+    </script>
+  </body>
+</html>
