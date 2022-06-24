@@ -31,5 +31,9 @@ public class AdminAnalysisService {
 	public List<Map<Item, Integer>> rankedItemList(String age, String gender){
 		return orderItemRepository.rankedItemListByAgeAndGender(age, gender);
 	}
+	
+	public Map<String, Integer> getAgeGenderMapByItem(int itemId){
+		return orderItemRepository.getAgeGenderMapByItem(itemId);
+	}
 
 }

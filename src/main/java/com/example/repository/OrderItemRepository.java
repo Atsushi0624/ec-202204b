@@ -43,6 +43,20 @@ public class OrderItemRepository {
 		return rankedItemSalesMap;
 	};
 
+	private static final RowMapper<Map<String, Integer>> AGE_GENDER_COUNT_ROW_MAPPER = (rs, i) -> {
+		Map<String, Integer> ageGenderCountMap = new HashMap<>();
+		ageGenderCountMap.put("male", rs.getInt("male"));
+		ageGenderCountMap.put("female", rs.getInt("female"));
+		ageGenderCountMap.put("age10", rs.getInt("age10"));
+		ageGenderCountMap.put("age20", rs.getInt("age20"));
+		ageGenderCountMap.put("age30", rs.getInt("age30"));
+		ageGenderCountMap.put("age40", rs.getInt("age40"));
+		ageGenderCountMap.put("age50", rs.getInt("age50"));
+		ageGenderCountMap.put("age60", rs.getInt("age60"));
+
+		return ageGenderCountMap;
+	};
+
 	/**
 	 * 注文商品情報を挿入し、採番されたIDを返す.
 	 * 
@@ -108,7 +122,7 @@ public class OrderItemRepository {
 	/**
 	 * 年代と性別別に売り上げ順の商品リストを返す.
 	 * 
-	 * @param age 年代
+	 * @param age    年代
 	 * @param gender 性別
 	 * @return 売り上げ順にならんだ商品のリスト
 	 */
@@ -121,5 +135,27 @@ public class OrderItemRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("age", age).addValue("gender", gender);
 		List<Map<Item, Integer>> rankedItemList = template.query(sql, param, RANKED_ITEM_ROW_MAPPER);
 		return rankedItemList;
+	}
+
+	/**
+	 * 各商品のを買った顧客の性別、年代別の数を返します
+	 * 
+	 * @param itemId 商品ID
+	 * @return 各商品のを買った顧客の性別、年代別の数
+	 */
+	public Map<String, Integer> getAgeGenderMapByItem(int itemId) {
+		String sql = "select" + "sum(case when u.gender='男性' then 1 else 0 end) as male "
+					+ ",sum(case when u.gender='女性' then 1 else 0 end) as female "
+					+ ",sum(case when u.age='10代' then 1 else 0 end) as \"age10\" "
+					+ ",sum(case when u.age='20代' then 1 else 0 end) as \"age20\" "
+					+ ",sum(case when u.age='30代' then 1 else 0 end) as \"age30\" "
+					+ ",sum(case when u.age='40代' then 1 else 0 end) as \"age40\" "
+					+ ",sum(case when u.age='50代' then 1 else 0 end) as \"age50\" "
+					+ ",sum(case when u.age='60代' then 1 else 0 end) as \"age60\" " + "from " + "order_items as oi "
+					+ "left outer join orders as o ON oi.order_id=o.id " + "left outer join users as u ON u.id=o.user_id "
+					+ "group by oi.item_id " + "having oi.item_id=:itemId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
+		return template.query(sql, param, AGE_GENDER_COUNT_ROW_MAPPER).get(0);
+
 	}
 }
