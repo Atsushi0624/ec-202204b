@@ -63,10 +63,11 @@ public class ItemRepository {
 	 * @return 検索された商品一覧
 	 */
 	public List<Item> findByName(String itemName) {
-		String sql = "SELECT i.id, name, description,  image_path, price_m, price_l, deleted, "
+		String sql = "SELECT i.id, name, description, image_path, price_m, price_l, deleted, "
 				+ "avg(oi.rate) as rate "
-				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " + "GROUP BY i.id "
-				+ "WHERE name ILIKE :name ORDER BY price_m";
+				+ "FROM items as i left outer join order_items as oi ON oi.item_id=i.id " 
+				+ "WHERE name ILIKE :name "
+				+ "GROUP BY i.id ORDER BY price_m;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + itemName + "%");
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
@@ -103,7 +104,7 @@ public class ItemRepository {
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
-
+	
 	/**
 	 * 商品を評価順で取得します.
 	 * 
