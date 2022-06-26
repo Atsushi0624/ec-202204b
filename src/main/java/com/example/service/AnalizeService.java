@@ -66,6 +66,7 @@ public class AnalizeService {
 			if(customer.getId() == logedinCustomer.getId()) {
 				// ログイン中の顧客の商品評価のベクトルを取得
 				logedInCustomerRates = List.copyOf(customerRateList);
+				System.out.println("現ユーザーの評価ベクトル : " + logedInCustomerRates);
 				continue;
 			}
 			
@@ -84,12 +85,13 @@ public class AnalizeService {
 				mostSimilarCustomer = data.getKey();
 			}
 		}
-		System.out.println("mostSimilar: " + mostSimilarCustomer);
+		System.out.println("評価の似ているユーザー : " + mostSimilarCustomer);
+		System.out.println("似ているユーザーの評価 : " + mostSimilerList);
 		
 		// おすすめ商品のID（顧客が一人の時はこの値が使われる）
-		int firstItemId = 1;
+		int firstItemId  = 1;
 		int secondItemId = 2;
-		int thirdItemId = 3;
+		int thirdItemId  = 3;
 		
 		if (mostSimilarCustomer != null) {
 			// 評価ベクトルから値の大きい評価値上位３つを取得する
@@ -102,9 +104,9 @@ public class AnalizeService {
 			Collections.reverse(rateAndItemIdList);
 			
 			// おすすめ商品のIDを修正
-			firstItemId = rateAndItemIdList.get(0).getKey();
+			firstItemId  = rateAndItemIdList.get(0).getKey();
 			secondItemId = rateAndItemIdList.get(1).getKey();
-			thirdItemId = rateAndItemIdList.get(2).getKey();
+			thirdItemId  = rateAndItemIdList.get(2).getKey();
 		}
 		
 		// おすすめ商品をListに入れる
@@ -112,7 +114,8 @@ public class AnalizeService {
 		recommendItemList.add(itemRepository.load(firstItemId));
 		recommendItemList.add(itemRepository.load(secondItemId));
 		recommendItemList.add(itemRepository.load(thirdItemId));
-		System.out.println(recommendItemList);
+		
+		recommendItemList.forEach(item ->{System.out.println("recommend = " + item.getName() + " : " + item.getAverageRate());});
 		
 		return recommendItemList;
 	}

@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,9 @@ public class CreateDummyDataService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
 	/**
 	 * ダミーデータを生成する.
 	 * 
@@ -45,7 +49,7 @@ public class CreateDummyDataService {
 			customer.setAddress(String.valueOf(i));
 			customer.setEmail("dummy" + i + "@sample.co.jp");
 			customer.setZipcode("000-0000" );
-			customer.setPassword("dummy");
+			customer.setPassword(passwordEncoder.encode("dummy"));
 			customer.setTelephone("000-0000-0000");
 			int gender = random.nextInt(2);
 			if(gender == 0) {
