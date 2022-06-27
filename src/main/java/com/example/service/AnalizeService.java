@@ -55,7 +55,7 @@ public class AnalizeService {
 		// Map<顧客, 商品への評価のベクトル>
 		Map<Customer, List<Double>> analizeDataMap = new HashMap<>();
 
-		for (AnalizeData data : analizeRepository.getdata()) {
+		for (AnalizeData data : analizeRepository.getdata(logedinCustomer.getId())) {
 			Customer customer = data.getCustomer();
 			
 			List<Double> customerRateList = new ArrayList<>();
