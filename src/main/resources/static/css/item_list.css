@@ -81,7 +81,7 @@
 .item-wrapper {
   padding-top: 200px; /* 上はヘッダや検索フォームが来るのでその分空ける */
   padding-bottom: 80px;
-  padding-left: 15%;
+  padding-left: 5%;
   padding-right: 5%;
   background-color: #f7f7f7;
   text-align: center;
@@ -90,6 +90,7 @@
 .items {
   display: flex;
   flex-wrap: wrap; /* 表示内容が多かった時に自動的に複数行に分割される */
+  justify-content: center;
 }
 
 .item {
@@ -123,6 +124,7 @@
   margin-right: 1em;
 }
 
+
 .pagination li a {
   text-decoration: none;
   color: #000;
@@ -144,24 +146,23 @@
 }
 .pagination {
   padding-top: 30px;
-  padding-right: 130px;
 }
 
-.recommend-items{
+.recommend-items {
   display: flex;
   justify-content: center;
 }
 
-.recommend-item{
+.recommend-item {
   flex: 0 0 320px; /* paddingやborder含むitem全体の横幅を320pxにする */
   padding: 20px;
 }
 
-.recommend{
+.recommend {
   width: 1000px;
 }
 
-.box{
+.box {
   margin: 1em 0;
   padding: 1em;
   background-color: white;
