@@ -95,6 +95,8 @@ public class AdminAnalysisController {
 		}
 		model.addAttribute("items", items);
 		model.addAttribute("sales", sales);
+		model.addAttribute("age", age);
+		model.addAttribute("gender", gender);
 
 		// model.addAttribute("itemList", itemList);
 		return "ranking";
