@@ -25,7 +25,7 @@ public class RegistCustomerForm {
 	@Email(message = "メールアドレスの形式が不正です")
 	private String email;
 	/** パスワード */
-	@NotBlank(message = "パスワードを入力してください")
+//	@NotBlank(message = "パスワードを入力してください")
 	@Length(min = 8, max = 16, message = "パスワードは８文字以上１６文字以内で設定してください")
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[.?/-])[a-zA-Z0-9.?/-]*$", message = "パスワードは大文字と記号を1つ以上入力してください")
 	private String password;
@@ -33,14 +33,14 @@ public class RegistCustomerForm {
 	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmationPassword;
 	/** 郵便番号 */
-	@NotBlank(message = "郵便番号を入力してください")
+//	@NotBlank(message = "郵便番号を入力してください")
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はXXX-XXXXの形式で入力してください")
 	private String zipcode;
 	/** 住所 */
 	@NotBlank(message = "住所を入力してください")
 	private String address;
 	/** 電話番号 */
-	@NotBlank(message = "電話番号を入力してください")
+//	@NotBlank(message = "電話番号を入力してください")
 	@Pattern(regexp = "^[0-9]{2,4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はXXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
 	/** 性別 */

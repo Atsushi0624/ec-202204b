@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ import com.example.service.ExecOrderService;
  */
 @Controller
 @RequestMapping("")
+@EnableAsync
 public class ExecOrderController {
 
 	@Autowired
@@ -63,7 +65,7 @@ public class ExecOrderController {
 	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model) {
 		LocalDateTime deliveryTime = null;
 		System.out.println(form);
-		if (!form.getDeliveryTimeList().contains("") && !(form.getDeliveryTimeList().size() == 0)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
+		if (!form.getDeliveryTimeList().contains("") && (form.getDeliveryTimeList().size() == 2)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
 			// 配達日時のチェック
 			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) + ":00:00";
 			deliveryTime = LocalDateTime.parse(strDeliveryTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

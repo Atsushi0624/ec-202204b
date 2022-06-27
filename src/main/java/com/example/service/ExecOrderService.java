@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.Order;
@@ -33,6 +34,7 @@ public class ExecOrderService {
 	 * 
 	 * @param order 注文情報
 	 */
+	@Async
 	public void execOrder(Order order) {
 		MimeMessage message = sender.createMimeMessage();
 		try {
