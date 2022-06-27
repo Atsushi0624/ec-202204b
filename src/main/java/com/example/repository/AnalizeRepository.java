@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.AnalizeData;
@@ -63,7 +65,7 @@ public class AnalizeRepository {
 	 * 
 	 * @return
 	 */
-	public List<AnalizeData> getdata(){
+	public List<AnalizeData> getdata(int ownUserId){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select u.id,u.name,u.email,u.password,u.zipcode,u.address,u.telephone,");
 		for (int i=1; i<=itemNum; i++) {
@@ -80,8 +82,13 @@ public class AnalizeRepository {
 		
 		sql.append(" from users as u left outer join orders as o ON u.id=o.user_id");
 		sql.append(" left outer join order_items as oi ON o.id=oi.order_id");
+		sql.append(" where u.id in (select u.id from users as u left outer join orders as o ON u.id=o.user_id");
+		sql.append(" left outer join order_items as oi ON o.id=oi.order_id group by u.id HAVING SUM(quantity) >= 3)");
+		sql.append(" OR u.id = :ownUserId");
 		sql.append(" group by u.id;");
-		List<AnalizeData> analizeDataList = template.query(sql.toString(), ANALIZE_DATA_ROW_MAPPER);
+		
+		SqlParameterSource param = new MapSqlParameterSource().addValue("ownUserId", ownUserId);
+		List<AnalizeData> analizeDataList = template.query(sql.toString(), param ,ANALIZE_DATA_ROW_MAPPER);
 		return analizeDataList;
 		
 	}
