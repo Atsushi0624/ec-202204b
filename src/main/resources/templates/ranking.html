@@ -40,7 +40,7 @@
       </div>
     </header>
     <div class="top-wrapper">
-      <div class="container">
+      <div class="container" style="padding-left: 100px">
         <h1 style="color: black" class="page-title">管理者ページ</h1>
         <form th:action="@{/adminAnalysis/ranking}" method="post">
           <select
@@ -68,7 +68,10 @@
       </div>
     </div>
     <div>
-      <canvas id="ChartDemo"></canvas>
+      <canvas
+        id="ChartDemo"
+        style="padding-left: 100px; padding-right: 100px"
+      ></canvas>
       <script type="text/javascript" th:inline="javascript">
         console.log(/*[[ ${sales} ]]*/);
         /*<![CDATA[*/
