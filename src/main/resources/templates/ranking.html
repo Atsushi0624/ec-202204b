@@ -60,8 +60,12 @@
             style="width: 100px; font-size: 18px"
             name="gender"
           >
-            <option th:value="男性" th:selected="${gender} == '男性'">男性</option>
-            <option th:value="女性" th:selected="${gender} == '女性'">女性</option>
+            <option th:value="男性" th:selected="${gender} == '男性'">
+              男性
+            </option>
+            <option th:value="女性" th:selected="${gender} == '女性'">
+              女性
+            </option>
           </select>
           <button style="width: 100px; font-size: 15px">検索</button>
         </form>
@@ -70,7 +74,12 @@
     <div>
       <canvas
         id="ChartDemo"
-        style="padding-left: 100px; padding-right: 100px"
+        style="
+          padding-left: 100px;
+          padding-right: 100px;
+          height: 570px;
+          width: 1600px;
+        "
       ></canvas>
       <script type="text/javascript" th:inline="javascript">
         console.log(/*[[ ${sales} ]]*/);
@@ -92,7 +101,7 @@
             ],
           },
           options: {
-            responsive: true,
+            responsive: false,
           },
         });
         /*]]>*/
