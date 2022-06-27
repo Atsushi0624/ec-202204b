@@ -73,4 +73,16 @@ public class CretaeDummyDataController {
 		
 		return "redirect:/toDummyForm";
 	}
+	
+	@RequestMapping("/createBiasedData")
+	public String createBiasedData(Integer customerNum, Integer orderNumParCustomer) {
+		if(orderNumParCustomer == null) {
+			orderNumParCustomer = 100;
+		}
+		for (int i=0; i < customerNum; i++) {
+			int dummyCustomerId = service.createDummyUser();
+			service.createDummyOrdersDependsOnCustomer(dummyCustomerId, orderNumParCustomer);
+		}
+		return "redirect:/toDummyForm";
+	}
 }

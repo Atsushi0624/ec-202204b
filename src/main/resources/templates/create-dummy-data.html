@@ -25,5 +25,11 @@
       rate: <input type="text" name="rate" value="5"/><br /><br />
       <button>ダミーオーダーを作成</button>
     </form>
+    <h1>ユーザーごとに注文と評価に偏りのあるデータの作成</h1>
+    <form th:action="@{/createBiasedData}" method="post">
+      生成する顧客数: <input type="text" name="customerNum" /><br />
+      顧客ごとの注文数: <input type="text" name="orderNumParCustomer" /><br />
+      <button>データを作成</button>
+    </form>
   </body>
 </html>

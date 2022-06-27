@@ -69,7 +69,7 @@ public class AnalizeRepository {
 		for (int i=1; i<=itemNum; i++) {
 			sql.append("(case when( avg(case when oi.item_id=");
 			sql.append(String.valueOf(i));
-			sql.append(" then oi.rate end) is null ) then 2.5 else avg(case when oi.item_id=");
+			sql.append(" then oi.rate end) is null ) then 3.0 else avg(case when oi.item_id=");
 			sql.append(String.valueOf(i));
 			sql.append(" then oi.rate end) end) as item");
 			sql.append(String.valueOf(i));

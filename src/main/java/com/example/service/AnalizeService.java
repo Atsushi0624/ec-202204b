@@ -84,27 +84,29 @@ public class AnalizeService {
 				mostSimilarCustomer = data.getKey();
 			}
 		}
-		System.out.println("mostSimilar: " + mostSimilarCustomer);
 		
 		// おすすめ商品のID（顧客が一人の時はこの値が使われる）
-		int firstItemId = 1;
+		int firstItemId  = 1;
 		int secondItemId = 2;
-		int thirdItemId = 3;
+		int thirdItemId  = 3;
 		
 		if (mostSimilarCustomer != null) {
+			System.out.println("Loginユーザーの評価ベクトル : " + logedInCustomerRates);
+			System.out.println("類似評価をしたユーザーの評価 : " + mostSimilerList);
+			System.out.println("類似評価をしたユーザー : " + mostSimilarCustomer.getName());
 			// 評価ベクトルから値の大きい評価値上位３つを取得する
-			Map<Integer, Double> rateAndItemIdMap = new HashMap<>();
+			Map<Integer, Double> rateAndItemIdMap = new HashMap<>(); // Map<ItemID, 評価>
 			for (int i=0; i<mostSimilerList.size(); i++ ) {
-				rateAndItemIdMap.put(i, mostSimilerList.get(i));
+				rateAndItemIdMap.put(i+1, mostSimilerList.get(i));
 			}
 			List<Entry<Integer, Double>> rateAndItemIdList = new ArrayList<>(rateAndItemIdMap.entrySet());
 			rateAndItemIdList.sort(Entry.comparingByValue());
 			Collections.reverse(rateAndItemIdList);
-			
+			System.out.println("商品IDと評価" + rateAndItemIdList);
 			// おすすめ商品のIDを修正
-			firstItemId = rateAndItemIdList.get(0).getKey();
+			firstItemId  = rateAndItemIdList.get(0).getKey();
 			secondItemId = rateAndItemIdList.get(1).getKey();
-			thirdItemId = rateAndItemIdList.get(2).getKey();
+			thirdItemId  = rateAndItemIdList.get(2).getKey();
 		}
 		
 		// おすすめ商品をListに入れる
@@ -112,7 +114,8 @@ public class AnalizeService {
 		recommendItemList.add(itemRepository.load(firstItemId));
 		recommendItemList.add(itemRepository.load(secondItemId));
 		recommendItemList.add(itemRepository.load(thirdItemId));
-		System.out.println(recommendItemList);
+		
+		recommendItemList.forEach(item -> {System.out.println("recommend = " + item.getName() + " : " + item.getAverageRate());});
 		
 		return recommendItemList;
 	}
