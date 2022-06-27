@@ -115,9 +115,10 @@
 
     <!-- item list -->
     <div class="item-wrapper">
+    <div class="container" style="display:flex; justify-content: center;">
       <div th:if="${session.customer} != null" class="recommend box">
         <div class="page-title">あなたへのおすすめ</div>
-          <div class="recommend-items">
+          <div class="recommend-items" style="padding:auto;">
             <div th:each="recommendItem: ${recommendItemList}" class="recommend-item">
               <div class="item-icon">
                 <a th:href="@{|/detail?id=${recommendItem.id}|}"
@@ -140,12 +141,10 @@
             
           </div>
         </div>
-      
+    </div>
       
       <div class="container">
-      
-    
-        
+
         <div class="items">
         
         
