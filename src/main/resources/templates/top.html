@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ラクラクアロハ</title>
+    <title>ラクラクカフェ</title>
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
@@ -19,7 +19,7 @@
       <div class="container">
         <div class="header">
           <div class="header-left">
-            <a href="top.html">
+            <a th:href="@{/show}">
               <img class="logo" src="img/header_logo.png" />
             </a>
           </div>
@@ -27,7 +27,7 @@
           <div class="header-right">
             <a href="item_list.html">商品一覧</a>
             <a href="register_admin.html">会員登録</a>
-            <a href="cart_list.html"
+            <a th:href="@{/cart/showCart}"
               ><i class="fas fa-shopping-cart"></i>カート</a
             >
             <a href="login.html" class="login">
@@ -46,9 +46,9 @@
     <div class="top-wrapper">
       <div class="container">
         <h1>DELIVERING THE FEELINGS OF ALOHA TO YOU</h1>
-        <p>日本にいながらアロハな気分をあなたにお届け！</p>
+        <p>日本にいながらぴったりな商品をあなたにお届け！</p>
         <p>
-          ラクラクアロハは自宅にハワイアン料理がデリバリーで届くハワイアンECサイトです。
+          ラクラクカフェは自宅にハワイアン料理がデリバリーで届くハワイアンECサイトです。
         </p>
         <div class="btn-wrapper">
           <a href="register_admin.html" class="btn signup">会員登録</a>
@@ -66,7 +66,7 @@
     <div class="top-item-wrapper">
       <div class="container">
         <div class="heading">
-          <h2>ラクラクアロハ、４つの特徴！</h2>
+          <h2>ラクラクカフェ、４つの特徴！</h2>
         </div>
         <div class="top-items">
           <div class="top-item">
@@ -102,7 +102,7 @@
               <p>ホテル創作料理</p>
             </div>
             <p class="text-contents">
-              シェラトンワイキキ、ロイヤルハワイアン、モアナサーフライダー、アウラニに入っているレストランの創作料理も「ラクラクアロハ」なら気軽に注文できます。
+              シェラトンワイキキ、ロイヤルハワイアン、モアナサーフライダー、アウラニに入っているレストランの創作料理も「ラクラクカフェ」なら気軽に注文できます。
             </p>
           </div>
         </div>
@@ -122,7 +122,7 @@
     <footer>
       <div class="container">
         <img src="img/header_logo.png" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <p>ぴったりな商品をあなたにお届け！</p>
       </div>
     </footer>
   </body>

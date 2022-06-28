@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ラクラクカフェ</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/top.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header">
+          <div class="header-left">
+            <a th:href="@{/}">
+              <img class="logo" th:src="@{/img/header_logo.png}" />
+            </a>
+          </div>
+
+          <div class="header-right">
+            <a th:href="@{/}">商品一覧</a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/registCustomer/toRegistration}"
+              >会員登録</a
+            >
+            <a th:href="@{/cart/showCart}">
+              <i class="fas fa-shopping-cart"> </i>カート
+            </a>
+            <a
+              th:if="${session.customer} == null"
+              th:href="@{/toLogin}"
+              class="login"
+            >
+              <i class="fas fa-sign-in-alt"></i>ログイン
+            </a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/toLogout}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>ログアウト
+            </a>
+            <a
+              th:unless="${session.customer} == null"
+              th:href="@{/showOrderHistory}"
+              class="login"
+            >
+              <i class="fas fa-sign-out-alt"></i>注文履歴
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="top-wrapper">
+      <div class="container">
+        <h1 style="color: black" class="page-title">500<br /></h1>
+        <h2 style="color: black" class="page-title">Internal Server Error</h2>
+        <h3 style="color: black">
+          以下のいずれかの理由でシステムの操作を中断しました。
+        </h3>
+        <ul>
+          <p style="color: black">・不正な操作が行われた</p>
+          <p style="color: black">・長い時間操作を行わなかった</p>
+          <p style="color: black">・現在システムメンテナンス中</p>
+        </ul>
+      </div>
+    </div>
+    <footer>
+      <div class="container">
+        <img th:src="@{/img/header_logo.png}" />
+        <p>ぴったりな商品をあなたにお届け！</p>
+      </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>
