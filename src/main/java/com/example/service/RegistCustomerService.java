@@ -31,6 +31,7 @@ public class RegistCustomerService {
 		// パスワードのハッシュ化
 		String hashedPassword = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(hashedPassword);
+		System.out.println(customer);
 
 		customerRepository.insert(customer);
 	}

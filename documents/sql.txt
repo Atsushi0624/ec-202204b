@@ -17,6 +17,8 @@ create table users (
 
 --ユーザー登録(pass:morimori)
 insert into users(name, email, password, zipcode, address, telephone, gender, age) values('管理者', 'admin@admin.com', '$2a$10$uq8W8O5eISYNccNt1ZXFrOP/yAixQ3kou5BizTHIx9u1pjhFhXvd2','111-1111', 'テスト住所', '000-0000-0000', '男性', '20代');
+insert into users(name, email, password, zipcode, address, telephone, gender, age) values('YamadTaro', 'yamada@sample.com', '$2a$10$xY905Qq7biBeqejx6Lj1bu3WtlhxJd/ASc23xvggrY7YtCn8w6d/C','111-1111', 'yamada住所', '000-0000-0000', '男性', '20代');
+insert into users(name, email, password, zipcode, address, telephone, gender, age) values('ItoJiro', 'ito@sample.com', '$2a$10$jxgw4MVGehaWcjRe12ylNehnxiY.DtoyfdibqlbOF88LX.mgu.UQO','111-1111', 'ito住所', '000-0000-0000', '男性', '20代');
 
 -- 商品
 drop table if exists items cascade;
