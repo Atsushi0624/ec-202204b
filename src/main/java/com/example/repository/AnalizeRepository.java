@@ -83,7 +83,7 @@ public class AnalizeRepository {
 		sql.append(" from users as u left outer join orders as o ON u.id=o.user_id");
 		sql.append(" left outer join order_items as oi ON o.id=oi.order_id");
 		sql.append(" where u.id in (select u.id from users as u left outer join orders as o ON u.id=o.user_id");
-		sql.append(" left outer join order_items as oi ON o.id=oi.order_id group by u.id HAVING SUM(quantity) >= 3)");
+		sql.append(" left outer join order_items as oi ON o.id=oi.order_id group by u.id HAVING SUM(quantity) >= 10)");
 		sql.append(" OR u.id = :ownUserId");
 		sql.append(" group by u.id;");
 		
