@@ -52,9 +52,9 @@ public class ExecOrderService {
 			}
 			String insertMessage = "<html>" + "<head></head>" + "<body>" + "<p>" + order.getDestinationName() + "様</p>"
 					+ "<p>ラクラクcoffeeをご利用いただきありがとうございます。以下の内容でご注文を承りました。</p>" + "<hr>"
-					+ "<tr><table border='1em'><tr><th>品目</th><th>サイズ</th><th>数量</th></tr>" + orderedItem
-					+ "</table>" + "<p>ご請求金額：　　￥" + order.getCalcTotalPrice() + "</p>" + "<hr>"
-					+ "<a href='http://localhost:8080/ec-202204b/showOrderHistory'>注文履歴</a>" + "</body>"
+					+ "<tr><table border='1em'><tr><th>品目</th><th>サイズ</th><th>数量</th></tr>" + orderedItem + "</table>"
+					+ "<p>ご請求金額：　　￥" + String.format("%,d", order.getCalcTotalPrice() + order.getTax()) + "</p>"
+					+ "<hr>" + "<a href='http://localhost:8080/ec-202204b/showOrderHistory'>注文履歴</a>" + "</body>"
 					+ "</html>";
 			helper.setText("本文", insertMessage);
 			// メール送信
