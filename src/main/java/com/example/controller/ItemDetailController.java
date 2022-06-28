@@ -42,9 +42,7 @@ public class ItemDetailController {
 	@RequestMapping("/detail")
 	public String showDetail(Model model, Integer id) {
 		Item item = itemDetailService.showDetail(id);
-		System.out.println(item.getAverageRate());
 		double averageRate = Math.round(item.getAverageRate() * 10) / 10.0;
-		System.out.println(averageRate);
 		item.setAverageRate(averageRate);
 		model.addAttribute("item", item);
 		return "item_detail";

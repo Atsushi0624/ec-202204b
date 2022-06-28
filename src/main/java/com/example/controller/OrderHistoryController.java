@@ -42,7 +42,6 @@ public class OrderHistoryController {
 		if(orderList.size() != 0) {
 			model.addAttribute("orderList", orderList);
 		}
-		System.out.println(orderList);
 		return "order_history";
 	}
 	

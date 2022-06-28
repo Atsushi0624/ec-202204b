@@ -64,7 +64,6 @@ public class ExecOrderController {
 	@RequestMapping("/exec_order")
 	public String execOrder(@Validated ExecOrderForm form, BindingResult result, Model model) {
 		LocalDateTime deliveryTime = null;
-		System.out.println(form);
 		if (!form.getDeliveryTimeList().contains("") && (form.getDeliveryTimeList().size() == 2)) { // form.getDeliveryTimeList()は日にちと時間がList<String>で入っているので両方入っているか確認する
 			// 配達日時のチェック
 			String strDeliveryTime = form.getDeliveryTimeList().get(0) + " " + form.getDeliveryTimeList().get(1) + ":00:00";

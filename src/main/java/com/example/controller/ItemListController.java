@@ -42,6 +42,8 @@ public class ItemListController {
 	 */
 	@RequestMapping("")
 	public String showList(Model model, String itemName, String sortKey) {
+		System.out.println();
+		System.out.println("------------------------------------------------------------------------------");
 		
 		// ログイン状態のときおすすめ商品を表示させる
 		Customer customer = (Customer)session.getAttribute("customer");
