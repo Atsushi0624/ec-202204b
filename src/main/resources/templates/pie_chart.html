@@ -80,7 +80,7 @@
     <footer>
       <div class="container">
         <img th:src="@{/img/header_logo.png}" />
-        <p>アロハな気分をあなたにお届け！</p>
+        <p>ぴったりな商品をあなたにお届け！</p>
       </div>
     </footer>
     <!-- Compiled and minified JavaScript -->
@@ -106,10 +106,10 @@
             if (!meta.hidden) {
               meta.data.forEach(function (element, index) {
                 // 値の表示
-                ctx.fillStyle = "rgb(0, 0, 0,0.8)"; //文字の色
+                ctx.fillStyle = 'rgb(0, 0, 0,0.8)'; //文字の色
                 var fontSize = 12; //フォントサイズ
-                var fontStyle = "normal"; //フォントスタイル
-                var fontFamily = "Arial"; //フォントファミリー
+                var fontStyle = 'normal'; //フォントスタイル
+                var fontFamily = 'Arial'; //フォントファミリー
                 ctx.font = Chart.helpers.fontString(
                   fontSize,
                   fontStyle,
@@ -119,8 +119,8 @@
                 var dataString = dataset.data[index].toString();
 
                 // 値の位置
-                ctx.textAlign = "center"; //テキストを中央寄せ
-                ctx.textBaseline = "middle"; //テキストベースラインの位置を中央揃え
+                ctx.textAlign = 'center'; //テキストを中央寄せ
+                ctx.textBaseline = 'middle'; //テキストベースラインの位置を中央揃え
 
                 var padding = 5; //余白
                 var position = element.tooltipPosition();
@@ -136,26 +136,26 @@
       });
 
       //=========== 円グラフ ============//
-      $("#age-graph").on("inview", function (event, isInView) {
+      $('#age-graph').on('inview', function (event, isInView) {
         let genderPercentList = /*[[${genderPercentList}]]*/ [];
         //画面上に入ったらグラフを描画
         if (isInView) {
-          var ctx = document.getElementById("age-graph"); //グラフを描画したい場所のid
+          var ctx = document.getElementById('age-graph'); //グラフを描画したい場所のid
           var chart = new Chart(ctx, {
-            type: "pie", //グラフのタイプ
+            type: 'pie', //グラフのタイプ
             data: {
               //グラフのデータ
-              labels: ["10代", "20代", "30代", "40代", "50代", "60代"], //データの名前
+              labels: ['10代', '20代', '30代', '40代', '50代', '60代'], //データの名前
               datasets: [
                 {
-                  label: "年代別", //グラフのタイトル
+                  label: '年代別', //グラフのタイトル
                   backgroundColor: [
-                    "#BB5179",
-                    "#FAFF67",
-                    "#58A27C",
-                    "#3C00FF",
-                    "#ffa500",
-                    "#00ff7f",
+                    '#BB5179',
+                    '#FAFF67',
+                    '#58A27C',
+                    '#3C00FF',
+                    '#ffa500',
+                    '#00ff7f',
                   ], //グラフの背景色
                   data: genderPercentList, //データ
                 },
@@ -174,9 +174,9 @@
                   label: function (tooltipItem, data) {
                     return (
                       data.labels[tooltipItem.index] +
-                      ": " +
+                      ': ' +
                       data.datasets[0].data[tooltipItem.index] +
-                      "%"
+                      '%'
                     ); //%を最後につける
                   },
                 },
@@ -185,22 +185,22 @@
                 //上部タイトル表示の設定
                 display: true,
                 fontSize: 20,
-                text: "年代別売り上げ数",
+                text: '年代別売り上げ数',
               },
             },
           });
 
-          var ctx = document.getElementById("gender-graph"); //グラフを描画したい場所のid
+          var ctx = document.getElementById('gender-graph'); //グラフを描画したい場所のid
           let agePercentList = /*[[${agePercentList}]]*/ [];
           var chart = new Chart(ctx, {
-            type: "pie", //グラフのタイプ
+            type: 'pie', //グラフのタイプ
             data: {
               //グラフのデータ
-              labels: ["男性", "女性"], //データの名前
+              labels: ['男性', '女性'], //データの名前
               datasets: [
                 {
-                  label: "性別別", //グラフのタイトル
-                  backgroundColor: ["#3C00FF", "#BB5179"], //グラフの背景色
+                  label: '性別別', //グラフのタイトル
+                  backgroundColor: ['#3C00FF', '#BB5179'], //グラフの背景色
                   data: agePercentList, //データ
                 },
               ],
@@ -218,9 +218,9 @@
                   label: function (tooltipItem, data) {
                     return (
                       data.labels[tooltipItem.index] +
-                      ": " +
+                      ': ' +
                       data.datasets[0].data[tooltipItem.index] +
-                      "%"
+                      '%'
                     ); //%を最後につける
                   },
                 },
@@ -229,7 +229,7 @@
                 //上部タイトル表示の設定
                 display: true,
                 fontSize: 20,
-                text: "性別別売り上げ数",
+                text: '性別別売り上げ数',
               },
             },
           });
